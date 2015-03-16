@@ -62,15 +62,12 @@ class CoursesController extends Zend_Controller_Action
         $courses_model->deleteCourse($id);
     }
 
-    //select function to make select with where conditions
+    //select function to make select with hidden condition
     public function selectAction()
     {
         $courses_model = new Application_Model_Courses();
-        $array=array(
-                        "hidden"=>"0",
-                    
-                    );
-       var_dump($courses_model->getCourseWithConditions($array));
+        $hidden="0";
+       var_dump($courses_model->getCourseByHiddenOption($hidden));
     }
 
 

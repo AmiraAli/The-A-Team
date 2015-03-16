@@ -27,9 +27,10 @@ class Application_Model_Courses extends Zend_Db_Table_Abstract
         return $this->find($id)->toArray();
     }
     
-    // get course by where conditions
-    function getCourseWithConditions($array){
-        $select=$this->select()->columns($col=('*'))->where($array);
+    // get course by hidden condition
+    function getCourseByHiddenOption($hidden){
+
+        $select=$this->select()->where(" hidden = ?",$hidden);
         return $this->fetchAll($select)->toArray();
     }
     
