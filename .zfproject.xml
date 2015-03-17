@@ -12,15 +12,104 @@
           <actionMethod actionName="test"/>
         </controllerFile>
         <controllerFile controllerName="Error"/>
+        <controllerFile controllerName="Courses">
+          <actionMethod actionName="index"/>
+          <actionMethod actionName="add"/>
+          <actionMethod actionName="list"/>
+          <actionMethod actionName="edit"/>
+          <actionMethod actionName="open"/>
+          <actionMethod actionName="delete"/>
+          <actionMethod actionName="select"/>
+        </controllerFile>
+        <controllerFile controllerName="Category">
+          <actionMethod actionName="index"/>
+          <actionMethod actionName="add"/>
+          <actionMethod actionName="edit"/>
+          <actionMethod actionName="list"/>
+          <actionMethod actionName="delete"/>
+          <actionMethod actionName="open"/>
+          <actionMethod actionName="searchByName"/>
+          <actionMethod actionName="search"/>
+        </controllerFile>
+        <controllerFile controllerName="CourseCategory">
+          <actionMethod actionName="index"/>
+          <actionMethod actionName="add"/>
+          <actionMethod actionName="list"/>
+          <actionMethod actionName="searchByCourseid"/>
+          <actionMethod actionName="searchByCategoryid"/>
+          <actionMethod actionName="deleteByCategoryid"/>
+          <actionMethod actionName="deleteByCourseid"/>
+          <actionMethod actionName="delete"/>
+        </controllerFile>
+        <controllerFile controllerName="Add">
+          <actionMethod actionName="index"/>
+          <actionMethod actionName="courseCategory"/>
+        </controllerFile>
+        <controllerFile controllerName="CourseTag">
+          <actionMethod actionName="index"/>
+          <actionMethod actionName="add"/>
+          <actionMethod actionName="list"/>
+          <actionMethod actionName="searchByCourseid"/>
+          <actionMethod actionName="searchByTagid"/>
+          <actionMethod actionName="deleteByTagid"/>
+          <actionMethod actionName="deleteByCourseid"/>
+          <actionMethod actionName="delete"/>
+        </controllerFile>
       </controllersDirectory>
+      <formsDirectory enabled="false"/>
+      <layoutsDirectory>
+        <layoutScriptsDirectory>
+          <layoutScriptFile layoutName="layout"/>
+        </layoutScriptsDirectory>
+      </layoutsDirectory>
+      <modelsDirectory>
+        <modelFile modelName="Courses"/>
+        <controllerFile controllerName="Users">
+          <actionMethod actionName="index"/>
+          <actionMethod actionName="add"/>
+          <actionMethod actionName="edit"/>
+          <actionMethod actionName="delete"/>
+          <actionMethod actionName="list"/>
+          <actionMethod actionName="listuserid"/>
+          <actionMethod actionName="listusertype"/>
+        </controllerFile>
+        <controllerFile controllerName="Requests">
+          <actionMethod actionName="index"/>
+          <actionMethod actionName="add"/>
+          <actionMethod actionName="edit"/>
+          <actionMethod actionName="delete"/>
+          <actionMethod actionName="list"/>
+          <actionMethod actionName="listrequestid"/>
+          <actionMethod actionName="listrequestbyuser"/>
+        </controllerFile>
+        <controllerFile controllerName="Comments">
+          <actionMethod actionName="index"/>
+          <actionMethod actionName="add"/>
+          <actionMethod actionName="edit"/>
+          <actionMethod actionName="delete"/>
+          <actionMethod actionName="list"/>
+          <actionMethod actionName="listcommentoncourse"/>
+          <actionMethod actionName="listcommentbyuser"/>
+          <actionMethod actionName="listcommentbyid"/>
+        </controllerFile>
+        <modelFile modelName="Categories"/>
+        <modelFile modelName="CourseCategory"/>
+        <modelFile modelName="CourseTag"/>
+      </modelsDirectory>
       <formsDirectory enabled="false"/>
       <layoutsDirectory enabled="false"/>
       <modelsDirectory>
+<<<<<<< HEAD
         <modelFile modelName="Tags"/>
         <modelFile modelName="Materials"/>
         <modelFile modelName="MaterialTyeps"/>
         <modelFile modelName="Types"/>
         <modelFile modelName="UserCourse"/>
+=======
+        <modelFile modelName="Users"/>
+        <modelFile modelName="Requests"/>
+        <modelFile modelName="Comments"/>
+>>>>>>> bbe71ab7a305a661e85d139d153200bd12463d95
       </modelsDirectory>
       <modulesDirectory enabled="false"/>
       <servicesDirectory enabled="false"/>
@@ -32,8 +121,175 @@
           <viewControllerScriptsDirectory forControllerName="Error">
             <viewScriptFile forActionName="error"/>
           </viewControllerScriptsDirectory>
+<<<<<<< HEAD
           <viewControllerScriptsDirectory forControllerName="Index">
             <viewScriptFile forActionName="test"/>
+=======
+          <viewControllerScriptsDirectory forControllerName="Courses">
+            <viewScriptFile forActionName="index"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Courses">
+            <viewScriptFile forActionName="add"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Courses">
+            <viewScriptFile forActionName="list"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Courses">
+            <viewScriptFile forActionName="edit"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Courses">
+            <viewScriptFile forActionName="open"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Courses">
+            <viewScriptFile forActionName="delete"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Courses">
+            <viewScriptFile forActionName="select"/>
+            <viewControllerScriptsDirectory forControllerName="Users">
+              <viewScriptFile forActionName="index"/>
+            </viewControllerScriptsDirectory>
+            <viewControllerScriptsDirectory forControllerName="Users">
+              <viewScriptFile forActionName="add"/>
+            </viewControllerScriptsDirectory>
+            <viewControllerScriptsDirectory forControllerName="Users">
+              <viewScriptFile forActionName="edit"/>
+            </viewControllerScriptsDirectory>
+            <viewControllerScriptsDirectory forControllerName="Users">
+              <viewScriptFile forActionName="delete"/>
+            </viewControllerScriptsDirectory>
+            <viewControllerScriptsDirectory forControllerName="Users">
+              <viewScriptFile forActionName="list"/>
+            </viewControllerScriptsDirectory>
+            <viewControllerScriptsDirectory forControllerName="Users">
+              <viewScriptFile forActionName="listuserid"/>
+            </viewControllerScriptsDirectory>
+            <viewControllerScriptsDirectory forControllerName="Users">
+              <viewScriptFile forActionName="listusertype"/>
+            </viewControllerScriptsDirectory>
+            <viewControllerScriptsDirectory forControllerName="Requests">
+              <viewScriptFile forActionName="index"/>
+            </viewControllerScriptsDirectory>
+            <viewControllerScriptsDirectory forControllerName="Requests">
+              <viewScriptFile forActionName="add"/>
+            </viewControllerScriptsDirectory>
+            <viewControllerScriptsDirectory forControllerName="Requests">
+              <viewScriptFile forActionName="edit"/>
+            </viewControllerScriptsDirectory>
+            <viewControllerScriptsDirectory forControllerName="Requests">
+              <viewScriptFile forActionName="delete"/>
+            </viewControllerScriptsDirectory>
+            <viewControllerScriptsDirectory forControllerName="Requests">
+              <viewScriptFile forActionName="list"/>
+            </viewControllerScriptsDirectory>
+            <viewControllerScriptsDirectory forControllerName="Requests">
+              <viewScriptFile forActionName="listrequestid"/>
+            </viewControllerScriptsDirectory>
+            <viewControllerScriptsDirectory forControllerName="Requests">
+              <viewScriptFile forActionName="listrequestbyuser"/>
+            </viewControllerScriptsDirectory>
+            <viewControllerScriptsDirectory forControllerName="Comments">
+              <viewScriptFile forActionName="index"/>
+            </viewControllerScriptsDirectory>
+            <viewControllerScriptsDirectory forControllerName="Comments">
+              <viewScriptFile forActionName="add"/>
+            </viewControllerScriptsDirectory>
+            <viewControllerScriptsDirectory forControllerName="Comments">
+              <viewScriptFile forActionName="edit"/>
+            </viewControllerScriptsDirectory>
+            <viewControllerScriptsDirectory forControllerName="Comments">
+              <viewScriptFile forActionName="delete"/>
+            </viewControllerScriptsDirectory>
+            <viewControllerScriptsDirectory forControllerName="Comments">
+              <viewScriptFile forActionName="list"/>
+            </viewControllerScriptsDirectory>
+            <viewControllerScriptsDirectory forControllerName="Comments">
+              <viewScriptFile forActionName="listcommentoncourse"/>
+            </viewControllerScriptsDirectory>
+            <viewControllerScriptsDirectory forControllerName="Comments">
+              <viewScriptFile forActionName="listcommentbyuser"/>
+            </viewControllerScriptsDirectory>
+            <viewControllerScriptsDirectory forControllerName="Comments">
+              <viewScriptFile forActionName="listcommentbyid"/>
+            </viewControllerScriptsDirectory>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Category">
+            <viewScriptFile forActionName="index"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Category">
+            <viewScriptFile forActionName="add"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Category">
+            <viewScriptFile forActionName="edit"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Category">
+            <viewScriptFile forActionName="list"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Category">
+            <viewScriptFile forActionName="delete"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Category">
+            <viewScriptFile forActionName="open"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Category">
+            <viewScriptFile forActionName="searchByName"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Category">
+            <viewScriptFile forActionName="search"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="CourseCategory">
+            <viewScriptFile forActionName="index"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Add">
+            <viewScriptFile forActionName="index"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Add">
+            <viewScriptFile forActionName="courseCategory"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="CourseCategory">
+            <viewScriptFile forActionName="add"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="CourseCategory">
+            <viewScriptFile forActionName="list"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="CourseCategory">
+            <viewScriptFile forActionName="searchByCourseid"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="CourseCategory">
+            <viewScriptFile forActionName="searchByCategoryid"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="CourseCategory">
+            <viewScriptFile forActionName="deleteByCategoryid"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="CourseCategory">
+            <viewScriptFile forActionName="deleteByCourseid"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="CourseCategory">
+            <viewScriptFile forActionName="delete"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="CourseTag">
+            <viewScriptFile forActionName="index"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="CourseTag">
+            <viewScriptFile forActionName="add"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="CourseTag">
+            <viewScriptFile forActionName="list"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="CourseTag">
+            <viewScriptFile forActionName="searchByCourseid"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="CourseTag">
+            <viewScriptFile forActionName="searchByTagid"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="CourseTag">
+            <viewScriptFile forActionName="deleteByTagid"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="CourseTag">
+            <viewScriptFile forActionName="deleteByCourseid"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="CourseTag">
+            <viewScriptFile forActionName="delete"/>
+>>>>>>> bbe71ab7a305a661e85d139d153200bd12463d95
           </viewControllerScriptsDirectory>
         </viewScriptsDirectory>
         <viewHelpersDirectory/>
