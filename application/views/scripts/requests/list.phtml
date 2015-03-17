@@ -2,3 +2,20 @@
 <div id="view-content">
 	<p>View script for controller <b>Requests</b> and script/action name <b>list</b></p>
 </div>
+
+<?php
+for($i = 0; $i<count($this->requests); $i++){
+foreach ($this->requests[$i] as $key=>$value):
+    echo $key." ".$value ."<br />";
+endforeach;
+?>
+
+
+<a href="<?php echo $this->baseUrl()?>/Requests/edit/id/<?php echo $this->requests[$i]['id'];?>" > Edit </a>
+<a href="<?php echo $this->baseUrl()?>/Requests/delete/id/<?php echo $this->requests[$i]['id'];?>" > Delete </a>
+<br />
+<?php
+echo str_repeat("*", 80)."<br />";
+}
+?>
+<a href="<?php echo $this->baseUrl()?>/Requests/add" >addRequest </a>
