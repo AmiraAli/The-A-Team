@@ -55,6 +55,10 @@
           <actionMethod actionName="deleteByCourseid"/>
           <actionMethod actionName="delete"/>
         </controllerFile>
+        <controllerFile controllerName="Matrials">
+          <actionMethod actionName="index"/>
+          <actionMethod actionName="add"/>
+        </controllerFile>
       </controllersDirectory>
       <formsDirectory>
         <formFile formName="Matrial"/>
@@ -287,6 +291,12 @@
             <viewControllerScriptsDirectory forControllerName="CourseTag">
               <viewScriptFile forActionName="delete"/>
             </viewControllerScriptsDirectory>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Matrials">
+            <viewScriptFile forActionName="index"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Matrials">
+            <viewScriptFile forActionName="add"/>
           </viewControllerScriptsDirectory>
         </viewScriptsDirectory>
         <viewHelpersDirectory/>
