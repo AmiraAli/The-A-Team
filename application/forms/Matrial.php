@@ -31,12 +31,13 @@ class Application_Form_Matrial extends Zend_Form {
 
         //uploading matrial
 
-        $destination = APPLICATION_PATH . '/../public/materials';
+//        $destination = APPLICATION_PATH . '/../public/materials';
 
         $file = new Zend_Form_Element_File("file");
         $file->setLabel("Upload Material: ");
         $file->setAttrib('class', 'form-control');
         $file->setDestination('/var/www/html/The-A-Team/public/materials');
+        $file->addValidator("Extension", false, array('txt', 'csv','text','ODF','PDF'));
         $file->setRequired();
 
         //Add matrial

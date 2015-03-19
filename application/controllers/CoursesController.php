@@ -45,9 +45,17 @@ class CoursesController extends Zend_Controller_Action {
      * This function used to open the page of sepecific course 
      */
     public function openAction() {
-        
+        /**
+         * information of course
+         */
         $courses_model = new Application_Model_Courses();
+        //check if the id of course get from request or not
+        if( $this->_request->getParam("id")){
+
+            $id=$this->_request->getParam("id");
+        }else{
         $id = 16;
+        }
         //get the info of the course in array
         $course_info = $courses_model->getCourseById(($id));
 
@@ -56,26 +64,32 @@ class CoursesController extends Zend_Controller_Action {
         $this->view->startdate = $course_info[0]['startdate'];
         $this->view->duration = $course_info[0]['duration'];
         $this->view->desc = $course_info[0]['desc'];
-        $this->view->course_id=$course_info[0]['id'];
+        $this->view->course_id = $course_info[0]['id'];
 
+        /**
+         * Course Material
+         */
         //get all material of this course
         $material_model = new Application_Model_Materials();
         $material_info = $material_model->selectMaterialByCourseId($id);
         $this->view->material_info = $material_info;
-        
+
         //get all types of the materials and save the id of types in array
-        $arr_types_id=array();
-        
- 
-        for($j=0;$j<count($material_info);$j++){ 
-            if(!in_array($material_info[$j]['Type_Id'], $arr_types_id)){
-                $arr_types_id[]=$material_info[$j]['Type_Id'];
+        $arr_types_id = array();
+
+
+        for ($j = 0; $j < count($material_info); $j++) {
+            if (!in_array($material_info[$j]['Type_Id'], $arr_types_id)) {
+                $arr_types_id[] = $material_info[$j]['Type_Id'];
             }
         }
-        
-        //send array of all types id to the view
-        $this->view->arr_types_id=$arr_types_id;
 
+        //send array of all types id to the view
+        $this->view->arr_types_id = $arr_types_id;
+
+        /**
+         * Instractor Information
+         */
         //select from UserCourse table all useres of this Course
         $UserCourse_model = new Application_Model_UserCourse();
         $all_users = $UserCourse_model->selectUserCourseByCourseId($id);
@@ -93,12 +107,28 @@ class CoursesController extends Zend_Controller_Action {
             $user_info = $user_model->getUserById($user_id);
 
             if ($user_info [0]['type'] == "Instructor") {
-                
+
                 $this->view->user_name = $user_info[0]['name'];
                 $this->view->user_image = $user_info[0]['image'];
-
             }
         }
+
+
+        /**
+         * related courses
+         */
+        //get all tags of the course and save it in the array
+        $arr_tags_id = array();
+
+        $courseTag_model = new Application_Model_CourseTag();
+        $courseTag_info = $courseTag_model->getCourseTagByCourseId($id);
+        for ($i = 0; $i < count($courseTag_info); $i++) {
+            if (!in_array($courseTag_info[$i]['tagid'], $arr_tags_id)) {
+                $arr_tags_id[] = $courseTag_info[$i]['tagid'];
+            }
+        }
+
+        $this->view->arr_tags_id = $arr_tags_id;
     }
 
     public function deleteAction() {

@@ -8,9 +8,10 @@
     <body>
         <div class="container">
             <div class="row">
-                <div class=" col-md-5 jumbotron alert alert-warning">
+                <div class=" col-md-5 jumbotron alert alert-info">
                     <h2> <?php echo $this->title; ?> </h2>
                 </div>
+
                 <div class="col-md-3 pull-right">
                     <img src="../../public/images/users/<?php echo $this->user_image; ?>" 
                          class="img-responsive img-circle"  width="120px" height="120px">
@@ -21,7 +22,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class=" col-md-3 panel panel-warning">
+                <div class=" col-md-3 panel panel-info">
                     <div class="panel-body">
                         Course Start:   <?php echo $this->startdate; ?> 
                         Duration:   <?php echo $this->duration; ?> weeks
@@ -29,43 +30,73 @@
                 </div>
             </div>
             <div class="row">
-                <div class=" panel panel-warning">
+                <div class=" panel panel-info">
                     <div class="panel-body">
+                        <h4>About Course:</h4></br>
                         <?php echo $this->desc; ?> 
                     </div>
                 </div>
             </div>
-            <?php
-            if ($this->material_info) {
-                for ($i = 0; $i < count($this->arr_types_id); $i++) {
-                    ?>
-                    <div class="row">
-                        <div class=" panel panel-warning">
-                            <div class="panel-body">
-                                <?php
-                                $type_model = new Application_Model_Types();
-                                $type_info = $type_model->selectTypeById($this->arr_types_id[$i]);
-                                echo "<h4>" . $type_info[0]['name'] . "</h4> </br>";
+            <div class="col-md-5">
+                <?php
+                if ($this->material_info) {
+                    for ($i = 0; $i < count($this->arr_types_id); $i++) {
+                        ?>
 
-                                $matrial_model = new Application_Model_Materials();
-                                $matrial_info = $matrial_model->selectMaterialByCourseId_TypeId($this->course_id, $this->arr_types_id[$i]);
-
-                                for ($j = 0; $j < count($matrial_info); $j++) {
-                                    ?>
-                                    <a class="list-group-item-warning" href="#"><?php echo $matrial_info[$j]['name']; ?> </a>
+                        <div class="row">
+                            <div class=" panel panel-info">
+                                <div class="panel-body">
                                     <?php
+                                    $type_model = new Application_Model_Types();
+                                    $type_info = $type_model->selectTypeById($this->arr_types_id[$i]);
+                                    echo "<h4>" . $type_info[0]['name'] . "</h4> </br>";
+
+                                    $matrial_model = new Application_Model_Materials();
+                                    $matrial_info = $matrial_model->selectMaterialByCourseId_TypeId($this->course_id, $this->arr_types_id[$i]);
+
+                                    for ($j = 0; $j < count($matrial_info); $j++) {
+                                        ?>
+                                        <a class="list-group-item-info" href="#"><?php echo $matrial_info[$j]['name']; ?> </a></br>
+                                        <?php
                                     }
                                     ?>
                                 </div>
                             </div>
                         </div>
+
                         <?php
-                    
+                    }
+                } else {
+                    echo "No Materials yet!!";
                 }
-            } else {
-                echo "No Materials yet!!";
-            }
-            ?>
+                ?>
+            </div>
+
+            <div class="col-md-6  ">
+                <div class=" col-md-offset-5 alert alert-info">
+                    <h5><center> Related Courses </center> </h5>
+                </div>
+                <div class="col-md-offset-5 panel panel-info" >
+                    <?php
+                    for ($i = 0; $i < count($this->arr_tags_id); $i++) {
+                        $courseTag_model = new Application_Model_CourseTag();
+
+                        $relatedCourses_ids = $courseTag_model->getCourseTagByTagId($this->arr_tags_id[$i]);
+                        for ($j = 0; $j < count($relatedCourses_ids); $j++) {
+
+                            //for related courses not this course
+                            if ($relatedCourses_ids[$j]["courseid"] != $this->course_id) {
+                                $relatedCourse_model = new Application_Model_Courses();
+                                $relatedCourse_info = $relatedCourse_model->getCourseById($relatedCourses_ids[$j]["courseid"]);
+                                ?>
+                                <center><a class="list-group-item-info" href="<?php echo $this->baseUrl() ?>/Courses/open/id/<?php echo $relatedCourses_ids[$j]["courseid"]; ?>"><?php echo $relatedCourse_info[0]['title']; ?> </a></center></br>
+                                    <?php
+                                }
+                            }
+                        }
+                        ?>
+                </div>
+            </div>
         </div> 
     </body>
 </html>
