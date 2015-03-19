@@ -1,18 +1,137 @@
 <br /><br />
+<style >
+    #lean_overlay {
+        position: fixed;
+        z-index:100;
+        top: 0px;
+        left: 0px;
+        height:100%;
+        width:100%;
+        background: #000;
+        display: none;
+    }
+</style>
 <script type="text/javascript" >
-    $(document).ready(function(){
-        
-        
-	
+    $(document).ready(function () {
 
-});
+    $('.delete').click(function () {
+    var xid = $(this).closest('tr').attr('id');
+            var tableid = $(this).closest('table').attr('id');
+            alert(tableid + ':' + xid)
+            $.ajax({
+            type: 'POST',
+                    dataType: 'json',
+                    url: "http://localhost/The-A-Team/public/control-room/admin",
+                    data: {
+                    id: xid,
+                            table: tableid,
+                            process: 'del',
+                    },
+                    success: function (data) {
+                    window.location.replace("http://localhost/The-A-Team/public/control-room/admin");
+                    }
+            });
+    });
+            $('.myhide').click(function () {
+
+    var id = $(this).closest('tr').attr('id');
+            var table = $(this).closest('table').attr('id');
+            $.ajax({
+            url: "http://localhost/The-A-Team/public/control-room/admin",
+                    type: "POST",
+                    dataType: 'json',
+                    data: {
+                    id: id,
+                            process: 'hide',
+                            table: table,
+                            //status:status,
+                    },
+                    success: function (data) {
+                    window.location.replace("http://localhost/The-A-Team/public/control-room/admin");
+                    }
+
+            });
+    });
+            $('.ban').click(function () {
+    var id = $(this).closest('tr').attr('id');
+            var status = $('.active').html();
+            status = 1 - status;
+            $.ajax({
+            url: "http://localhost/The-A-Team/public/control-room/admin",
+                    type: "POST",
+                    dataType: 'json',
+                    data: {
+                    id: id,
+                            process: 'ban',
+                            status: status,
+                    },
+                    success: function (data) {
+                    window.location.replace("http://localhost/The-A-Team/public/control-room/admin");
+                    }
+
+            });
+    });
+            $('.mylock').click(function () {
+
+    var id = $(this).closest('tr').attr('id');
+            var table = $(this).closest('table').attr('id');
+            $.ajax({
+            url: "http://localhost/The-A-Team/public/control-room/admin",
+                    type: "POST",
+                    dataType: 'json',
+                    data: {
+                    id: id,
+                            process: 'lock',
+                            table: table,
+                    },
+                    success: function (data) {
+                    window.location.replace("http://localhost/The-A-Team/public/control-room/admin");
+                    }
+
+            });
+    });
+            $('#click1').click(function () {
+    $('#down1').slideDown();
+    });
+            $("#flip").click(function(){
+    $("#panel").slideDown("slow");
+    });
 
 </script>
 
 <div id="view-content">
-  
-</div>
-<?php
-echo $this->form;
-echo @$list;
-?>
+    
+    <div width="500px" id="down1" >
+        <table>
+            <tr>
+                <td>
+                    <label>
+                        <a href="" id="click1">Add Category</a>
+                    </label>
+                </td>
+                <td>
+                    <label>
+                        <a href="" id="click1">Add Category</a>
+                    </label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <?php
+                       echo $this->addcategory;
+                    ?>
+                </td>
+                <td>
+                    <?php
+                       echo $this->addcategory;
+                    ?>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+
+    <?php
+    echo $this->search;
+    echo '<br       />';
+    ?>

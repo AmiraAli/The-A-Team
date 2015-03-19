@@ -43,7 +43,9 @@ class Application_Model_Users extends Zend_Db_Table_Abstract
         return $this->fetchAll()->toArray();
     }
     
-   
+   function editUserBy($where,$data){
+       return $this->update($data, 'id=' . $where);
+   }
     function deleteUser($id){
         return $this->delete("id=$id");
     }

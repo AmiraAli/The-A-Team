@@ -45,7 +45,13 @@ protected $_name = "Comments";
     function deleteComment($id){
         return $this->delete("id=$id");
     }
-
+    
+    function deleteCommentByUserId($id){
+        return $this->delete("User_Id=$id");
+    }
+    function deleteCommentByCourseId($id){
+        return $this->delete("Course_Id=$id");
+    }
 
 }
 

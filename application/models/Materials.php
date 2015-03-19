@@ -22,12 +22,13 @@ class Application_Model_Materials extends Zend_Db_Table_Abstract {
     function deleteMaterialByName($where) {
         return $this->delete("name= '$where'");
     }
-
+    function deleteMaterialByCourseId($where) {
+        return $this->delete("Course_Id='$where'");
+    }
     function updateMaterial($where, $data) {
         return $this->update($data, 'id=' . $where);
     }
-    
-
+   
     function selectAllMatreials() {
         return $this->fetchAll()->toArray();
     }
