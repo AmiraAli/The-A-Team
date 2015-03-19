@@ -107,10 +107,37 @@ $id=1;
 
     public function listuseridAction()
     {
-        $id=4;
+        $id=4;// will get id from session
+        // open object from Users model
         $user_model = new Application_Model_Users();
+        // Select User By Id
         $selectedUserById=$user_model->getUserById($id);
-        var_dump($selectedUserById);
+        // Send the data of selected User to the view 
+        $this->view->user = $user_model->getUserById($id);
+        //open object from UserCourse model
+        $usercourse_model = new Application_Model_UserCourse();
+        // Select cource By User Id
+        $selectedUserCourseByUserId=$usercourse_model->selectUserCourseByUserId($id);
+        // This is empty array to save the data about the course 
+        $selectedCourse=array();
+        
+        
+        for($i=0;$i<count($selectedUserCourseByUserId) ;$i++){
+            // Get object from Courses model
+        $course_model = new Application_Model_Courses();
+        // Get data about the course from course Id related to user_id
+        $selectedCourseById=$course_model->getCourseById($selectedUserCourseByUserId[$i]['Course_Id']);
+         
+        if($selectedCourseById[0]['hidden']=='0')
+            // To append data about the non hidden course to the array 
+         $selectedCourse[]=  $selectedCourseById;  
+        }
+        
+        
+        // Send SElected Course to view
+        $this->view->usercourse = $selectedCourse;
+
+       
     }
 
     public function listusertypeAction()

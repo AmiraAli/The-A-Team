@@ -1,4 +1,27 @@
-<br /><br />
-<div id="view-content">
-	<p>View script for controller <b>Users</b> and script/action name <b>listuserid</b></p>
-</div>
+<?php for($i = 0; $i<count($this->user); $i++){
+    unset($this->user[$i]['password']);
+    unset($this->user[$i]['active']);
+    unset($this->user[$i]['facebookid']);
+    
+foreach ($this->user[$i] as $key=>$value):
+    if($key=='image' || $key=='type' || $key=='id')continue;
+    echo $key." ".$value ."<br />";
+endforeach;
+?>
+
+
+<img src="<?php echo $this->user[$i]['image']; ?>">
+<?php }?>
+
+<?php for($i = 0; $i<count($this->usercourse); $i++){
+    
+    
+    
+foreach ($this->usercourse[$i][0] as $key=>$value):
+    echo $key." ".$value ."<br />";
+endforeach;
+    
+?>
+
+
+<?php }?>
