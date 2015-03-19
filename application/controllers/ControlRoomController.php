@@ -99,7 +99,7 @@ class ControlRoomController extends Zend_Controller_Action {
                     for ($i = 0; $i < count($data); $i++) {
 
                         $list['decoration'] = $list['decoration'] . '<tr id=' . $data[$i]['id'] . '><td>' . $data[$i]['id'] . '</td><td >' . $data[$i]['email'] . '</td>'
-                                . '<td>' . $data[$i]['image'] . '</td><td class="active">' . $data[$i]['active'] . ' </td><td>' . $data[$i]['type'] . '</td>' . '<td>' . $data[$i]['gender'] . '</td>'
+                                . '<td><img width="50 px" height="50px"src="../../public/images/users/' . $data[$i]['image'] . '"></td><td class="active">' . $data[$i]['active'] . ' </td><td>' . $data[$i]['type'] . '</td>' . '<td>' . $data[$i]['gender'] . '</td>'
                                 . '<td>' . $data[$i]['country'] . '</td>' . '<td>' . $data[$i]['facebookid'] . '</td>' . '<td><button class="delete">Delete</button><button class="edit">Edit</button>'
                                 . '<button class="ban">Ban</button></td></tr>';
                     }

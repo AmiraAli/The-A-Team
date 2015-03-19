@@ -1,9 +1,11 @@
 <?php
 
-class Application_Form_AddCategory extends Zend_Form {
+class Application_Form_EditCategory extends Zend_Form
+{
 
-    public function init() {
-        $this->setMethod("POST");
+    public function init()
+    {
+       $this->setMethod("POST");
 
         $this->addElement('text', 'category', array(
             'required' => true,
@@ -14,7 +16,8 @@ class Application_Form_AddCategory extends Zend_Form {
             'ignore' => true,
             'label' => 'submit',
         ));
-        
     }
 
+
 }
+

@@ -14,124 +14,199 @@
 <script type="text/javascript" >
     $(document).ready(function () {
 
-    $('.delete').click(function () {
-    var xid = $(this).closest('tr').attr('id');
+        $('.delete').click(function () {
+            var xid = $(this).closest('tr').attr('id');
             var tableid = $(this).closest('table').attr('id');
             alert(tableid + ':' + xid)
             $.ajax({
-            type: 'POST',
-                    dataType: 'json',
-                    url: "http://localhost/The-A-Team/public/control-room/admin",
-                    data: {
+                type: 'POST',
+                dataType: 'json',
+                url: "http://localhost/The-A-Team/public/control-room/admin",
+                data: {
                     id: xid,
-                            table: tableid,
-                            process: 'del',
-                    },
-                    success: function (data) {
+                    table: tableid,
+                    process: 'del',
+                },
+                success: function (data) {
                     window.location.replace("http://localhost/The-A-Team/public/control-room/admin");
-                    }
+                }
             });
-    });
-            $('.myhide').click(function () {
+        });
+        $('.myhide').click(function () {
 
-    var id = $(this).closest('tr').attr('id');
+            var id = $(this).closest('tr').attr('id');
             var table = $(this).closest('table').attr('id');
             $.ajax({
-            url: "http://localhost/The-A-Team/public/control-room/admin",
-                    type: "POST",
-                    dataType: 'json',
-                    data: {
+                url: "http://localhost/The-A-Team/public/control-room/admin",
+                type: "POST",
+                dataType: 'json',
+                data: {
                     id: id,
-                            process: 'hide',
-                            table: table,
-                            //status:status,
-                    },
-                    success: function (data) {
+                    process: 'hide',
+                    table: table,
+                    //status:status,
+                },
+                success: function (data) {
                     window.location.replace("http://localhost/The-A-Team/public/control-room/admin");
-                    }
+                }
 
             });
-    });
-            $('.ban').click(function () {
-    var id = $(this).closest('tr').attr('id');
+        });
+        $('.ban').click(function () {
+            var id = $(this).closest('tr').attr('id');
             var status = $('.active').html();
             status = 1 - status;
             $.ajax({
-            url: "http://localhost/The-A-Team/public/control-room/admin",
-                    type: "POST",
-                    dataType: 'json',
-                    data: {
+                url: "http://localhost/The-A-Team/public/control-room/admin",
+                type: "POST",
+                dataType: 'json',
+                data: {
                     id: id,
-                            process: 'ban',
-                            status: status,
-                    },
-                    success: function (data) {
+                    process: 'ban',
+                    status: status,
+                },
+                success: function (data) {
                     window.location.replace("http://localhost/The-A-Team/public/control-room/admin");
-                    }
+                }
 
             });
-    });
-            $('.mylock').click(function () {
+        });
+        $('.mylock').click(function () {
 
-    var id = $(this).closest('tr').attr('id');
+            var id = $(this).closest('tr').attr('id');
             var table = $(this).closest('table').attr('id');
             $.ajax({
-            url: "http://localhost/The-A-Team/public/control-room/admin",
-                    type: "POST",
-                    dataType: 'json',
-                    data: {
+                url: "http://localhost/The-A-Team/public/control-room/admin",
+                type: "POST",
+                dataType: 'json',
+                data: {
                     id: id,
-                            process: 'lock',
-                            table: table,
-                    },
-                    success: function (data) {
+                    process: 'lock',
+                    table: table,
+                },
+                success: function (data) {
                     window.location.replace("http://localhost/The-A-Team/public/control-room/admin");
-                    }
+                }
 
             });
-    });
-            $('#click1').click(function () {
-    $('#down1').slideDown();
-    });
-            $("#flip").click(function(){
-    $("#panel").slideDown("slow");
+        });
+//            $('#click1').click(function () {
+//    $('#down1').slideDown();
+//    });
+        $("#user").click(function () {
+            $("#userp").slideToggle("slow");
+        });
+        $("#course").click(function () {
+            $("#coursep").slideToggle("slow");
+        });
+        $("#type").click(function () {
+            $("#typep").slideToggle("slow");
+        });
+        $("#cat").click(function () {
+            $("#catp").slideToggle("slow");
+        });
+
+
+        $("#edituser").click(function () {
+            $("#edituserp").slideToggle("slow");
+        });
+        $("#editcourse").click(function () {
+            $("#editcoursep").slideToggle("slow");
+        });
+        $("#edittype").click(function () {
+            $("#edittypep").slideToggle("slow");
+        });
+        $("#editcat").click(function () {
+            $("#editcatp").slideToggle("slow");
+        });
+
+
     });
 
 </script>
 
 <div id="view-content">
-    
-    <div width="500px" id="down1" >
-        <table>
-            <tr>
-                <td>
-                    <label>
-                        <a href="" id="click1">Add Category</a>
-                    </label>
-                </td>
-                <td>
-                    <label>
-                        <a href="" id="click1">Add Category</a>
-                    </label>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <?php
-                       echo $this->addcategory;
-                    ?>
-                </td>
-                <td>
-                    <?php
-                       echo $this->addcategory;
-                    ?>
-                </td>
-            </tr>
-        </table>
-    </div>
 
 
-    <?php
-    echo $this->search;
-    echo '<br       />';
-    ?>
+</div>
+<style> 
+    .panel, .flip {
+        padding: 5px;
+        text-align: center;
+        background-color: #e5eecc;
+        border: solid 1px #c3c3c3;
+    }
+
+    .panel {
+        padding: 10px;
+        display: none;
+        width: 200px;
+    }
+</style>
+
+<table>
+    <tr>
+        <td>
+            <div ><a href="#" class="flip" id="user">Add User</a></div>
+            <div class="panel" id="userp"><?php
+                echo $this->addcategory;
+                ?></div>	
+        </td>
+        <td>
+            <div ><a href="#" class="flip" id="course">Add Course</a></div>
+            <div class="panel"  id="coursep"><?php
+                echo $this->addcategory;
+                ?></div>	
+        </td>
+        <td>
+            <div ><a href="#" class="flip" id="type">Add Type</a></div>
+            <div class="panel"  id="typep"><?php
+                echo $this->addcategory;
+                ?></div>	
+        </td>
+        <td>
+            <div ><a href="#" class="flip" id="cat">Add Category</a></div>
+            <div class="panel"  id="catp"><?php
+                echo $this->addcategory;
+                ?></div>	
+        </td>
+    </tr>
+    <tr>
+ <!--<excuse me>-->
+        <td><br></td><td><br></td><td><br></td><td><br></td> 
+  <!--<excuse me>-->
+    </tr>
+    <tr>
+        <td>
+            <div ><a href="#" class="flip" id="edituser">Edit User</a></div>
+            <div class="panel" id="edituserp"><?php
+                echo $this->addcategory;
+                ?></div>	
+        </td>
+        <td>
+            <div ><a href="#" class="flip" id="editcourse">Edit Course</a></div>
+            <div class="panel"  id="editcoursep"><?php
+                echo $this->addcategory;
+                ?></div>	
+        </td>
+        <td>
+            <div ><a href="#" class="flip" id="edittype">Edit Type</a></div>
+            <div class="panel"  id="edittypep"><?php
+                echo $this->addcategory;
+                ?></div>	
+        </td>
+        <td>
+            <div ><a href="#" class="flip" id="editcat">Edit Category</a></div>
+            <div class="panel"  id="editcatp"><?php
+                echo $this->addcategory;
+                ?></div>	
+        </td>
+    </tr>
+</table>
+
+<!--<a href="#"    class="example-defaults" >Add Category</a>-->
+<?php
+echo '<br       /><br       />';
+echo $this->search;
+echo '<br       />';
+?>
