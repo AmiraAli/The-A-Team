@@ -1,4 +1,71 @@
-<br /><br />
-<div id="view-content">
-	<p>View script for controller <b>Courses</b> and script/action name <b>open</b></p>
-</div>
+
+<html>
+    <head>
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script src ="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class=" col-md-5 jumbotron alert alert-warning">
+                    <h2> <?php echo $this->title; ?> </h2>
+                </div>
+                <div class="col-md-3 pull-right">
+                    <img src="../../public/images/users/<?php echo $this->user_image; ?>" 
+                         class="img-responsive img-circle"  width="120px" height="120px">
+                </div>
+                <div class="col-md-1 pull-right" >
+                    <h4> Instructor: </h4>
+                    <?php echo $this->user_name; ?>                    
+                </div>
+            </div>
+            <div class="row">
+                <div class=" col-md-3 panel panel-warning">
+                    <div class="panel-body">
+                        Course Start:   <?php echo $this->startdate; ?> 
+                        Duration:   <?php echo $this->duration; ?> weeks
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class=" panel panel-warning">
+                    <div class="panel-body">
+                        <?php echo $this->desc; ?> 
+                    </div>
+                </div>
+            </div>
+            <?php
+            if ($this->material_info) {
+                for ($i = 0; $i < count($this->arr_types_id); $i++) {
+                    ?>
+                    <div class="row">
+                        <div class=" panel panel-warning">
+                            <div class="panel-body">
+                                <?php
+                                $type_model = new Application_Model_Types();
+                                $type_info = $type_model->selectTypeById($this->arr_types_id[$i]);
+                                echo "<h4>" . $type_info[0]['name'] . "</h4> </br>";
+
+                                $matrial_model = new Application_Model_Materials();
+                                $matrial_info = $matrial_model->selectMaterialByCourseId_TypeId($this->course_id, $this->arr_types_id[$i]);
+
+                                for ($j = 0; $j < count($matrial_info); $j++) {
+                                    ?>
+                                    <a class="list-group-item-warning" href="#"><?php echo $matrial_info[$j]['name']; ?> </a>
+                                    <?php
+                                    }
+                                    ?>
+                                </div>
+                            </div>
+                        </div>
+                        <?php
+                    
+                }
+            } else {
+                echo "No Materials yet!!";
+            }
+            ?>
+        </div> 
+    </body>
+</html>

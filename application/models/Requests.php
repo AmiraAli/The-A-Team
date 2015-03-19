@@ -41,6 +41,9 @@ class Application_Model_Requests extends Zend_Db_Table_Abstract
     function deleteRequest($id){
         return $this->delete("id=$id");
     }
+    function deleteRequestByUser($id){
+        return $this->delete("User_Id=$id");
+    }
 
 }
 

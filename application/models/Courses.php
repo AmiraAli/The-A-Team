@@ -44,7 +44,10 @@ class Application_Model_Courses extends Zend_Db_Table_Abstract
     function deleteCourse($id){
         return $this->delete("id=$id");
     }
-
+    
+    function updateCourseBy($where, $data) {
+        return $this->update($data, 'id=' . $where);
+    }
     
 }
 

@@ -12,10 +12,12 @@ class Application_Form_Search extends Zend_Form
         array(
         'label'=> 'Search:',
         'multiOptions' => array(
+            '--Choose--' => '--Choose--',
             'Courses' => 'Courses',
             'Users'   => 'Users',
             'Categories'  => 'Categories',
             'Materials'=>'Materials',
+            'Comments'=>'Comments',
         ),
     )
 );

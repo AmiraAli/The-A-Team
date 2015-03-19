@@ -22,12 +22,13 @@ class Application_Model_Materials extends Zend_Db_Table_Abstract {
     function deleteMaterialByName($where) {
         return $this->delete("name= '$where'");
     }
-
+    function deleteMaterialByCourseId($where) {
+        return $this->delete("Course_Id='$where'");
+    }
     function updateMaterial($where, $data) {
         return $this->update($data, 'id=' . $where);
     }
-    
-
+   
     function selectAllMatreials() {
         return $this->fetchAll()->toArray();
     }
@@ -37,6 +38,15 @@ class Application_Model_Materials extends Zend_Db_Table_Abstract {
     }
      function selectMaterialByName($where) {
         return $this->fetchAll("name= '$where'")->toArray();
+    }
+    
+    function selectMaterialByCourseId($where) {
+        return $this->fetchAll("Course_Id= $where")->toArray();
+    }
+    
+
+    function selectMaterialByCourseId_TypeId($Course_Id,$Type_Id){
+        return $this->fetchAll(array("Course_Id = ?"=>$Course_Id ,"Type_Id = ?"=>$Type_Id))->toArray();
     }
 
 }
