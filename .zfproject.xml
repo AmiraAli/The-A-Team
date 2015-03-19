@@ -108,11 +108,19 @@
           <actionMethod actionName="listcommentbyuser"/>
           <actionMethod actionName="listcommentbyid"/>
         </controllerFile>
+<<<<<<< HEAD
+      </controllersDirectory>
+      <formsDirectory>
+        <formFile formName="User"/>
+        <formFile formName="Request"/>
+      </formsDirectory>
+=======
         <modelFile modelName="Categories"/>
         <modelFile modelName="CourseCategory"/>
         <modelFile modelName="CourseTag"/>
       </modelsDirectory>
       <formsDirectory enabled="false"/>
+>>>>>>> cacd574556753e2eb710c82cbf72395ab7cbbdc2
       <layoutsDirectory enabled="false"/>
       <modelsDirectory>
         <modelFile modelName="Tags"/>

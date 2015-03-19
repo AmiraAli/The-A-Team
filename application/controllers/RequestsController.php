@@ -15,34 +15,70 @@ class RequestsController extends Zend_Controller_Action
 
     public function addAction()
     {
-        $request_info=array('desc'=>'this is aya','User_Id'=>4);
+        
+          
+          $form  = new Application_Form_Request();
        
-         $request_model=new Application_Model_Requests();
-          $request_model->addRequest($request_info);
+       if($this->_request->isPost()){
+           if($form->isValid($this->_request->getParams())){
+               $request_info = $form->getValues();
+               //$request_info['User_Id']=2;
+               $request_model = new Application_Model_Requests();
+               $request_model->addRequest($request_info);
+                 $this->redirect("Requests/list");       
+           }
+       }
+       
+	$this->view->form = $form;
+
+   
     }
 
     public function editAction()
     {
-        $request_info=array('id'=>1,desc=>'noo','User_Id'=> '4');
-       
+        $id = $this->_request->getParam("id");
+       $form  = new Application_Form_Request();
+        if($this->_request->isPost()){
+           if($form->isValid($this->_request->getParams())){
+            $request_info = $form->getValues();    
+           $request_info['id']=$id;
          $request_model=new Application_Model_Requests();
           $request_model->editRequest($request_info);
+                    $this->redirect("Requests/list");
+
+	 
+           }
+        }
+           if(!empty($id)){
+            $request_model = new Application_Model_Requests();
+            $request = $request_model->getRequestById($id);
             
+            
+            $form->populate($request[0]);
+        } else
+       
+        $this->redirect("Requests/list");
+        
+       $this->view->form = $form;
+      $this->render('add');  
+        
+    
     }
 
     public function deleteAction()
     {
-        $id=1;
+        $id=$this->_request->getParam("id");
         if(!empty($id)){
              $request_model=new Application_Model_Requests();
           $request_model->deleteRequest($id);
     }
+        $this->redirect("Requests/list");
     }
     public function listAction()
     {
        $request_model=new Application_Model_Requests();
         $allRequest=$request_model->listRequests();
-        var_dump($allRequest);
+        $this->view->requests = $request_model->listRequests();
     }
 
     public function listrequestidAction()
