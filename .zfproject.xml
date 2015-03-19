@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0"?>
 <projectProfile type="default" version="1.12.6">
   <projectDirectory>
     <projectProfileFile filesystemName=".zfproject.xml"/>
@@ -114,6 +114,13 @@
           <actionMethod actionName="listcommentbyuser"/>
           <actionMethod actionName="listcommentbyid"/>
         </controllerFile>
+
+
+      <formsDirectory>
+        <formFile formName="User"/>
+        <formFile formName="Request"/>
+      </formsDirectory>
+
         <modelFile modelName="Categories"/>
         <modelFile modelName="CourseCategory"/>
         <modelFile modelName="CourseTag"/>

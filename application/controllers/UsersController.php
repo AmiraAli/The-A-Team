@@ -5,58 +5,252 @@ class UsersController extends Zend_Controller_Action
 
     public function init()
     {
-        /* Initialize action controller here */
+        
+        
+           $authorization =Zend_Auth::getInstance();
+    if(!$authorization->hasIdentity() && $this->_request->getActionName()!='login'){
+         $this->redirect("user/login");
+    
+    }
     }
 
     public function indexAction()
     {
-        // action body
+        
+         
+     
+    $mail = new Zend_Mail();
+    $mail->setBodyText('This is the text of the mail.');
+    $mail->setFrom('eng.aya_gamal@outlook.com');
+    $mail->addTo('yoyo_tok8@yahoo.com');
+    $mail->setSubject('TestSubject');
+    $mail->send();
+    echo "aya";
+    
+    
+    
+    }
+     public function logoutAction()
+    {
+        $autho=zend_Auth::getInstance();
+        $autho->clearIdentity();
+        
+    }
+      public function loginAction()
+    {
+          //Get object from User form 
+      $user_form=new Application_Form_User();
+      // remove this following Element from User form Sign Up
+      $user_form->removeElement("name");
+      $user_form->removeElement("confirmpassword");
+       $user_form->removeElement("country");
+      $user_form->removeElement("gender");
+       $user_form->removeElement("image");
+       // TO adjust style of form 
+       $user_form->removeAttrib("class");
+       // to adjust Style of submit button
+       $user_form->getElement("submit")->setAttrib("class", "btn btn-success btn-md col-md-offset-10");
+      // to check if Form Is POST
+       if($this->_request->isPost()){
+        $user_form->getElement("email")->removeValidator(Zend_Validate_Db_NoRecordExists);
+
+
+          // To Check the validation of form 
+            if($user_form->isValid($this->getRequest()->getParams())){
+
+                //get value of mail from post
+                $email=$user_form->getvalue("email");
+                // get value of Password from post
+                $password=$user_form->getvalue("password");
+                
+                $db =Zend_Db_Table::getDefaultAdapter();
+                // Get object from adaptor database
+                $authAdapter = new Zend_Auth_Adapter_DbTable($db,'Users','email', 'password');
+               // to Check if this email is exist
+                $authAdapter->setIdentity($email);
+                // to check if password is exists or not 
+                $authAdapter->setCredential(md5($password));
+                // to check if the password is related to this mail or not 
+                $result = $authAdapter->authenticate();
+                // if the mail and password are correct 
+                if ($result->isValid()) {
+                    
+                        $auth =Zend_Auth::getInstance();
+                        $storage = $auth->getStorage();
+            //To save the needed data in session            
+$storage->write($authAdapter->getResultRowObject(array('email' , 'id' , 'name')));
+// to redirect to the correct page
+$this->redirect("Users/listuserid");
+                }else{
+                     //if password and mail not correct together add this error message  
+                    $element= $user_form->getElement("password")->addErrorMessage("wrong mail or password");  
+                       
+                    $element->markAsError();
+                     
+                }
+            }
+      }
+      // to send this form to view 
+      $this->view->form=$user_form;
+        
     }
 
     public function addAction()
-    {
-$user_info=array('name'=>'aya','email'=>'yoyo_tok@yahoo.com','password'=>'411','image'=>'test1.jpg','active'=>'0','type'=>'Admin','gender'=>'male','country'=>'alex','facebookid'=>'2');
-        $user_model=new Application_Model_Users();
-         $user_model->addUser($user_info);
+    {       
+
+         
+        // Get object from User form
+        $form  = new Application_Form_User();
+        
+        if($this->_request->isPost()){
+           if($form->isValid($this->_request->getParams())){
+               // Get Value from POST
+               $user_info = $form->getValues();
+               // set user type as Student
+               $user_info['type']='Student';
+               // set default account as active
+               $user_info['active']='1';
+               // Take object from User model
+               $user_model = new Application_Model_Users();
+               // To not save confirm pasword in the Model Users table
+               unset($user_info['confirmpassword']);
+               
+               
+  //$originalFilename = pathinfo($form->image->getFileName());
+  
+    //$newFilename = $user_info['email'].  '.' . $originalFilename['extension'];
+   
+    //$form->image->addFilter('Rename', $newFilename);
+ 
+
+              
+    
+   // $user_info['image']=$newFilename;
+               //Call addUser function from model
+    $user_model->addUser($user_info);
+                       
+           }
+       }
+       // send this form to view
+	$this->view->form = $form;
+         
+         
     }
 
     public function editAction()
     {
-        $user_info=array('id'=>2,'name'=>'esraa','email'=>'yoyo@yahoo.com','password'=>'11','image'=>'test.jpg','active'=>'0','type'=>'Student','gender'=>'male','country'=>'alex','facebookid'=>'1');
-           $user_model=new Application_Model_Users();
-         $user_model->editUser($user_info);
+        
+        $id=2;
+        // Get user Id from Url 
+        //$id = $this->_request->getParam("id");
+        // Get Object from User form 
+        $form  = new Application_Form_User();
+        //$form->getElement("password")->setRequired(false);
+        $form->getElement('email')->setAttrib('readonly', 'true');
+
+
+        // Check if data is posted 
+        if($this->_request->isPost()){
+            // to remove validator from email field
+            $form->getElement("email")->removeValidator(Zend_Validate_Db_NoRecordExists);
+            $form->getElement("image")->setRequired(false);
+
+            // Check is Data is valid
+           if($form->isValid($this->_request->getParams())){
+               
+
+               // To take value from the Form is valid 
+               $user_info = $form->getValues();
+               // Get object from Users Model
+               
+               $user_model = new Application_Model_Users();
+               unset($user_info['confirmpassword']);
+               $user_info['id']=$id;
+               // call Edit user function from the model to update the data 
+               
+               $user_model->editUser($user_info);
+               
+                       
+           }
+        }
+        // If the id is exit
+        if(!empty($id)){
+            // Get object from users model
+            $user_model = new Application_Model_Users();
+            // Get user data from id
+            $user = $user_model->getUserById($id);
+           
+            // fill the form with user data 
+            $form->populate($user[0]);
+           
+        } //else
+          //  $this->redirect("user/list");
+        
+        
+       
+        $this->view->form = $form;
+	$this->render('add');
+        
     }
 
     public function deleteAction()
     {
-$id=1;
-        if(!empty($id)){
-            $user_model = new Application_Model_Users();
-            $user_model->deleteUser($id);
-        }
+        
+//$id=1;
+        //if(!empty($id)){
+          //  $user_model = new Application_Model_Users();
+           // $user_model->deleteUser($id);
+      //  }
     }
 
     public function listAction()
     {
-        $user_model = new Application_Model_Users();
-        $allUser=$user_model->listUsers();
-        var_dump($allUser);
+        //$user_model = new Application_Model_Users();
+        //$allUser=$user_model->listUsers();
+        //var_dump($allUser);
     }
 
     public function listuseridAction()
     {
-        $id=4;
+        $id=11;// will get id from session
+        // open object from Users model
         $user_model = new Application_Model_Users();
+        // Select User By Id
         $selectedUserById=$user_model->getUserById($id);
-        var_dump($selectedUserById);
+        // Send the data of selected User to the view 
+        $this->view->user = $user_model->getUserById($id);
+        //open object from UserCourse model
+        $usercourse_model = new Application_Model_UserCourse();
+        // Select cource By User Id
+        $selectedUserCourseByUserId=$usercourse_model->selectUserCourseByUserId($id);
+        // This is empty array to save the data about the course 
+        $selectedCourse=array();
+        
+        
+        for($i=0;$i<count($selectedUserCourseByUserId) ;$i++){
+            // Get object from Courses model
+        $course_model = new Application_Model_Courses();
+        // Get data about the course from course Id related to user_id
+        $selectedCourseById=$course_model->getCourseById($selectedUserCourseByUserId[$i]['Course_Id']);
+         
+        if($selectedCourseById[0]['hidden']=='0')
+            // To append data about the non hidden course to the array 
+         $selectedCourse[]=  $selectedCourseById;  
+        }
+        
+        
+        // Send SElected Course to view
+        $this->view->usercourse = $selectedCourse;
+
+       
     }
 
     public function listusertypeAction()
     {
-        $type="Admin";
-        $user_model = new Application_Model_Users();
-       $selectedUserByType=$user_model->getUserByType($type);
-        var_dump($selectedUserByType);
+        //$type="Admin";
+        //$user_model = new Application_Model_Users();
+       //$selectedUserByType=$user_model->getUserByType($type);
+       // var_dump($selectedUserByType);
     }
 
 
