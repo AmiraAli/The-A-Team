@@ -87,15 +87,21 @@ class ControlRoomController extends Zend_Controller_Action {
                 case 'Courses' :
                     $data = $this->listCourses();
 
-                    $list = array('decoration' => '<center><table  class="table-hover"  border="1" id="courses"><tr><th>id</th><th>Title</th><th>Description</th>'
-                        . '<th>Start Date</th><th>Duration</th><th>Hidden</th><th width="400px">Admin</th></tr>');
+                    $list = array('decoration' => '<center><table  class="table-hover"  border="1" id="courses"><tr><th>Title</th><th>Description</th>'
+                        . '<th>Start Date</th><th>Duration</th><th width="400px">Admin</th></tr>');
 
                     for ($i = 0; $i < count($data); $i++) {
+                        
+                        if($data[$i]['hidden']=='1'){
+                            $hide[$i]='Publish';
+                        }else{
+                            $hide[$i]='Hide';
+                        }
 
-                        $list['decoration'] = $list['decoration'] . '<tr id=' . $data[$i]['id'] . '><td>' . $data[$i]['id'] . '</td><td>' . $data[$i]['title'] . '</td><td>' . $data[$i]['desc'] . '</td>'
-                                . '<td>' . $data[$i]['startdate'] . '</td><td>' . $data[$i]['duration'] . ' weeks </td><td class="status">' . $data[$i]['hidden'] . '</td>'
+                        $list['decoration'] = $list['decoration'] . '<tr id=' . $data[$i]['id'] . '><td>' . $data[$i]['title'] . '</td><td>' . $data[$i]['desc'] . '</td>'
+                                . '<td>' . $data[$i]['startdate'] . '</td><td>' . $data[$i]['duration'] . ' weeks </td>'
                                 . '<td><button class="btn-danger">Delete</button>&nbsp;<button class="btn-primary">Edit</button>'
-                                . '&nbsp;<button class="myhide">Hide</button></td></tr>';
+                                . '&nbsp;<button class="btn-success">'.$hide[$i].'</button></td></tr>';
                     }
 
                     $list['decoration'] = $list['decoration'] . '</table>';
@@ -105,15 +111,21 @@ class ControlRoomController extends Zend_Controller_Action {
                 case 'Users' :
                     $data = $this->listUsers();
                     $list = array('decoration' => '<center><table   class="table-hover" border="1" id="users"><tr><th>Username</th><th>Email</th>'
-                        . '<th>Image</th><th>Active</th><th>Type</th><th>Gender</th><th>Country</th><th>Facebook ID</th>'
+                        . '<th>Image</th><th>Type</th><th>Gender</th><th>Country</th><th>Facebook ID</th>'
                         . '<th>Admin</th></tr>');
 
                     for ($i = 0; $i < count($data); $i++) {
+                        
+                        if($data[$i]['active']=='1'){
+                            $active[$i]='Ban';
+                        }else{
+                            $active[$i]='Activate';
+                        }
 
                         $list['decoration'] = $list['decoration'] . '<tr id=' . $data[$i]['id'] . '><td>' . $data[$i]['name'] . '</td><td >' . $data[$i]['email'] . '</td>'
-                                . '<td><img width="100 px" height="100px"src="../../public/images/users/' . $data[$i]['image'] . '"></td><td class="active">' . $data[$i]['active'] . ' </td><td>' . $data[$i]['type'] . '</td>' . '<td>' . $data[$i]['gender'] . '</td>'
+                                . '<td><img width="100 px" height="100px"src="../../public/images/users/' . $data[$i]['image'] . '"><td>' . $data[$i]['type'] . '</td>' . '<td>' . $data[$i]['gender'] . '</td>'
                                 . '<td>' . $data[$i]['country'] . '</td>' . '<td>' . $data[$i]['facebookid'] . '</td>' . '<td><button class="btn-danger">Delete</button>&nbsp;&nbsp;<button class="btn-primary">Edit</button>'
-                                . '&nbsp;&nbsp;<button class="btn-info">Ban</button></td></tr>';
+                                . '&nbsp;&nbsp;<button class="btn-info">'.$active[$i].'</button></td></tr>';
                     }
                     $list['decoration'] = $list['decoration'] . '</table>';
                     echo $list['decoration'];
@@ -122,17 +134,31 @@ class ControlRoomController extends Zend_Controller_Action {
                     break;
                 case 'Materials' :
                     $data = $this->listMaterials();
-
-                    $list = array('decoration' => '<center><table  class="table-hover"  border="1" id="materials"><tr><th>id</th><th>Name</th><th>Downloadable</th>'
-                        . '<th>Path</th><th>Number of Downloads</th><th>hidden</th><th>Type</th><th>Course Name</th>'
+                    
+                    
+                    $list = array('decoration' => '<center><table  class="table-hover"  border="1" id="materials"><tr><th>Name</th>'
+                        . '<th>Path</th><th>Number of Downloads</th><th>Type</th><th>Course Name</th>'
                         . '<th width ="250px">Admin</th></tr>');
 
                     for ($i = 0; $i < count($data); $i++) {
+                        
+                        if($data[$i]['hidden']=='1'){
+                            $hide[$i]='Publish';
+                        }else{
+                            $hide[$i]='Hide';
+                        }
+                        
+                         if($data[$i]['downloadable']=='1'){
+                            $down[$i]='Lock';
+                        }else{
+                            $down[$i]='Download';
+                        }
 
-                        $list['decoration'] = $list['decoration'] . '<tr id=' . $data[$i]['id'] . '><td>' . $data[$i]['id'] . '</td><td>' . $data[$i]['name'] . '</td><td  id="down">' . $data[$i]['downloadable'] . '</td>'
-                                . '<td>' . $data[$i]['path'] . '</td><td>' . $data[$i]['no_downloads'] . '</td><td class="status">' . $data[$i]['hidden'] . '</td><td>' . $this->getMeTypeName($data[$i]['Type_Id']) . '</td><td>' . $this->getMeCourseName($data[$i]['Course_Id']) . '</td>'
+
+                        $list['decoration'] = $list['decoration'] . '<tr id=' . $data[$i]['id'] . '><td>' . $data[$i]['name'] . '</td>'
+                                . '<td>' . $data[$i]['path'] . '</td><td>' . $data[$i]['no_downloads'] . '</td><td>' . $this->getMeTypeName($data[$i]['Type_Id']) . '</td><td>' . $this->getMeCourseName($data[$i]['Course_Id']) . '</td>'
                                 . '<td><button class="btn-danger">Delete</button>'
-                                . '<button class="myhide">Hide</button><button class="mylock">Lock</button></td></tr>';
+                                . '<button class="btn-success">'. $hide[$i].'</button><button class="btn-warning">'.$down[$i].'</button></td></tr>';
                     }
 
                     $list['decoration'] = $list['decoration'] . '</table>';
@@ -237,7 +263,7 @@ class ControlRoomController extends Zend_Controller_Action {
                             $delcourse = new Application_Model_Courses();
                             $_delcourse = $delcourse->deleteCourse($_POST['id']);
 
-$this->redirect('/admin');
+$this->redirect('admin');
                             break;
 
                         case 'materials' :
@@ -265,7 +291,7 @@ $this->redirect('admin');
                             $delcategory = new Application_Model_Categories();
                             $_delcategory = $delcategory->deleteCategory($_POST['id']);
        
-$this->redirect('/control-room/admin');
+
 break;
                     } // end switch del
                     break;

@@ -69,7 +69,12 @@
             });
             window.location.replace('admin'); 
         });
-        $('.myhide').click(function () {
+        
+        
+        // hide
+        $('.btn-success').click(function () {
+            
+        $(this).text($(this).text() == 'Hide' ? 'Publish' : 'Hide');   //change status
 
             var id = $(this).closest('tr').attr('id');
             var table = $(this).closest('table').attr('id');
@@ -87,11 +92,11 @@
     
                      }
             });
-            window.location.replace('admin'); 
+//            window.location.replace('admin'); 
         });
         $('.btn-info').click(function () {
-           
-//            $(this).text($(this).text() == 'active' ? 'Soon' : 'Available');   //change status
+            
+            $(this).text($(this).text() == 'Activate' ? 'Ban' : 'Activate');   //change status
             
             var id = $(this).closest('tr').attr('id');
             var status = $('.active').html();
@@ -112,7 +117,10 @@
             });
 //            window.location.replace('admin'); 
         });
-        $('.mylock').click(function () {
+        // lock
+        $('.btn-warning').click(function () {
+
+        $(this).text($(this).text() == 'Lock' ? 'Download' : 'Lock');   //change status
 
             var id = $(this).closest('tr').attr('id');
             var table = $(this).closest('table').attr('id');
@@ -129,7 +137,7 @@
                 }
 
             });
-                        window.location.replace('admin');
+//                        window.location.replace('admin');
         });
 
 //        
@@ -262,7 +270,7 @@
     .panel {
         padding: 10px;
         display: none;
-        width: 300px;
+        width: 330px;
     }
     .table-hover td,th{
         text-align: center;
