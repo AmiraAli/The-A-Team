@@ -6,7 +6,7 @@ class Application_Model_Types extends Zend_Db_Table_Abstract
     
     function insertType($data){
         $row=$this->createRow();
-        $row->name=$data['name'];
+        $row->name=$data['myt'];
         return $row->save();
         
     }

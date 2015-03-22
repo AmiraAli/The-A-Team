@@ -4,21 +4,19 @@ class Application_Form_AddCategory extends Zend_Form {
 
     public function init() {
         $this->setMethod("POST");
-
-        $this->addElement('text', 'category', array(
+               
+         $this->addElement('hidden','process',array(
+            'value'=>'addcategory'
+        ));
+        $this->addElement('text', 'name', array(
             'required' => true,
+            'label'=>'Category',
         ));
         //Add the submit button
-        $this->addElement('submit', 'submit', array(
+        $this->addElement('submit', 'addcategory', array(
             'ignore' => true,
             'label' => 'submit',
         ));
-    $this->addElement('submit', 'edit', array(
-            'ignore' => true,
-            'label' => 'update',
-            'attribs'    => array('disabled' => 'disabled',),
-        ));
-        
         
     }
 

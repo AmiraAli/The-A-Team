@@ -17,6 +17,11 @@ class Application_Model_UserCourse extends Zend_Db_Table_Abstract
         return $this->delete("User_Id=$where");
     }
     
+    function deleteUserCourseByUserId_Course_Id($user,$course){
+       
+                return $this->delete( array("Course_Id = ?"=>$course ,"User_Id = ?"=>$user));
+    }
+    
      function deleteUserCourseByCourseId($where){
         return $this->delete("Course_Id=$where");
     }

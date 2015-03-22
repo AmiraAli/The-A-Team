@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0"?>
 <projectProfile type="default" version="1.12.6">
   <projectDirectory>
     <projectProfileFile filesystemName=".zfproject.xml"/>
@@ -20,7 +20,6 @@
           <actionMethod actionName="open"/>
           <actionMethod actionName="delete"/>
           <actionMethod actionName="select"/>
-          
         </controllerFile>
         <controllerFile controllerName="Category">
           <actionMethod actionName="index"/>
@@ -66,12 +65,29 @@
             <actionMethod actionName="index"/>
             <actionMethod actionName="add"/>
           </controllerFile>
+          <actionMethod actionName="editcourse"/>
+          <actionMethod actionName="edituser,editmaterial,editcategory,editcomment"/>
+          <actionMethod actionName="edituser"/>
+          <actionMethod actionName="editmaterial"/>
+          <actionMethod actionName="editcategory"/>
+          <actionMethod actionName="editcomment"/>
         </controllerFile>
       </controllersDirectory>
       <formsDirectory>
         <formFile formName="Matrial"/>
         <formFile formName="Search"/>
         <formFile formName="AddCategory"/>
+
+        <formFile formName="AddUser"/>
+        <formFile formName="AddCourse"/>
+        <formFile formName="AddType"/>
+        <formFile formName="EditType"/>
+        <formFile formName="EditUser"/>
+        <formFile formName="EditCourse"/>
+        <formFile formName="EditCategory"/>
+        <formFile formName="Editcomment"/>
+        <formFile formName="Comment"/>
+
       </formsDirectory>
       <layoutsDirectory>
         <layoutScriptsDirectory>
@@ -108,19 +124,16 @@
           <actionMethod actionName="listcommentbyuser"/>
           <actionMethod actionName="listcommentbyid"/>
         </controllerFile>
-<<<<<<< HEAD
-      </controllersDirectory>
-      <formsDirectory>
-        <formFile formName="User"/>
-        <formFile formName="Request"/>
-      </formsDirectory>
-=======
+        <formsDirectory>
+          <formFile formName="User"/>
+          <formFile formName="Request"/>
+        </formsDirectory>
         <modelFile modelName="Categories"/>
         <modelFile modelName="CourseCategory"/>
         <modelFile modelName="CourseTag"/>
+        <modelFile modelName="Xxx"/>
       </modelsDirectory>
       <formsDirectory enabled="false"/>
->>>>>>> cacd574556753e2eb710c82cbf72395ab7cbbdc2
       <layoutsDirectory enabled="false"/>
       <modelsDirectory>
         <modelFile modelName="Tags"/>
@@ -324,6 +337,24 @@
             <viewControllerScriptsDirectory forControllerName="Matrials">
               <viewScriptFile forActionName="add"/>
             </viewControllerScriptsDirectory>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="ControlRoom">
+            <viewScriptFile forActionName="editcourse"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="ControlRoom">
+            <viewScriptFile forActionName="edituser,editmaterial,editcategory,editcomment"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="ControlRoom">
+            <viewScriptFile forActionName="edituser"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="ControlRoom">
+            <viewScriptFile forActionName="editmaterial"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="ControlRoom">
+            <viewScriptFile forActionName="editcategory"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="ControlRoom">
+            <viewScriptFile forActionName="editcomment"/>
           </viewControllerScriptsDirectory>
         </viewScriptsDirectory>
         <viewHelpersDirectory/>

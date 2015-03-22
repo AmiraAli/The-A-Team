@@ -33,10 +33,12 @@ protected $_name = "Comments";
         return $this->fetchAll($select)->toArray();
     }
     
+    function getCommentOnMaterial($Material_Id){
+        $select =$this->select()->where('Material_Id = ?', $Material_Id);
+        return $this->fetchAll($select)->toArray();
+    }
    
     function editComment($data){
-        
-            
         $this->update($data, "id=".$data['id']);
         return $this->fetchAll()->toArray();
     }
@@ -51,6 +53,10 @@ protected $_name = "Comments";
     }
     function deleteCommentByCourseId($id){
         return $this->delete("Course_Id=$id");
+    }
+    
+    function deleteCommentByMaterialId($id){
+        return $this->delete("Material_Id=$id");
     }
 
 }

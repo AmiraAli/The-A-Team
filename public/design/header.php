@@ -11,12 +11,22 @@ $DOCUMENT_ROOT = $_SERVER['DOCUMENT_ROOT'];
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <script src ="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
  <!--dont delete-->        
-<!--<script type="text/javascript" src="path_to/jquery.leanModal.min.js"></script>-->
+ <script type="text/javascript" src="../js/jquery.leanModal.min.js"></script>
+ <script type="text/javascript" src="../js/jquery.popupwindow.js"></script>
  <!--dont delete-->
+ <style>
+     #alert,#join{
+         background-color:#123456; 
+         color: #FFFFFF;
+     }
+     .title{
+         color:#123456;
+     }
+ </style>
     </head>
 
 
-    <nav class="navbar navbar-inverse">
+    <nav class="navbar navbar-inverse" id="alert">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
                 <span class="icon-bar"></span>
@@ -27,8 +37,7 @@ $DOCUMENT_ROOT = $_SERVER['DOCUMENT_ROOT'];
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
-                <li ><a href="<?php echo $this->baseUrl()?>/controlar/action/" >Home</a></li>
-                <li ><a href=""> about </a></li>
+                <li ><a href="<?php echo $this->baseUrl()?>#" >Home</a></li>
                 <li ><a href="<?php echo $this->baseUrl()?>#" > settings</a></li>
                 <li ><a href="<?php echo $this->baseUrl()?>/Requests/list" > Requests </a></li>
                 <li ><a href="<?php echo $this->baseUrl()?>/Users/listuserid" > Profile </a></li>
