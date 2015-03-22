@@ -1,4 +1,4 @@
-<?php 
+<?php
 $DOCUMENT_ROOT = $_SERVER['DOCUMENT_ROOT'];
 ?>
 
@@ -10,19 +10,19 @@ $DOCUMENT_ROOT = $_SERVER['DOCUMENT_ROOT'];
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <script src ="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
- <!--dont delete-->        
- <script type="text/javascript" src="../js/jquery.leanModal.min.js"></script>
- <script type="text/javascript" src="../js/jquery.popupwindow.js"></script>
- <!--dont delete-->
- <style>
-     #alert,#join{
-         background-color:#123456; 
-         color: #FFFFFF;
-     }
-     .title{
-         color:#123456;
-     }
- </style>
+        <!--dont delete-->        
+        <script type="text/javascript" src="../js/jquery.leanModal.min.js"></script>
+        <script type="text/javascript" src="../js/jquery.popupwindow.js"></script>
+        <!--dont delete-->
+        <style>
+            #alert,#join{
+                background-color:#123456; 
+                color: #FFFFFF;
+            }
+            .title{
+                color:#123456;
+            }
+        </style>
     </head>
 
 
@@ -37,10 +37,37 @@ $DOCUMENT_ROOT = $_SERVER['DOCUMENT_ROOT'];
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
-                <li ><a href="<?php echo $this->baseUrl()?>#" >Home</a></li>
-                <li ><a href="<?php echo $this->baseUrl()?>#" > settings</a></li>
-                <li ><a href="<?php echo $this->baseUrl()?>/Requests/list" > Requests </a></li>
-                <li ><a href="<?php echo $this->baseUrl()?>/Users/listuserid" > Profile </a></li>
-                
+                <li ><a href="<?php echo $this->baseUrl() ?>#" >Home</a></li>
+                <?php
+                $auth = Zend_Auth::getInstance();
+                $storage = $auth->getStorage();
+                $sessionRead = $storage->read();
+                if (!empty($sessionRead)) {
+
+                    $type = $sessionRead->type;
+                    if ($type == "Admin") {
+                        ?>
+                        <li ><a href="<?php echo $this->baseUrl() ?>/control-room/admin" > settings</a></li>
+                        <?php
+                    }
+                }
+                ?>
+                <li ><a href="<?php echo $this->baseUrl() ?>/Requests/list" > Requests </a></li>
+                <?php
+                if (!empty($sessionRead)) {
+
+                    $type = $sessionRead->type;
+                    if ($type == "Student" || $type == "Instructor") {
+                        ?>
+                        <li ><a href="<?php echo $this->baseUrl() ?>/Users/listuserid" > Profile </a></li>
+                        <?php
+                    }
+                }
+                if (!empty($sessionRead)) {
+                    ?>
+                    <li><a href="<?php echo $this->baseUrl() ?>/Users/logout" class="pull-right"> Logout </a></li>
+                        <?php
+                    }
+                    ?>
             </ul>
     </nav>
