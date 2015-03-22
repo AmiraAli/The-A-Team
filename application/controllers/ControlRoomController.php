@@ -131,7 +131,7 @@ class ControlRoomController extends Zend_Controller_Action {
 
                         $list['decoration'] = $list['decoration'] . '<tr id=' . $data[$i]['id'] . '><td>' . $data[$i]['id'] . '</td><td>' . $data[$i]['name'] . '</td><td  id="down">' . $data[$i]['downloadable'] . '</td>'
                                 . '<td>' . $data[$i]['path'] . '</td><td>' . $data[$i]['no_downloads'] . '</td><td class="status">' . $data[$i]['hidden'] . '</td><td>' . $this->getMeTypeName($data[$i]['Type_Id']) . '</td><td>' . $this->getMeCourseName($data[$i]['Course_Id']) . '</td>'
-                                . '<td><button class="btn-danger">Delete</button><button class="btn-primary">Edit</button>'
+                                . '<td><button class="btn-danger">Delete</button>'
                                 . '<button class="myhide">Hide</button><button class="mylock">Lock</button></td></tr>';
                     }
 
@@ -189,7 +189,7 @@ class ControlRoomController extends Zend_Controller_Action {
 
 
         if (!empty($this->getRequest()->isPost())) {
-            switch ($_POST['process']) {
+            switch (@$_POST['process']) {
                 //// Select Which Process To Preform
                 //// del => Delete
                 //// edit => Edit
@@ -214,7 +214,7 @@ class ControlRoomController extends Zend_Controller_Action {
                             $delu = new Application_Model_Users();
                             $_delu = $delu->deleteUser($_POST['id']);
 
-//                            $this->render('admin');
+                            $this->redirect('admin');
                             break;
 
                         case 'courses' :
@@ -237,20 +237,25 @@ class ControlRoomController extends Zend_Controller_Action {
                             $delcourse = new Application_Model_Courses();
                             $_delcourse = $delcourse->deleteCourse($_POST['id']);
 
-
+$this->redirect('/admin');
                             break;
 
                         case 'materials' :
+                             $delcomment = new Application_Model_Comments();
+                            $_delcomment = $delcomment->deleteCommentByMaterialId($_POST['id']);
+
                             $delmat = new Application_Model_Materials();
                             $_delmat = $delmat->deleteMaterialById($_POST['id']);
-
+                            
+                            
+$this->redirect('admin');
                             break;
 
                         case 'comments':
 
                             $delcomment = new Application_Model_Comments();
                             $_delcomment = $delcomment->deleteComment($_POST['id']);
-
+$this->redirect('admin');
                             break;
 
                         case 'categories' :
@@ -259,8 +264,9 @@ class ControlRoomController extends Zend_Controller_Action {
 
                             $delcategory = new Application_Model_Categories();
                             $_delcategory = $delcategory->deleteCategory($_POST['id']);
-
-                            break;
+       
+$this->redirect('/control-room/admin');
+break;
                     } // end switch del
                     break;
 
