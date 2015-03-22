@@ -4,6 +4,11 @@ class CoursesController extends Zend_Controller_Action {
 
     public function init() {
         /* Initialize action controller here */
+
+        $authorization = Zend_Auth::getInstance();
+        if (!$authorization->hasIdentity() && $this->_request->getActionName() != 'login') {
+            $this->redirect("Users/login");
+        }
     }
 
     public function indexAction() {
@@ -19,7 +24,7 @@ class CoursesController extends Zend_Controller_Action {
          */
         $courses_model = new Application_Model_Courses();
 
-       
+
 
 
         //get the id of course from the request
@@ -151,8 +156,6 @@ class CoursesController extends Zend_Controller_Action {
 
         if ($ext === "mp3" || $ext === "mp4") {
             $type = "vidio";
-            
-            
         } else {
             $type = "nonvidio";
         }
@@ -160,25 +163,24 @@ class CoursesController extends Zend_Controller_Action {
         $this->view->type = $type;
         $this->view->name = $material_info[0]['name'];
         $this->view->path = $material_info[0]['path'];
-        $this->view->materialid=$material_info[0]['id'];
-        $this->view->downloadable=$material_info[0]['downloadable'];
-        $this->view->courseid=$material_info[0]['Course_Id'];
-        
-             //if the file downloadable
-            //increase no of dowanloads when show the material
-            if($material_info[0]['downloadable']){
-            $no_downloads=intval($material_info[0]['no_downloads']);
+        $this->view->materialid = $material_info[0]['id'];
+        $this->view->downloadable = $material_info[0]['downloadable'];
+        $this->view->courseid = $material_info[0]['Course_Id'];
+
+        //if the file downloadable
+        //increase no of dowanloads when show the material
+        if ($material_info[0]['downloadable']) {
+            $no_downloads = intval($material_info[0]['no_downloads']);
             $no_downloads+=1;
-            
-            $matrial_data=array('id'=>$material_info[0]['id'],'name'=>$material_info[0]['name']
-                                 ,'downloadable'=>$material_info[0]['downloadable']
-                                 ,'path'=>$material_info[0]['path'],'no_downloads'=>$no_downloads
-                                 ,'Type_Id'=>$material_info[0]['Type_Id'],'Course_Id'=>$material_info[0]['Course_Id']
-                                  ,'hidden'=>$material_info[0]['hidden']);
+
+            $matrial_data = array('id' => $material_info[0]['id'], 'name' => $material_info[0]['name']
+                , 'downloadable' => $material_info[0]['downloadable']
+                , 'path' => $material_info[0]['path'], 'no_downloads' => $no_downloads
+                , 'Type_Id' => $material_info[0]['Type_Id'], 'Course_Id' => $material_info[0]['Course_Id']
+                , 'hidden' => $material_info[0]['hidden']);
             $material_model->editMaterial($matrial_data);
-            
-            }
-        
+        }
+
         /**
          * get all comments on the material
          */
@@ -194,17 +196,23 @@ class CoursesController extends Zend_Controller_Action {
         /**
          * Submit Add comment on material
          */
-        
-        $user_id=2;
-        $course_id=$material_info[0]['Course_Id'];
-        
+        $auth = Zend_Auth::getInstance();
+        $storage = $auth->getStorage();
+        $sessionRead = $storage->read();
+        $type = $sessionRead->type;
+        if ($type == "Instructor" || $type == "Student") {
+
+            $user_id = $sessionRead->id;
+        }
+        $course_id = $material_info[0]['Course_Id'];
+
         if ($this->_request->isPost()) {
             if ($comment_form->isValid($this->_request->getParams())) {
-                $comment_info=$comment_form->getValues();
-                $comment_info['User_Id']=$user_id;
-                $comment_info['Course_Id']=$course_id;
-                $comment_info['Material_Id']=$material_id;
-                
+                $comment_info = $comment_form->getValues();
+                $comment_info['User_Id'] = $user_id;
+                $comment_info['Course_Id'] = $course_id;
+                $comment_info['Material_Id'] = $material_id;
+
                 $comment_model->insert($comment_info);
                 $this->redirect("Courses/show/id/$material_id");
             }
@@ -228,32 +236,32 @@ class CoursesController extends Zend_Controller_Action {
         $course_id = $this->_request->getParam("courseid");
         $this->redirect("Courses/open/id/$course_id");
     }
-    
+
     /**
      * this function to join course
      */
     public function joinAction() {
-        
-        $user_id=$this->_request->getParam("userid");
-        $course_id=$this->_request->getParam("courseid");
-        
-        $courseUser_model=new Application_Model_UserCourse();
-        
-        $data=array('User_Id'=>$user_id,'Course_Id'=>$course_id);
+
+        $user_id = $this->_request->getParam("userid");
+        $course_id = $this->_request->getParam("courseid");
+
+        $courseUser_model = new Application_Model_UserCourse();
+
+        $data = array('User_Id' => $user_id, 'Course_Id' => $course_id);
         $courseUser_model->InsertUserCourse($data);
     }
 
-    
     /**
      * this function to unjoin course
      */
     public function unjoinAction() {
-        
-        $user_id=$this->_request->getParam("userid");
-        $course_id=$this->_request->getParam("courseid");
-        
-        $courseUser_model=new Application_Model_UserCourse();
-        
-        $courseUser_model->deleteUserCourseByUserId_Course_Id($user_id,$course_id);
+
+        $user_id = $this->_request->getParam("userid");
+        $course_id = $this->_request->getParam("courseid");
+
+        $courseUser_model = new Application_Model_UserCourse();
+
+        $courseUser_model->deleteUserCourseByUserId_Course_Id($user_id, $course_id);
     }
+
 }

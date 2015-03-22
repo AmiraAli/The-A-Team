@@ -22,7 +22,11 @@
                             <?php
                             if ($this->type == "vidio") {
                                 ?>
-                                <video <?php if($this->downloadable){echo "controls";}?>   preload="auto" loop width="500" height="300">
+                                <video <?php
+                                if ($this->downloadable) {
+                                    echo "controls";
+                                }
+                                ?>   preload="auto" loop width="500" height="300">
 
                                     <source src="../../../../public/materials/<?php echo $this->path; ?>" type="audio/mpeg"  />
                                     <source src="../../../../public/materials/<?php echo $this->path; ?>" type="video/mp4"  />
@@ -50,12 +54,12 @@
 //                // Send the file contents.
 //                set_time_limit(0);
 //                readfile($file);
-                                
-                                if($this->downloadable){
-                                ?> 
-                                <a href="../../../../public/materials/<?php echo $this->path; ?>">Show</a>
-                                <?php
-                                }else{
+
+                                if ($this->downloadable) {
+                                    ?> 
+                                    <a href="../../../../public/materials/<?php echo $this->path; ?>">Show</a>
+                                    <?php
+                                } else {
                                     echo "Not Allowed!!";
                                 }
                             }
@@ -89,16 +93,37 @@
                             <!-- check from session that this user can edit or delete his comment only -->
 
                             <?php
-                            $currentUser_id = 2;
+                            $auth = Zend_Auth::getInstance();
+                            $storage = $auth->getStorage();
+                            $sessionRead = $storage->read();
+                            $type = $sessionRead->type;
+                            if ($type == "Instructor" || $type == "Student") {
+                                $currentUser_id = $sessionRead->id;
 
-                            if ($currentUser_id == $userid) {
+
+                                if ($currentUser_id == $userid) {
+                                    ?>
+                                    <a class="btn    pull-right" id="alert" href="<?php echo $this->baseUrl() ?>/Comments/delete/id/ <?php echo $this->comments[$i]['id']; ?>/materialid/<?php echo $this->materialid; ?>">Delete</a>
+                                    <?php
+                                }
+                            } else {
                                 ?>
                                 <a class="btn    pull-right" id="alert" href="<?php echo $this->baseUrl() ?>/Comments/delete/id/ <?php echo $this->comments[$i]['id']; ?>/materialid/<?php echo $this->materialid; ?>">Delete</a>
-                                <a class="btn   pull-right" id="alert"  onclick="editComment(<?php echo $this->comments[$i]['id']; ?>)">Edit</a>
-                                <p id="<?php echo $this->comments[$i]['id']; ?>"> <?php echo $this->comments[$i]['body']; ?></p>
                                 <?php
                             }
+                            if ($type == "Instructor" || $type == "Student") {
+                                $currentUser_id = $sessionRead->id;
+
+
+                                if ($currentUser_id == $userid) {
+                                    ?>
+                                    <a class="btn   pull-right" id="alert"  onclick="editComment(<?php echo $this->comments[$i]['id']; ?>)">Edit</a>
+                                    <?php
+                                }
+                            }
                             ?>
+                            <p id="<?php echo $this->comments[$i]['id']; ?>"> <?php echo $this->comments[$i]['body']; ?></p>
+
                         </div>
 
                         <?php
@@ -106,10 +131,12 @@
                 } else {
                     echo "No Comments Yet!!";
                 }
-                ?>
-                <h4 class="title"> leave your comment here </h4>
-                <?php
-                echo $this->comment_form;
+                if ($type == "Instructor" || $type == "Student") {
+                    ?>
+                    <h4 class="title"> leave your comment here </h4>
+                    <?php
+                    echo $this->comment_form;
+                }
                 ?>
 
             </div>

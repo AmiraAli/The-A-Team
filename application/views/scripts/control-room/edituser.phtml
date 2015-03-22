@@ -1,18 +1,36 @@
-<br /><br />
-<script>
-$(document).ready(function(){
-    $('#edituser').click(function(){
-        alert('here');
-        window.location.replace('http://localhost/The-A-Team/public/control-room/admin');
-    });
-    
-});
-</script>
-<center>
-<div id="view-content">
-	<p>View script for controller <b>ControlRoom</b> and script/action name <b>edituser</b></p>
-        <?php
-        echo $this->myform;
-        ?>
-</div>
-   </center>
+<?php
+$auth = Zend_Auth::getInstance();
+$storage = $auth->getStorage();
+$sessionRead = $storage->read();
+$type = $sessionRead->type;
+if ($type == "Admin") {
+    ?>
+    <br /><br />
+    <script>
+        $(document).ready(function () {
+            $('#edituser').click(function () {
+                alert('here');
+                window.location.replace('http://localhost/The-A-Team/public/control-room/admin');
+            });
+
+        });
+    </script>
+    <center>
+        <div id="view-content">
+            <p>View script for controller <b>ControlRoom</b> and script/action name <b>edituser</b></p>
+            <?php
+            echo $this->myform;
+            ?>
+        </div>
+    </center>
+    <?php
+} else {
+    ?>
+    <div class="Container">
+        <div class="panel  col-md-5  col-md-offset-4 warning_alert ">
+            <div class="panel-heading "> <h1><center>Not Permitted!!</center></h1></div>
+        </div>
+    </div>
+    <?php
+}
+?>
