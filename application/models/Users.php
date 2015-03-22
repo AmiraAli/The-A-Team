@@ -83,6 +83,16 @@ class Application_Model_Users extends Zend_Db_Table_Abstract {
         return $this->fetchAll($select)->toArray();
     }
 
+    
+    function getUserByEmail($email){
+        $select =$this->select()->where('email = ?', $email);
+        return $this->fetchAll($select)->toArray();
+    }
+    
+   
+    
+
+
     function editUser($data) {
         if (!empty($data['password'])){
             $data['password'] = md5($data['password']);
@@ -121,6 +131,7 @@ class Application_Model_Users extends Zend_Db_Table_Abstract {
         
         
         $this->update($data, "id=" . $data['id']);
+
         return $this->fetchAll()->toArray();
     }
 //function ahmededit($data){
