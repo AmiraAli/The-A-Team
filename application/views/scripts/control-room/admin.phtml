@@ -43,11 +43,17 @@
         });
 
 ///////////////////////////////////////Slide Down///////////////////////////////////////
+    
+
+
+
+
+
 // delete
         $('.btn-danger').click(function () {
             var xid = $(this).closest('tr').attr('id');
             var tableid = $(this).closest('table').attr('id');
-            alert(tableid + ':' + xid)
+            //alert(tableid + ':' + xid)
             $.ajax({
                 type: 'POST',
                 dataType: 'json',
@@ -58,8 +64,10 @@
                     process: 'del',
                 },
                 success: function (data) {
-window.location.replace('admin');                }
+                              
+                        }
             });
+            window.location.replace('admin'); 
         });
         $('.myhide').click(function () {
 
@@ -76,11 +84,15 @@ window.location.replace('admin');                }
                     //status:status,
                 },
                 success: function (data) {
-window.location.replace('admin');                }
-
+    
+                     }
             });
+            window.location.replace('admin'); 
         });
         $('.btn-info').click(function () {
+           
+//            $(this).text($(this).text() == 'active' ? 'Soon' : 'Available');   //change status
+            
             var id = $(this).closest('tr').attr('id');
             var status = $('.active').html();
             status = 1 - status;
@@ -94,10 +106,11 @@ window.location.replace('admin');                }
                     status: status,
                 },
                 success: function (data) {
-                   window.location.replace('admin');
+                   
                 }
 
             });
+//            window.location.replace('admin'); 
         });
         $('.mylock').click(function () {
 
@@ -260,6 +273,7 @@ window.location.replace('admin');                }
         text-align: center; 
     }
 </style>
+
 <center>
 <table >
     <tr>

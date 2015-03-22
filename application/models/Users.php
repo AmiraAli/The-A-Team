@@ -14,7 +14,58 @@ class Application_Model_Users extends Zend_Db_Table_Abstract {
         $row->type = $data['type'];
         $row->gender = $data['gender'];
         $row->country = $data['country'];
-        $row->facebookid = $data['facebookid'];
+        $row->facebookid =NULL;
+        
+        
+        
+        return $row->save();
+    }
+    function addUserByFacebook($data) {
+        $row = $this->createRow();
+        $row->name = $data['name'];
+        $row->password = md5($data['password']);
+        $row->email = $data['email'];
+        $row->image = $data['image'];
+        $row->active = $data['active'];
+        $row->type = $data['type'];
+        $row->gender = $data['gender'];
+        $row->country = $data['country'];
+        $row->facebookid =$data['facebookid'];
+        
+        
+        
+        return $row->save();
+    }
+    function addUserByGoogle($data) {
+        $row = $this->createRow();
+        $row->name = $data['name'];
+        $row->password = md5($data['password']);
+        $row->email = $data['email'];
+        $row->image = $data['image'];
+        $row->active = $data['active'];
+        $row->type = $data['type'];
+        $row->gender = $data['gender'];
+        $row->country = $data['country'];
+        $row->googleid =$data['googleid'];
+        
+        
+        
+        return $row->save();
+    }
+    function addUserByTwitter($data) {
+        $row = $this->createRow();
+        $row->name = $data['name'];
+        $row->password = md5($data['password']);
+        $row->email = $data['email'];
+        $row->image = $data['image'];
+        $row->active = $data['active'];
+        $row->type = $data['type'];
+        $row->gender = $data['gender'];
+        $row->country = $data['country'];
+        $row->twitterid =$data['twitterid'];
+        
+        
+        
         return $row->save();
     }
 
@@ -38,7 +89,23 @@ class Application_Model_Users extends Zend_Db_Table_Abstract {
         }else{
              unset($data['password']);
         }
-        
+         ///////////////////////
+        if (!empty($data['facebookid'])){
+            $data['facebookid'] = md5($data['facebookid']);
+        }else{
+             unset($data['facebookid']);
+        }
+         if (!empty($data['googleid'])){
+            $data['googleid'] = md5($data['googleid']);
+        }else{
+             unset($data['googleid']);
+        }
+         if (!empty($data['twitterid'])){
+            $data['twitterid'] = md5($data['twitterid']);
+        }else{
+             unset($data['twitterid']);
+        }
+        //////////////////////////////////
         if (!empty($data['email'])){
             $data['email'] = $data['email'];
         }else{
