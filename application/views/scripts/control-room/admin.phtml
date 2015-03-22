@@ -1,312 +1,330 @@
-<br /><br />
-<style >
-    #lean_overlay {
-        position: fixed;
-        z-index:100;
-        top: 0px;
-        left: 0px;
-        height:100%;
-        width:100%;
-        background: #000;
-        display: none;
-    }
-</style>
-<script type="text/javascript" >
-    $(document).ready(function () {
-        ///////////////////////////////////////Slide Down///////////////////////////////////////
-
-        $("#user").click(function () {
-            $("#userp").slideToggle("slow");
-        });
-        $("#course").click(function () {
-            $("#coursep").slideToggle("slow");
-        });
-        $("#addtype").click(function () {
-            $("#typep").slideToggle("slow");
-        });
-        $("#cat").click(function () {
-            $("#catp").slideToggle("slow");
-        });
-
-
-        $("#euser").click(function () {
-            $("#euserp").slideToggle("slow");
-        });
-        $("#ecourse").click(function () {
-            $("#ecoursep").slideToggle("slow");
-        });
-        $("#etype").click(function () {
-            $("#etypep").slideToggle("slow");
-        });
-        $("#ecat").click(function () {
-            $("#ecatp").slideToggle("slow");
-        });
-
-///////////////////////////////////////Slide Down///////////////////////////////////////
-    
-
-
-
-
-
-// delete
-        $('.btn-danger').click(function () {
-            var xid = $(this).closest('tr').attr('id');
-            var tableid = $(this).closest('table').attr('id');
-            //alert(tableid + ':' + xid)
-            $.ajax({
-                type: 'POST',
-                dataType: 'json',
-                url: "http://localhost/The-A-Team/public/control-room/admin",
-                data: {
-                    id: xid,
-                    table: tableid,
-                    process: 'del',
-                },
-                success: function (data) {
-                              
-                        }
-            });
-            window.location.replace('admin'); 
-        });
-        $('.myhide').click(function () {
-
-            var id = $(this).closest('tr').attr('id');
-            var table = $(this).closest('table').attr('id');
-            $.ajax({
-                url: "http://localhost/The-A-Team/public/control-room/admin",
-                type: "POST",
-                dataType: 'json',
-                data: {
-                    id: id,
-                    process: 'hide',
-                    table: table,
-                    //status:status,
-                },
-                success: function (data) {
-    
-                     }
-            });
-            window.location.replace('admin'); 
-        });
-        $('.btn-info').click(function () {
-           
-//            $(this).text($(this).text() == 'active' ? 'Soon' : 'Available');   //change status
-            
-            var id = $(this).closest('tr').attr('id');
-            var status = $('.active').html();
-            status = 1 - status;
-            $.ajax({
-                url: "http://localhost/The-A-Team/public/control-room/admin",
-                type: "POST",
-                dataType: 'json',
-                data: {
-                    id: id,
-                    process: 'ban',
-                    status: status,
-                },
-                success: function (data) {
-                   
-                }
-
-            });
-//            window.location.replace('admin'); 
-        });
-        $('.mylock').click(function () {
-
-            var id = $(this).closest('tr').attr('id');
-            var table = $(this).closest('table').attr('id');
-            $.ajax({
-                url: "http://localhost/The-A-Team/public/control-room/admin",
-                type: "POST",
-                dataType: 'json',
-                data: {
-                    id: id,
-                    process: 'lock',
-                    table: table,
-                },
-                success: function (data) {
-                }
-
-            });
-                        window.location.replace('admin');
-        });
-
-//        
-        $('#addcourse').click(function () {
-           
-             if( $('#title').val()=='' ||  $('#desc').val()=='' ||  $('#duration').val()=='' ){
-                alert('Failed to save');
-            }
-
-        });
-//         $('#addcourse').click(function () {
-//            alert($('#day').val()+'/'+$('#month').val()+'/'+$('#year').val());
-//            
-//            
-//
-//            $.ajax({
-//                url: "http://localhost/The-A-Team/public/control-room/admin",
-//                data: {
-//                    title: $('#title').val(),
-//                    desc: $('#desc').val(),
-//                    duration: $('#duration').val(),
-//                    startdate:$('#day').val()+'/'+$('#month').val()+'/'+$('#year').val()+'  00:00:00' ,
-//                    process: 'addcourse',
-//                },
-//                type: "POST",
-//                dataType: 'json',
-//                success: function (data) {
-//                }
-//
-//            });
-//             if( $('#title').val()=='' ||  $('#desc').val()=='' ||  $('#duration').val()=='' ){
-//                alert('Failed to save');
-//            }
-//
-//        });
-        $('#addcategory').click(function () {
-           
-            if($('#category').val()==''){
-                alert('Failed to save');
-            }
-
-        });
-//         $('#addcategory').click(function () {
-//            //alert($('#day').val()+'/'+$('#month').val()+'/'+$('#year').val());
-//            $.ajax({
-//                url: "http://localhost/The-A-Team/public/control-room/admin",
-//                data: {
-//                    name: $('#category').val(),
-//                    process: 'addcategory',
-//                },
-//                type: "POST",
-//                dataType: 'json',
-//                success: function (data) {
-//                }
-//               
-//            });
-//            if($('#category').val()==''){
-//                alert('Failed to save');
-//            }
-//
-//        });
-         $('#newtype').click(function () {
-            alert($('#myt').val());
-            $.ajax({
-                url: "http://localhost/The-A-Team/public/control-room/admin",
-                data: {
-                    type: $('#myt').val(),
-                    process: 'addtype',
-                },
-                type: "POST",
-                dataType: 'json',
-                success: function (data) {
-                }
-               
-            });
-            if($('#myt').val()==''){
-                alert('Failed to save');
-            }
-
-        });
-        
-        $('#adduser').click(function () {
-            
-            
-            if( $('#name').val()=='' ||  $('#email').val()=='' ||  $('#password').val()=='' ||  $('#confirmpassword').val()=='' ||  $('#file').val()==''){
-                alert('Failed to save');
-            }
-
-        });
-        
-        $('.btn-primary').click(function(){
-            var id = $(this).closest('tr').attr('id');
-            var table =$(this).closest('table').attr('id');
-            switch(table){
-                case 'courses':
-                window.location.replace('editcourse?id='+id);    
-                break;
-            case 'users':
-                window.location.replace('edituser?id='+id);
-                break;
-            case 'materials':
-                window.location.replace('editmaterial?id='+id);
-                break;
-            case 'categories':
-                window.location.replace('editcategory?id='+id);
-                break;
-            case 'comments':
-                window.location.replace('editcomment?id='+id);
-                break;
-            }
-        
-            
-        });
-
-    });
-
-</script>
-
-<div id="view-content">
-
-</div>
-<style> 
-    .panel, .flip {
-        padding: 5px;
-        text-align: center;
-        background-color: #e5eecc;
-        border: solid 1px #c3c3c3;
-    }
-
-    .panel {
-        padding: 10px;
-        display: none;
-        width: 300px;
-    }
-    .table-hover td,th{
-        text-align: center;
-        width: 200px;
-        height:50px;
-    }
-    td{
-        text-align: center; 
-    }
-</style>
-
-<center>
-<table >
-    <tr>
-        <td>
-            <div ><a href="#" class="flip" id="user">Add User</a></div>
-            <div class="panel" id="userp"><?php
-echo $this->adduser;
-?></div>	
-        </td>
-        <td >
-            <div ><a href="#" class="flip" id="course">Add Course</a></div>
-            <div class="panel"  id="coursep"><?php
-                echo $this->addcourse;
-?></div>	
-        </td>
-        <td>
-            <div ><a href="#" class="flip" id="addtype">Add Type</a></div>
-            <div class="panel"  id="typep"><?php
-                echo $this->addtype;
-?></div>	
-        </td>
-        <td>
-            <div ><a href="#" class="flip" id="cat">Add Category</a></div>
-            <div class="panel"  id="catp"><?php
-                echo $this->addcategory;
-?></div>	
-        </td>
-    </tr>
-</table>
-    
-
 <?php
-echo '<br       /><br       />';
-echo $this->search;
-echo '<br       />';
-?></center>
+$auth = Zend_Auth::getInstance();
+$storage = $auth->getStorage();
+$sessionRead = $storage->read();
+$type = $sessionRead->type;
+if ($type == "Admin") {
+    ?>
+    <br /><br />
+    <style >
+        #lean_overlay {
+            position: fixed;
+            z-index:100;
+            top: 0px;
+            left: 0px;
+            height:100%;
+            width:100%;
+            background: #000;
+            display: none;
+        }
+    </style>
+    <script type="text/javascript" >
+        $(document).ready(function () {
+            ///////////////////////////////////////Slide Down///////////////////////////////////////
+
+            $("#user").click(function () {
+                $("#userp").slideToggle("slow");
+            });
+            $("#course").click(function () {
+                $("#coursep").slideToggle("slow");
+            });
+            $("#addtype").click(function () {
+                $("#typep").slideToggle("slow");
+            });
+            $("#cat").click(function () {
+                $("#catp").slideToggle("slow");
+            });
+
+
+            $("#euser").click(function () {
+                $("#euserp").slideToggle("slow");
+            });
+            $("#ecourse").click(function () {
+                $("#ecoursep").slideToggle("slow");
+            });
+            $("#etype").click(function () {
+                $("#etypep").slideToggle("slow");
+            });
+            $("#ecat").click(function () {
+                $("#ecatp").slideToggle("slow");
+            });
+
+    ///////////////////////////////////////Slide Down///////////////////////////////////////
+
+
+
+
+
+
+    // delete
+            $('.btn-danger').click(function () {
+                var xid = $(this).closest('tr').attr('id');
+                var tableid = $(this).closest('table').attr('id');
+                //alert(tableid + ':' + xid)
+                $.ajax({
+                    type: 'POST',
+                    dataType: 'json',
+                    url: "http://localhost/The-A-Team/public/control-room/admin",
+                    data: {
+                        id: xid,
+                        table: tableid,
+                        process: 'del',
+                    },
+                    success: function (data) {
+
+                    }
+                });
+                window.location.replace('admin');
+            });
+            $('.myhide').click(function () {
+
+                var id = $(this).closest('tr').attr('id');
+                var table = $(this).closest('table').attr('id');
+                $.ajax({
+                    url: "http://localhost/The-A-Team/public/control-room/admin",
+                    type: "POST",
+                    dataType: 'json',
+                    data: {
+                        id: id,
+                        process: 'hide',
+                        table: table,
+                        //status:status,
+                    },
+                    success: function (data) {
+
+                    }
+                });
+                window.location.replace('admin');
+            });
+            $('.btn-info').click(function () {
+
+    //            $(this).text($(this).text() == 'active' ? 'Soon' : 'Available');   //change status
+
+                var id = $(this).closest('tr').attr('id');
+                var status = $('.active').html();
+                status = 1 - status;
+                $.ajax({
+                    url: "http://localhost/The-A-Team/public/control-room/admin",
+                    type: "POST",
+                    dataType: 'json',
+                    data: {
+                        id: id,
+                        process: 'ban',
+                        status: status,
+                    },
+                    success: function (data) {
+
+                    }
+
+                });
+    //            window.location.replace('admin'); 
+            });
+            $('.mylock').click(function () {
+
+                var id = $(this).closest('tr').attr('id');
+                var table = $(this).closest('table').attr('id');
+                $.ajax({
+                    url: "http://localhost/The-A-Team/public/control-room/admin",
+                    type: "POST",
+                    dataType: 'json',
+                    data: {
+                        id: id,
+                        process: 'lock',
+                        table: table,
+                    },
+                    success: function (data) {
+                    }
+
+                });
+                window.location.replace('admin');
+            });
+
+    //        
+            $('#addcourse').click(function () {
+
+                if ($('#title').val() == '' || $('#desc').val() == '' || $('#duration').val() == '') {
+                    alert('Failed to save');
+                }
+
+            });
+    //         $('#addcourse').click(function () {
+    //            alert($('#day').val()+'/'+$('#month').val()+'/'+$('#year').val());
+    //            
+    //            
+    //
+    //            $.ajax({
+    //                url: "http://localhost/The-A-Team/public/control-room/admin",
+    //                data: {
+    //                    title: $('#title').val(),
+    //                    desc: $('#desc').val(),
+    //                    duration: $('#duration').val(),
+    //                    startdate:$('#day').val()+'/'+$('#month').val()+'/'+$('#year').val()+'  00:00:00' ,
+    //                    process: 'addcourse',
+    //                },
+    //                type: "POST",
+    //                dataType: 'json',
+    //                success: function (data) {
+    //                }
+    //
+    //            });
+    //             if( $('#title').val()=='' ||  $('#desc').val()=='' ||  $('#duration').val()=='' ){
+    //                alert('Failed to save');
+    //            }
+    //
+    //        });
+            $('#addcategory').click(function () {
+
+                if ($('#category').val() == '') {
+                    alert('Failed to save');
+                }
+
+            });
+    //         $('#addcategory').click(function () {
+    //            //alert($('#day').val()+'/'+$('#month').val()+'/'+$('#year').val());
+    //            $.ajax({
+    //                url: "http://localhost/The-A-Team/public/control-room/admin",
+    //                data: {
+    //                    name: $('#category').val(),
+    //                    process: 'addcategory',
+    //                },
+    //                type: "POST",
+    //                dataType: 'json',
+    //                success: function (data) {
+    //                }
+    //               
+    //            });
+    //            if($('#category').val()==''){
+    //                alert('Failed to save');
+    //            }
+    //
+    //        });
+            $('#newtype').click(function () {
+                alert($('#myt').val());
+                $.ajax({
+                    url: "http://localhost/The-A-Team/public/control-room/admin",
+                    data: {
+                        type: $('#myt').val(),
+                        process: 'addtype',
+                    },
+                    type: "POST",
+                    dataType: 'json',
+                    success: function (data) {
+                    }
+
+                });
+                if ($('#myt').val() == '') {
+                    alert('Failed to save');
+                }
+
+            });
+
+            $('#adduser').click(function () {
+
+
+                if ($('#name').val() == '' || $('#email').val() == '' || $('#password').val() == '' || $('#confirmpassword').val() == '' || $('#file').val() == '') {
+                    alert('Failed to save');
+                }
+
+            });
+
+            $('.btn-primary').click(function () {
+                var id = $(this).closest('tr').attr('id');
+                var table = $(this).closest('table').attr('id');
+                switch (table) {
+                    case 'courses':
+                        window.location.replace('editcourse?id=' + id);
+                        break;
+                    case 'users':
+                        window.location.replace('edituser?id=' + id);
+                        break;
+                    case 'materials':
+                        window.location.replace('editmaterial?id=' + id);
+                        break;
+                    case 'categories':
+                        window.location.replace('editcategory?id=' + id);
+                        break;
+                    case 'comments':
+                        window.location.replace('editcomment?id=' + id);
+                        break;
+                }
+
+
+            });
+
+        });
+
+    </script>
+
+    <div id="view-content">
+
+    </div>
+    <style> 
+        .panel, .flip {
+            padding: 5px;
+            text-align: center;
+            background-color: #e5eecc;
+            border: solid 1px #c3c3c3;
+        }
+
+        .panel {
+            padding: 10px;
+            display: none;
+            width: 300px;
+        }
+        .table-hover td,th{
+            text-align: center;
+            width: 200px;
+            height:50px;
+        }
+        td{
+            text-align: center; 
+        }
+    </style>
+
+    <center>
+        <table >
+            <tr>
+                <td>
+                    <div ><a href="#" class="flip" id="user">Add User</a></div>
+                    <div class="panel" id="userp"><?php
+                        echo $this->adduser;
+                        ?></div>	
+                </td>
+                <td >
+                    <div ><a href="#" class="flip" id="course">Add Course</a></div>
+                    <div class="panel"  id="coursep"><?php
+                        echo $this->addcourse;
+                        ?></div>	
+                </td>
+                <td>
+                    <div ><a href="#" class="flip" id="addtype">Add Type</a></div>
+                    <div class="panel"  id="typep"><?php
+                        echo $this->addtype;
+                        ?></div>	
+                </td>
+                <td>
+                    <div ><a href="#" class="flip" id="cat">Add Category</a></div>
+                    <div class="panel"  id="catp"><?php
+                        echo $this->addcategory;
+                        ?></div>	
+                </td>
+            </tr>
+        </table>
+
+
+        <?php
+        echo '<br       /><br       />';
+        echo $this->search;
+        echo '<br       />';
+        ?></center>
+   <?php
+} else {
+    ?>
+    <div class="Container">
+        <div class="panel  col-md-5  col-md-offset-4 warning_alert ">
+            <div class="panel-heading "> <h1><center>Not Permitted!!</center></h1></div>
+        </div>
+    </div>
+    <?php
+}
+?>

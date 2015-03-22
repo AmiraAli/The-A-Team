@@ -15,6 +15,10 @@ $DOCUMENT_ROOT = $_SERVER['DOCUMENT_ROOT'];
         <script type="text/javascript" src="../js/jquery.popupwindow.js"></script>
         <!--dont delete-->
         <style>
+            .warning_alert{
+                color: #FFFFFF;
+                background: #b92c28;
+            }
             #alert,#join{
                 background-color:#123456; 
                 color: #FFFFFF;

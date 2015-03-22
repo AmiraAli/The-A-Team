@@ -1,68 +1,86 @@
-<script>
-//    $(document).ready(function () {
-//        var parameter = window.location.search.replace("?", ""); // will return the GET parameter 
-//        var values = parameter.split("=");
-//        // will return and array as ["name", "sample"] 
-//        
-//        
-//        $('#submit').click(function () {
-////            alert($('#date').val()+' 00:00:00');
-//            if($('#title').val()!=='' &&$('#desc').val()!=='' &&$('#date').val()!=='' &&$('#duration').val()!==''){
-//            $.ajax({
-//                url: "http://localhost/The-A-Team/public/control-room/admin",
-//              type:"POST",
-//              dataType:'json',
-//            data: {
-//                    process:'editcourse',
-//                    id:values[1],
-//                    title:$('#title').val(),
-//                    desc:$('#desc').val(),
-//                    startdate:$('#date').val()+' 00:00:00',
-//                    duration:$('#duration').val(),
-//                    
-//                },
-//                success : function(){
-//                    
-//                }
-//                
-//            });
-//            window.location.replace('admin');
-//        }else{
-//            alert("Failed to save");
-//        }
-//        });
-//    });
- $(document).ready(function () {
-        var parameter = window.location.search.replace("?", ""); // will return the GET parameter 
-        var values = parameter.split("=");
-        // will return and array as ["name", "sample"] 
-        
-        
-        $('#submit').click(function () {
-//            alert($('#date').val()+' 00:00:00');
-            if($('#title').val()!=='' || $('#desc').val()!=='' || $('#date').val()!=='' || $('#duration').val()!==''){
-            
-            alert("Failed to save");
-        }
+<?php
+$auth = Zend_Auth::getInstance();
+$storage = $auth->getStorage();
+$sessionRead = $storage->read();
+$type = $sessionRead->type;
+if ($type == "Admin") {
+    ?>
+    <script>
+    //    $(document).ready(function () {
+    //        var parameter = window.location.search.replace("?", ""); // will return the GET parameter 
+    //        var values = parameter.split("=");
+    //        // will return and array as ["name", "sample"] 
+    //        
+    //        
+    //        $('#submit').click(function () {
+    ////            alert($('#date').val()+' 00:00:00');
+    //            if($('#title').val()!=='' &&$('#desc').val()!=='' &&$('#date').val()!=='' &&$('#duration').val()!==''){
+    //            $.ajax({
+    //                url: "http://localhost/The-A-Team/public/control-room/admin",
+    //              type:"POST",
+    //              dataType:'json',
+    //            data: {
+    //                    process:'editcourse',
+    //                    id:values[1],
+    //                    title:$('#title').val(),
+    //                    desc:$('#desc').val(),
+    //                    startdate:$('#date').val()+' 00:00:00',
+    //                    duration:$('#duration').val(),
+    //                    
+    //                },
+    //                success : function(){
+    //                    
+    //                }
+    //                
+    //            });
+    //            window.location.replace('admin');
+    //        }else{
+    //            alert("Failed to save");
+    //        }
+    //        });
+    //    });
+        $(document).ready(function () {
+            var parameter = window.location.search.replace("?", ""); // will return the GET parameter 
+            var values = parameter.split("=");
+            // will return and array as ["name", "sample"] 
+
+
+            $('#submit').click(function () {
+    //            alert($('#date').val()+' 00:00:00');
+                if ($('#title').val() !== '' || $('#desc').val() !== '' || $('#date').val() !== '' || $('#duration').val() !== '') {
+
+                    alert("Failed to save");
+                }
+            });
         });
-    });
-</script>
-<style> 
-  
-    .table-hover td,th{
-        text-align: center;
-        width: 200px;
-        height:50px;
-    }
-    td{
-        text-align: center; 
-    }
-</style>
-<br /><br />
+    </script>
+    <style> 
+
+        .table-hover td,th{
+            text-align: center;
+            width: 200px;
+            height:50px;
+        }
+        td{
+            text-align: center; 
+        }
+    </style>
+    <br /><br />
     <center>
-<div id="view-content">
-   <?php
-   echo $this->form;
-   ?>
-</div>
+        <div id="view-content">
+            <?php
+            echo $this->form;
+            ?>
+        </div>
     </center>
+    <?php
+} else {
+    ?>
+    <div class="Container">
+        <div class="panel  col-md-5  col-md-offset-4 warning_alert ">
+            <div class="panel-heading "> <h1><center>Not Permitted!!</center></h1></div>
+        </div>
+    </div>
+    <?php
+}
+?>
