@@ -1,27 +1,93 @@
+<html>
+    <head>
+        
+        
+        <style>
+            .edit{
+                margin-top: 50px;
+                margin-right: 50px;
+                width:100px;
+                height:100px;
+              
+                float:right;
+            }
+            .name{
+               margin-top: 50px;
+                margin-right: 650px;
+                width:100px;
+                height:100px;
+                
+                float:right; 
+                
+            }
+            
+            
+        </style>
+    </head>
 <?php for($i = 0; $i<count($this->user); $i++){
-    unset($this->user[$i]['password']);
-    unset($this->user[$i]['active']);
-    unset($this->user[$i]['facebookid']);
+    //unset($this->user[$i]['password']);
+    //unset($this->user[$i]['active']);
+    //unset($this->user[$i]['facebookid']);
     
-foreach ($this->user[$i] as $key=>$value):
-    if($key=='image' || $key=='type' || $key=='id')continue;
-    echo $key." ".$value ."<br />";
-endforeach;
+//foreach ($this->user[$i] as $key=>$value):
+    //if($key=='image' || $key=='type' || $key=='id')continue;
+    ?>
+<div class="container">
+    <img src="../../public/images/users/<?php echo $this->user[$i]['image'];?>" class="img-circle" height="200px" width="200px">
+     
+     <div class="edit"><a href="<?php echo $this->baseUrl()?>/Users/edit/id/<?php   echo $this->user[$i]['id'];?>"class="btn btn-info btn-lg">Edit</a>
+     </div>
+    <div class="name"><h1><?php echo $this->user[$i]['name'];?></h1></div>
+   
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+      <h3 class="panel-title">About</h3>
+   </div>
+        <div class="panel-body">
+ <?php
+    echo "email" .":".$this->user[$i]['email'];
+    echo "<br>";
+    echo "gender".":".$this->user[$i]['gender'];
+    echo "<br>";
+    echo "country".":".$this->user[$i]['country'];
+    echo "<br>";
+    echo "type".":".$this->user[$i]['type'];
+    //echo $key." ".$value ."<br />";
+//endforeach;
 ?>
+        </div>
+        </div></div>
 
-
-<img src="../../public/image/<?php echo $this->user[$i]['image']; ?>">
+<!--<img src="../../public/images/users/<?php echo $this->user[$i]['image']; ?>">-->
 <?php }?>
-
+<div class="container">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+      <h3 class="panel-title">Courses</h3>
+      </div>
+        <div class="panel-body">
+         <?php if($this->usercourse){?>
 <?php for($i = 0; $i<count($this->usercourse); $i++){
     
+    for($k=0;$k<count($this->usercourse[$i]) ;  $k++){
     
-    
-foreach ($this->usercourse[$i][0] as $key=>$value):
-    echo $key." ".$value ."<br />";
-endforeach;
+//foreach ($this->usercourse[$i][0] as $key=>$value):
+  //  echo $key." ".$value ."<br />";
+//endforeach;
+  
     
 ?>
+   <a href="<?php echo $this->baseUrl()?>/Courses/open/id/<?php   echo $this->usercourse[$i][$k]['id'];?>"><?php   echo $this->usercourse[$i][$k]['title'];?></a>
+<br>
+   
+            
+            
+            
 
+         <?php }}}else{echo "no courses yet";}?>
 
-<?php }?>
+  
+</div>
+        </div></div>
+     
+     </html>

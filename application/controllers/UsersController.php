@@ -1,54 +1,65 @@
 <?php
 
-class UsersController extends Zend_Controller_Action {
 
-    public function init() {
+class UsersController extends Zend_Controller_Action
+{
 
-
-        $authorization = Zend_Auth::getInstance();
-        if (!$authorization->hasIdentity() && $this->_request->getActionName() != 'login') {
-            $this->redirect("user/login");
-        }
+    public function init()
+    {
+        
+        
+          $authorization =Zend_Auth::getInstance();
+    if(!$authorization->hasIdentity() && $this->_request->getActionName()!='login'&&$this->_request->getActionName()!='add'&&$this->_request->getActionName()!='listusertype'){
+         $this->redirect("Users/login");
+    
+    }
     }
 
-    public function indexAction() {
+    public function indexAction()
+    {
+           
 
 
-
-        $mail = new Zend_Mail();
-        $mail->setBodyText('This is the text of the mail.');
-        $mail->setFrom('eng.aya_gamal@outlook.com');
-        $mail->addTo('yoyo_tok8@yahoo.com');
-        $mail->setSubject('TestSubject');
-        $mail->send();
-        echo "aya";
+    
     }
-
-    public function logoutAction() {
-        $autho = zend_Auth::getInstance();
+    
+     public function logoutAction()
+    {
+        $autho=zend_Auth::getInstance();
         $autho->clearIdentity();
+         $this->redirect("Users/login");
+        
     }
+      public function loginAction()
+    {
+          //Get object from User form 
+      $user_form=new Application_Form_User();
+      
+      $user_form->getElement("password")->setDescription('<a href="listusertype">Forgot password?</a>');
+      $user_form->getElement("password")->getDecorator('Description')->setOption('escape', false);
+      // remove this following Element from User form Sign Up
+      $user_form->removeElement("name");
+      $user_form->removeElement("confirmpassword");
+       $user_form->removeElement("country");
+      $user_form->removeElement("gender");
+       $user_form->removeElement("image");
+       // TO adjust style of form 
+       $user_form->removeAttrib("class");
+       // to adjust Style of submit button
+       $user_form->getElement("submit")->setAttrib("class", "btn btn-success btn-md col-md-offset-10");
+      // to check if Form Is POST
+       if($this->_request->isPost()){
+        @$user_form->getElement("email")->removeValidator(Zend_Validate_Db_NoRecordExists);
 
-    public function loginAction() {
-        //Get object from User form 
-        $user_form = new Application_Form_User();
-        // remove this following Element from User form Sign Up
-        $user_form->removeElement("name");
-        $user_form->removeElement("confirmpassword");
-        $user_form->removeElement("country");
-        $user_form->removeElement("gender");
-        $user_form->removeElement("image");
-        // TO adjust style of form 
-        $user_form->removeAttrib("class");
-        // to adjust Style of submit button
-        $user_form->getElement("submit")->setAttrib("class", "btn btn-success btn-md col-md-offset-10");
-        // to check if Form Is POST
-        if ($this->_request->isPost()) {
-            $user_form->getElement("email")->removeValidator(Zend_Validate_Db_NoRecordExists);
+
+          // To Check the validation of form 
+            if($user_form->isValid($this->getRequest()->getParams())){
 
 
-            // To Check the validation of form 
-            if ($user_form->isValid($this->getRequest()->getParams())) {
+
+   
+
+   
 
                 //get value of mail from post
                 $email = $user_form->getvalue("email");
@@ -67,10 +78,14 @@ class UsersController extends Zend_Controller_Action {
                 // if the mail and password are correct 
                 if ($result->isValid()) {
 
-                    $auth = Zend_Auth::getInstance();
-                    $storage = $auth->getStorage();
-                    //To save the needed data in session            
-                    $storage->write($authAdapter->getResultRowObject(array('email', 'id', 'name')));
+                    
+                        $auth =Zend_Auth::getInstance();
+                        $storage = $auth->getStorage();
+            //To save the needed data in session            
+$storage->write($authAdapter->getResultRowObject(array('email' , 'id' , 'name')));
+
+
+
 // to redirect to the correct page
                     $this->redirect("Users/listuserid");
                 } else {
@@ -89,43 +104,74 @@ class UsersController extends Zend_Controller_Action {
 
 
         // Get object from User form
-        $form = new Application_Form_User();
+        $form  = new Application_Form_User();
+        
+        if($this->_request->isPost()){
+           if($form->isValid($this->_request->getParams())){
+               // Get Value from POST
+               $user_info = $form->getValues();
+               // set user type as Student
+               $user_info['type']='Student';
+               // set default account as active
+               $user_info['active']='1';
+               // Take object from User model
+               $user_model = new Application_Model_Users();
+               // To not save confirm pasword in the Model Users table
+               unset($user_info['confirmpassword']);
+               
+               
+  //$originalFilename = pathinfo($form->image->getFileName());
+  
+    //$newFilename = $user_info['email'].  '.' . $originalFilename['extension'];
+   
+    //$form->image->addFilter('Rename', $newFilename);
+ 
 
-        if ($this->_request->isPost()) {
-            if ($form->isValid($this->_request->getParams())) {
-                // Get Value from POST
-                $user_info = $form->getValues();
-                // set user type as Student
-                $user_info['type'] = 'Student';
-                // set default account as active
-                $user_info['active'] = '1';
-                // Take object from User model
-                $user_model = new Application_Model_Users();
-                // To not save confirm pasword in the Model Users table
-                unset($user_info['confirmpassword']);
-
-
-//                $originalFilename = pathinfo($form->image->getFileName());
-//
-//                $newFilename = $user_info['email'] . '.' . $originalFilename['extension'];
-//
-//                $form->image->addFilter('Rename', $newFilename);
-//
-//
-//
-//
-//                $user_info['image'] = $newFilename;
-////    Call addUser function from model
-                $user_model->addUser($user_info);
-            }
-        }
-        // send this form to view
-        $this->view->form = $form;
+              
+    
+   // $user_info['image']=$newFilename;
+               //Call addUser function from model
+               
+    $user_model->addUser($user_info);
+    
+    $smtpoption=array('auth'=>'login',
+            'username'=>'ATeamgroup2@gmail.com',
+            'password'=>'coursera',
+            'ssl' =>'ssl',
+            'port'=>465
+            
+            
+            );
+     $sendmail = new Zend_Mail_Transport_Smtp("smtp.gmail.com",$smtpoption);
+    $mail = new Zend_Mail();
+    $mail->setBodyText('Thanks for registered ATeam ');
+    $mail->setFrom('ATeamgroup2@gmail.com','ATeam');
+    $mail->addTo($user_info['email'],$user_info['name']);
+    $mail->setSubject('confirmation message');
+    $mail->send($sendmail);
+                       
+           }
+       }
+       // send this form to view
+	$this->view->form = $form;
+         
+         
     }
+
+   
 
     public function editAction() {
 
-        $id = 2;
+        $auth =Zend_Auth::getInstance();
+                        $storage = $auth->getStorage();
+                        $sessionRead=$storage->read();
+                 
+
+        //$webServiceNamespace = new Zend_Session_Namespace('Zend_Auth');
+        //$webServiceNamespace->email ;
+        //echo  $webServiceNamespace->email."hahahaha" ;
+        $id= $sessionRead->id; 
+
         // Get user Id from Url 
         //$id = $this->_request->getParam("id");
         // Get Object from User form 
@@ -137,10 +183,29 @@ class UsersController extends Zend_Controller_Action {
         // Check if data is posted 
         if ($this->_request->isPost()) {
             // to remove validator from email field
-            $form->getElement("email")->removeValidator(Zend_Validate_Db_NoRecordExists);
+           @ $form->getElement("email")->removeValidator(Zend_Validate_Db_NoRecordExists);
             $form->getElement("image")->setRequired(false);
 
             // Check is Data is valid
+
+           if($form->isValid($this->_request->getParams())){
+               
+
+               // To take value from the Form is valid 
+               $user_info = $form->getValues();
+               // Get object from Users Model
+               
+               $user_model = new Application_Model_Users();
+               unset($user_info['confirmpassword']);
+               $user_info['id']=$id;
+               // call Edit user function from the model to update the data 
+               
+               $user_model->editUser($user_info);
+                $this->redirect("Users/listuserid");
+               
+                       
+           }
+
             if ($form->isValid($this->_request->getParams())) {
 
 
@@ -155,6 +220,7 @@ class UsersController extends Zend_Controller_Action {
 
                 $user_model->editUser($user_info);
             }
+
         }
         // If the id is exit
         if (!empty($id)) {
@@ -189,8 +255,16 @@ class UsersController extends Zend_Controller_Action {
         //var_dump($allUser);
     }
 
+
+   
+
     public function listuseridAction() {
-        $id = 11; // will get id from session
+        $auth =Zend_Auth::getInstance();
+        $storage = $auth->getStorage();
+        $sessionRead=$storage->read();   
+        
+        $id=$sessionRead->id;// will get id from session
+
         // open object from Users model
         $user_model = new Application_Model_Users();
         // Select User By Id
@@ -224,8 +298,74 @@ class UsersController extends Zend_Controller_Action {
     public function listusertypeAction() {
         //$type="Admin";
         //$user_model = new Application_Model_Users();
+
+       //$selectedUserByType=$user_model->getUserByType($type);
+       // var_dump($selectedUserByType);
+        
+        
+        //Get object from User form 
+      $user_form=new Application_Form_User();
+      
+      // remove this following Element from User form Sign Up
+      $user_form->removeElement("name");
+      $user_form->removeElement("confirmpassword");
+       $user_form->removeElement("country");
+      $user_form->removeElement("gender");
+       $user_form->removeElement("image");
+       $user_form->removeElement("password");
+       // TO adjust style of form 
+       $user_form->removeAttrib("class");
+       // to adjust Style of submit button
+       $user_form->getElement("submit")->setAttrib("class", "btn btn-success btn-md col-md-offset-10");
+           
+
+       // to check if Form Is POST
+       if($this->_request->isPost()){
+        @$user_form->getElement("email")->removeValidator(Zend_Validate_Db_NoRecordExists);
+
+
+          // To Check the validation of form 
+            if($user_form->isValid($this->getRequest()->getParams())){
+                //get value of mail from post
+                $email=$user_form->getvalue("email");
+               $user_info=new Application_Model_Users();
+                $checkmail=$user_info->getUserByEmail($email);
+                if($checkmail){
+               
+                
+                $smtpoption=array('auth'=>'login',
+            'username'=>'ATeamgroup2@gmail.com',
+            'password'=>'coursera',
+            'ssl' =>'ssl',
+            'port'=>465
+            
+            
+            );
+     $sendmail = new Zend_Mail_Transport_Smtp("smtp.gmail.com",$smtpoption);
+    $mail = new Zend_Mail();
+    $mail->setBodyText('<a href="#">aya</a> ');
+    $mail->setFrom('ATeamgroup2@gmail.com','ATeam');
+    $mail->addTo('eng.aya_gamal@outlook.com','aya');
+    $mail->setSubject('confirmation message');
+    $mail->send($sendmail);
+                $this->redirect('Users/login');
+                }
+                else{
+                  $element= $user_form->getElement("email")->addErrorMessage(" This Email not found");  
+                       
+                    $element->markAsError();  
+                    
+                }
+            }
+       }
+      
+// to send this form to view 
+      $this->view->form=$user_form;
+
         //$selectedUserByType=$user_model->getUserByType($type);
         // var_dump($selectedUserByType);
+
     }
+    
 
 }
