@@ -12,10 +12,17 @@ class Application_Model_Materials extends Zend_Db_Table_Abstract {
         $row->no_downloads = $data['no_downloads'];
         $row->Type_Id = $data['Type_Id'];
         $row->Course_Id = $data['Course_Id'];
+        $row->hidden = '0';
 
         return $row->save();
     }
 
+    
+     function editMaterial($data){
+        $this->update($data, "id=".$data['id']);
+        return $this->fetchAll()->toArray();
+    }
+    
     function deleteMaterialById($where) {
         return $this->delete('id=' . $where);
     }
@@ -44,9 +51,9 @@ class Application_Model_Materials extends Zend_Db_Table_Abstract {
         return $this->fetchAll("Course_Id= $where")->toArray();
     }
     
-
+    // Select the material by course id and type id and not hidden 
     function selectMaterialByCourseId_TypeId($Course_Id,$Type_Id){
-        return $this->fetchAll(array("Course_Id = ?"=>$Course_Id ,"Type_Id = ?"=>$Type_Id))->toArray();
+        return $this->fetchAll(array("Course_Id = ?"=>$Course_Id ,"Type_Id = ?"=>$Type_Id,"hidden = ?"=>'0'))->toArray();
     }
 
 }

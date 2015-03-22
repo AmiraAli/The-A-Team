@@ -1,0 +1,23 @@
+
+create database cafeteria;
+
+
+create table rooms(number int primary key);
+
+create table users(id int primary key AUTO_INCREMENT,name varchar(50),email varchar(50) UNIQUE,password varchar(50),room_no int REFERENCES rooms(number) ,ext int,is_admin bool,question varchar(50),answer varchar(50),pic varchar(50));
+
+
+create table categories(id int primary key auto_increment,name varchar(20));
+
+ create table products(id int primary key AUTO_INCREMENT,name varchar(50),price int,category_id int REFERENCES categories(id) ,is_available bool,pic varchar(50));
+
+
+create table orders(id int primary key auto_increment,user_id int REFERENCES users(id),datetime timestamp default now(),status enum("processing","out for delivery","done"),order_price int);
+
+
+create table order_product(order_id int REFERENCES orders(id), product_id int REFERENCES products(id),amount int,total_price int,notes varchar(200),primary key (order_id,product_id));
+
+
+
+
+

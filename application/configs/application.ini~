@@ -15,9 +15,12 @@ resources.view[] =
 resources.db.adapter = "Pdo_Mysql"
 resources.db.params.host = "localhost"
 resources.db.params.username = "root"
-
+<<<<<<< HEAD
 resources.db.params.password = "anawany"
+=======
 
+resources.db.params.password = "admin"
+>>>>>>> 8fc9abc18d7e4e6dfb69121830434815ce0f2cce
 resources.db.params.dbname = "ATeam"
 
 

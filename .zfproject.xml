@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0"?>
 <projectProfile type="default" version="1.12.6">
   <projectDirectory>
     <projectProfileFile filesystemName=".zfproject.xml"/>
@@ -77,6 +77,7 @@
         <formFile formName="Matrial"/>
         <formFile formName="Search"/>
         <formFile formName="AddCategory"/>
+
         <formFile formName="AddUser"/>
         <formFile formName="AddCourse"/>
         <formFile formName="AddType"/>
@@ -85,6 +86,8 @@
         <formFile formName="EditCourse"/>
         <formFile formName="EditCategory"/>
         <formFile formName="Editcomment"/>
+        <formFile formName="Comment"/>
+
       </formsDirectory>
       <layoutsDirectory>
         <layoutScriptsDirectory>
