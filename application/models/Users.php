@@ -33,6 +33,11 @@ class Application_Model_Users extends Zend_Db_Table_Abstract
         return $this->fetchAll($select)->toArray();
     }
     
+    function getUserByEmail($email){
+        $select =$this->select()->where('email = ?', $email);
+        return $this->fetchAll($select)->toArray();
+    }
+    
    
     function editUser($data){
         if(!empty($data['password']))

@@ -47,7 +47,7 @@ class CoursesController extends Zend_Controller_Action {
     public function openAction() {
         
         $courses_model = new Application_Model_Courses();
-        $id = 16;
+        $id = $this->_request->getParam("id");
         //get the info of the course in array
         $course_info = $courses_model->getCourseById(($id));
 

@@ -30,7 +30,8 @@ $DOCUMENT_ROOT = $_SERVER['DOCUMENT_ROOT'];
                 <li ><a href="<?php echo $this->baseUrl()?>/controlar/action/" >Home</a></li>
                 <li ><a href=""> about </a></li>
                 <li ><a href="<?php echo $this->baseUrl()?>#" > settings</a></li>
-                <li ><a href="<?php echo $this->baseUrl()?>#" > Requests </a></li>
+                <li ><a href="<?php echo $this->baseUrl()?>/Requests/list" > Requests </a></li>
                 <li ><a href="<?php echo $this->baseUrl()?>/Users/listuserid" > Profile </a></li>
+                
             </ul>
     </nav>

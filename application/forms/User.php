@@ -61,7 +61,7 @@ class Application_Form_User extends Zend_Form
         $file->setLabel("upload a photo: ");
         $file-> addValidator('Count', false, 1);
         $file->addValidator('Size', false, 102400);
-        $file->setDestination("/var/www/html/zendprojectcoursera/The-A-Team/public/image/");
+        $file->setDestination("/var/www/html/The-A-Team/public/images/users/");
         $file->setRequired();
         $file->addValidator('Extension', false, 'jpg,png,gif');
          
