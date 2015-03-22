@@ -3,6 +3,10 @@
 class ControlRoomController extends Zend_Controller_Action {
 
     public function init() {
+        $authorization = Zend_Auth::getInstance();
+        if (!$authorization->hasIdentity() && $this->_request->getActionName() != 'login') {
+            $this->redirect("Users/login");
+        }
 //        $contextSwitch=$this->_helper->getHelper('contextSwitch');
 //        $contextSwitch->addActionContext('admin','json')
 //                                ->initContext();

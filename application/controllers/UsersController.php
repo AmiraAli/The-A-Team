@@ -82,7 +82,7 @@ class UsersController extends Zend_Controller_Action
                         $auth =Zend_Auth::getInstance();
                         $storage = $auth->getStorage();
             //To save the needed data in session            
-$storage->write($authAdapter->getResultRowObject(array('email' , 'id' , 'name')));
+$storage->write($authAdapter->getResultRowObject(array('email' , 'id' , 'name','type')));
 
 
 

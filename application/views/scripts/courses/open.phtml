@@ -54,26 +54,32 @@
                 </div>
                 <?php
                 //check if the student have this course or not
-                $currentUser_id = 2;
+                $auth = Zend_Auth::getInstance();
+                $storage = $auth->getStorage();
+                $sessionRead = $storage->read();
+                $type = $sessionRead->type;
+                if ($type == "Student") {
+                    $currentUser_id = $sessionRead->id;
 
-                $currentUser_model = new Application_Model_UserCourse();
-                $all_courses = $currentUser_model->selectUserCourseByUserId($currentUser_id);
-                $flage = 0;
-                for ($i = 0; $i < count($all_courses); $i++) {
-                    if ($all_courses[$i]['Course_Id'] == $this->course_id) {
-                        $flage = 1;
+                    $currentUser_model = new Application_Model_UserCourse();
+                    $all_courses = $currentUser_model->selectUserCourseByUserId($currentUser_id);
+                    $flage = 0;
+                    for ($i = 0; $i < count($all_courses); $i++) {
+                        if ($all_courses[$i]['Course_Id'] == $this->course_id) {
+                            $flage = 1;
+                        }
                     }
-                }
-                if ($flage == 0) {
-                    ?>
-                    <button type="button" class="btn btn-primary pull-right" id="join" 
-                            onclick="Join('<?php echo $currentUser_id; ?>', '<?php echo $this->course_id; ?>')">Join Course</button>
-                            <?php
-                        } else {
-                            ?>
-                    <button type="button" class="btn btn-primary pull-right" id="join" 
-                            onclick="Join('<?php echo $currentUser_id; ?>', '<?php echo $this->course_id; ?>')">UnJoin Course</button>
-                            <?php
+                    if ($flage == 0) {
+                        ?>
+                        <button type="button" class="btn btn-primary pull-right" id="join" 
+                                onclick="Join('<?php echo $currentUser_id; ?>', '<?php echo $this->course_id; ?>')">Join Course</button>
+                                <?php
+                            } else {
+                                ?>
+                        <button type="button" class="btn btn-primary pull-right" id="join" 
+                                onclick="Join('<?php echo $currentUser_id; ?>', '<?php echo $this->course_id; ?>')">UnJoin Course</button>
+                                <?php
+                            }
                         }
                         ?>
             </div>
@@ -91,26 +97,32 @@
 
             <?php
             //check if the instructor have this course or not
-            $currentUser_id = 1;
+            $auth = Zend_Auth::getInstance();
+            $storage = $auth->getStorage();
+            $sessionRead = $storage->read();
+            $type = $sessionRead->type;
+            if ($type == "Instructor") {
+                $currentUser_id = $sessionRead->id;
 
-            $currentUser_model = new Application_Model_UserCourse();
-            $all_courses = $currentUser_model->selectUserCourseByUserId($currentUser_id);
-            $flage_instructor = 0;
-            for ($i = 0; $i < count($all_courses); $i++) {
-                if ($all_courses[$i]['Course_Id'] == $this->course_id) {
-                    $flage_instructor = 1;
+                $currentUser_model = new Application_Model_UserCourse();
+                $all_courses = $currentUser_model->selectUserCourseByUserId($currentUser_id);
+                $flage_instructor = 0;
+                for ($i = 0; $i < count($all_courses); $i++) {
+                    if ($all_courses[$i]['Course_Id'] == $this->course_id) {
+                        $flage_instructor = 1;
+                    }
                 }
-            }
 
-            if ($flage_instructor == 1) {
-                ?>
-                <div class="row col-md-offset-0">
-                    <button type="button" class="btn btn-primary" id="addMaterial_btn">Add Materials</button></br>
-                    <div class="row  col-md-6 panel panel-info" id="addMateriaForm">
-                        <?php echo $this->addMaterial_form; ?>
+                if ($flage_instructor == 1) {
+                    ?>
+                    <div class="row col-md-offset-0">
+                        <button type="button" class="btn btn-primary" id="addMaterial_btn">Add Materials</button></br>
+                        <div class="row  col-md-6 panel panel-info" id="addMateriaForm">
+                            <?php echo $this->addMaterial_form; ?>
+                        </div>
                     </div>
-                </div>
-                <?php
+                    <?php
+                }
             }
             ?>
 
@@ -135,11 +147,16 @@
                                         ?>
                                         <a class="list-group-item-info"  href="<?php echo $this->baseUrl() ?>/Courses/show/id/<?php echo $matrial_info[$j]['id']; ?>"><?php echo $matrial_info[$j]['name']; ?> </a>
                                         <?php
-                                        if($flage_instructor){
-                                        ?>
-                                        <a class="btn pull-right col-md-1" id="alert" href="<?php echo $this->baseUrl() ?>/Courses/delete/id/<?php echo $matrial_info[$j]['id']; ?>/courseid/<?php echo $this->course_id; ?>">x</a></br></br>
-                                        <?php
-                                        }else{
+                                        if ($type == "Instructor") {
+
+                                            if ($flage_instructor) {
+                                                ?>
+                                                <a class="btn pull-right col-md-1" id="alert" href="<?php echo $this->baseUrl() ?>/Courses/delete/id/<?php echo $matrial_info[$j]['id']; ?>/courseid/<?php echo $this->course_id; ?>">x</a></br></br>
+                                                <?php
+                                            } else {
+                                                echo"</br></br>";
+                                            }
+                                        } else {
                                             echo"</br></br>";
                                         }
                                     }

@@ -1,3 +1,10 @@
+<?php
+$auth = Zend_Auth::getInstance();
+$storage = $auth->getStorage();
+$sessionRead = $storage->read();
+$type = $sessionRead->type;
+if ($type == "Admin") {
+?>
 <script>
     $(document).ready(function () {
         
@@ -29,3 +36,14 @@
    ?>
 </div>
     </center>
+<?php
+} else {
+    ?>
+    <div class="Container">
+        <div class="panel  col-md-5  col-md-offset-4 warning_alert ">
+            <div class="panel-heading "> <h1><center>Not Permitted!!</center></h1></div>
+        </div>
+    </div>
+    <?php
+}
+?>
