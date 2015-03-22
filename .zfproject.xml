@@ -20,7 +20,6 @@
           <actionMethod actionName="open"/>
           <actionMethod actionName="delete"/>
           <actionMethod actionName="select"/>
-          
         </controllerFile>
         <controllerFile controllerName="Category">
           <actionMethod actionName="index"/>
@@ -72,6 +71,7 @@
         <formFile formName="Matrial"/>
         <formFile formName="Search"/>
         <formFile formName="AddCategory"/>
+        <formFile formName="Comment"/>
       </formsDirectory>
       <layoutsDirectory>
         <layoutScriptsDirectory>
@@ -108,19 +108,15 @@
           <actionMethod actionName="listcommentbyuser"/>
           <actionMethod actionName="listcommentbyid"/>
         </controllerFile>
-<<<<<<< HEAD
-      </controllersDirectory>
-      <formsDirectory>
-        <formFile formName="User"/>
-        <formFile formName="Request"/>
-      </formsDirectory>
-=======
+        <formsDirectory>
+          <formFile formName="User"/>
+          <formFile formName="Request"/>
+        </formsDirectory>
         <modelFile modelName="Categories"/>
         <modelFile modelName="CourseCategory"/>
         <modelFile modelName="CourseTag"/>
       </modelsDirectory>
       <formsDirectory enabled="false"/>
->>>>>>> cacd574556753e2eb710c82cbf72395ab7cbbdc2
       <layoutsDirectory enabled="false"/>
       <modelsDirectory>
         <modelFile modelName="Tags"/>

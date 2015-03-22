@@ -37,11 +37,15 @@ class Application_Form_Matrial extends Zend_Form {
         $file->setLabel("Upload Material: ");
         $file->setAttrib('class', 'form-control');
         $file->setDestination('/var/www/html/The-A-Team/public/materials');
-        $file->addValidator("Extension", false, array('txt', 'csv','text','ODF','PDF'));
+        $file->addValidator("Extension", false, array('txt', 'ODP','ODT','text',
+                                                    'ODF','PDF','PPT','MP3','FLV',
+                                                      'x-ms-wmv','MP4', 'WebM', '3GP','mpeg','mp4'));
+        $file->addValidator('Size', false, '15MB');
         $file->setRequired();
 
         //Add matrial
         $submit = new Zend_Form_Element_Submit("submit");
+        $submit->setAttrib("id", "alert");
         $submit->setAttrib("class", "btn btn-primary");
 
         $this->addElements(array($matrialname, $type, $file, $submit));

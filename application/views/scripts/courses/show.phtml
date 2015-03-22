@@ -1,0 +1,120 @@
+
+<html>
+    <head>
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script src ="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+        <script src="../../../../public/js/openMaterial.js"></script>
+        <script src="../../../../public/js/showMaterial.js"></script>
+    </head> 
+    <body>
+        <div class="container">
+            <div class="row">
+                <a href="<?php echo $this->baseUrl() ?>/Courses/open/id/<?php echo $this->courseid; ?> " id="alert" class="btn">Back To Course</a>
+                <div class=" col-md-10 col-md-offset-1 panel panel-primary" >
+                    <div class="panel-heading" id="alert">
+                        <h1> <center>
+                                <?php echo $this->name; ?>
+                        </h1></center>
+                    </div>
+                    <div class="panel-body">
+                        <center>
+                            <?php
+                            if ($this->type == "vidio") {
+                                ?>
+                                <video <?php if($this->downloadable){echo "controls";}?>   preload="auto" loop width="500" height="300">
+
+                                    <source src="../../../../public/materials/<?php echo $this->path; ?>" type="audio/mpeg"  />
+                                    <source src="../../../../public/materials/<?php echo $this->path; ?>" type="video/mp4"  />
+                                    <p>Video is not supported</p>
+                                </video>
+
+
+                                <?php
+                            } else {
+//                $file = "../../../../public/materials/$this->path";
+//
+//                if (!file_exists($file))
+//                    die("I'm sorry, the file doesn't seem to exist.");
+//
+//                $type = filetype($file);
+//                // Get a date and timestamp
+//                $today = date("F j, Y, g:i a");
+//                $time = time();
+//                // Send file headers
+//                header("Content-type: $type");
+//                header("Content-Disposition: attachment;filename=$this->path");
+//                header("Content-Transfer-Encoding: binary");
+//                header('Pragma: no-cache');
+//                header('Expires: 0');
+//                // Send the file contents.
+//                set_time_limit(0);
+//                readfile($file);
+                                
+                                if($this->downloadable){
+                                ?> 
+                                <a href="../../../../public/materials/<?php echo $this->path; ?>">Show</a>
+                                <?php
+                                }else{
+                                    echo "Not Allowed!!";
+                                }
+                            }
+                            ?>
+                        </center>
+                    </div>
+                </div>
+            </div>
+            <div class="row" >
+                <h2 class="title" > Comments</h2><hr class="title">
+            </div>
+            <div class="row">
+
+                <?php
+                if ($this->comments) {
+                    for ($i = 0; $i < count($this->comments); $i++) {
+                        ?>
+                        <div class=" row panel panel-primary" id="comment_<?php echo $this->comments[$i]['id']; ?>"> 
+                            <?php
+                            //check if this is the user of that comment or not
+                            $userid = $this->comments[$i]['User_Id'];
+
+                            $user_model = new Application_Model_Users();
+                            $user_info = $user_model->getUserById($userid);
+                            ?>
+                            <img src="../../../../public/images/users/<?php echo $user_info[0]['image']; ?>"
+
+                                 class="img-responsive img-rounded" style=" float: left;" width="50px" height="50px">
+                            <h4 class="title" > <?php echo $user_info[0]['name'] ?></h4>
+
+                            <!-- check from session that this user can edit or delete his comment only -->
+
+                            <?php
+                            $currentUser_id = 2;
+
+                            if ($currentUser_id == $userid) {
+                                ?>
+                                <a class="btn    pull-right" id="alert" href="<?php echo $this->baseUrl() ?>/Comments/delete/id/ <?php echo $this->comments[$i]['id']; ?>/materialid/<?php echo $this->materialid; ?>">Delete</a>
+                                <a class="btn   pull-right" id="alert"  onclick="editComment(<?php echo $this->comments[$i]['id']; ?>)">Edit</a>
+                                <p id="<?php echo $this->comments[$i]['id']; ?>"> <?php echo $this->comments[$i]['body']; ?></p>
+                                <?php
+                            }
+                            ?>
+                        </div>
+
+                        <?php
+                    }
+                } else {
+                    echo "No Comments Yet!!";
+                }
+                ?>
+                <h4 class="title"> leave your comment here </h4>
+                <?php
+                echo $this->comment_form;
+                ?>
+
+            </div>
+
+        </div>
+
+    </body>
+</html>
