@@ -13,8 +13,38 @@
 </style>
 <script type="text/javascript" >
     $(document).ready(function () {
+        ///////////////////////////////////////Slide Down///////////////////////////////////////
 
-        $('.delete').click(function () {
+        $("#user").click(function () {
+            $("#userp").slideToggle("slow");
+        });
+        $("#course").click(function () {
+            $("#coursep").slideToggle("slow");
+        });
+        $("#addtype").click(function () {
+            $("#typep").slideToggle("slow");
+        });
+        $("#cat").click(function () {
+            $("#catp").slideToggle("slow");
+        });
+
+
+        $("#euser").click(function () {
+            $("#euserp").slideToggle("slow");
+        });
+        $("#ecourse").click(function () {
+            $("#ecoursep").slideToggle("slow");
+        });
+        $("#etype").click(function () {
+            $("#etypep").slideToggle("slow");
+        });
+        $("#ecat").click(function () {
+            $("#ecatp").slideToggle("slow");
+        });
+
+///////////////////////////////////////Slide Down///////////////////////////////////////
+// delete
+        $('.btn-danger').click(function () {
             var xid = $(this).closest('tr').attr('id');
             var tableid = $(this).closest('table').attr('id');
             alert(tableid + ':' + xid)
@@ -28,8 +58,7 @@
                     process: 'del',
                 },
                 success: function (data) {
-                    window.location.replace("http://localhost/The-A-Team/public/control-room/admin");
-                }
+window.location.replace('admin');                }
             });
         });
         $('.myhide').click(function () {
@@ -47,12 +76,11 @@
                     //status:status,
                 },
                 success: function (data) {
-                    window.location.replace("http://localhost/The-A-Team/public/control-room/admin");
-                }
+window.location.replace('admin');                }
 
             });
         });
-        $('.ban').click(function () {
+        $('.btn-info').click(function () {
             var id = $(this).closest('tr').attr('id');
             var status = $('.active').html();
             status = 1 - status;
@@ -66,7 +94,7 @@
                     status: status,
                 },
                 success: function (data) {
-                    window.location.replace("http://localhost/The-A-Team/public/control-room/admin");
+                   window.location.replace('admin');
                 }
 
             });
@@ -85,48 +113,129 @@
                     table: table,
                 },
                 success: function (data) {
-                    window.location.replace("http://localhost/The-A-Team/public/control-room/admin");
                 }
 
             });
-        });
-//            $('#click1').click(function () {
-//    $('#down1').slideDown();
-//    });
-        $("#user").click(function () {
-            $("#userp").slideToggle("slow");
-        });
-        $("#course").click(function () {
-            $("#coursep").slideToggle("slow");
-        });
-        $("#type").click(function () {
-            $("#typep").slideToggle("slow");
-        });
-        $("#cat").click(function () {
-            $("#catp").slideToggle("slow");
+                        window.location.replace('admin');
         });
 
+//        
+        $('#addcourse').click(function () {
+           
+             if( $('#title').val()=='' ||  $('#desc').val()=='' ||  $('#duration').val()=='' ){
+                alert('Failed to save');
+            }
 
-        $("#edituser").click(function () {
-            $("#edituserp").slideToggle("slow");
         });
-        $("#editcourse").click(function () {
-            $("#editcoursep").slideToggle("slow");
-        });
-        $("#edittype").click(function () {
-            $("#edittypep").slideToggle("slow");
-        });
-        $("#editcat").click(function () {
-            $("#editcatp").slideToggle("slow");
-        });
+//         $('#addcourse').click(function () {
+//            alert($('#day').val()+'/'+$('#month').val()+'/'+$('#year').val());
+//            
+//            
+//
+//            $.ajax({
+//                url: "http://localhost/The-A-Team/public/control-room/admin",
+//                data: {
+//                    title: $('#title').val(),
+//                    desc: $('#desc').val(),
+//                    duration: $('#duration').val(),
+//                    startdate:$('#day').val()+'/'+$('#month').val()+'/'+$('#year').val()+'  00:00:00' ,
+//                    process: 'addcourse',
+//                },
+//                type: "POST",
+//                dataType: 'json',
+//                success: function (data) {
+//                }
+//
+//            });
+//             if( $('#title').val()=='' ||  $('#desc').val()=='' ||  $('#duration').val()=='' ){
+//                alert('Failed to save');
+//            }
+//
+//        });
+        $('#addcategory').click(function () {
+           
+            if($('#category').val()==''){
+                alert('Failed to save');
+            }
 
+        });
+//         $('#addcategory').click(function () {
+//            //alert($('#day').val()+'/'+$('#month').val()+'/'+$('#year').val());
+//            $.ajax({
+//                url: "http://localhost/The-A-Team/public/control-room/admin",
+//                data: {
+//                    name: $('#category').val(),
+//                    process: 'addcategory',
+//                },
+//                type: "POST",
+//                dataType: 'json',
+//                success: function (data) {
+//                }
+//               
+//            });
+//            if($('#category').val()==''){
+//                alert('Failed to save');
+//            }
+//
+//        });
+         $('#newtype').click(function () {
+            alert($('#myt').val());
+            $.ajax({
+                url: "http://localhost/The-A-Team/public/control-room/admin",
+                data: {
+                    type: $('#myt').val(),
+                    process: 'addtype',
+                },
+                type: "POST",
+                dataType: 'json',
+                success: function (data) {
+                }
+               
+            });
+            if($('#myt').val()==''){
+                alert('Failed to save');
+            }
+
+        });
+        
+        $('#adduser').click(function () {
+            
+            
+            if( $('#name').val()=='' ||  $('#email').val()=='' ||  $('#password').val()=='' ||  $('#confirmpassword').val()=='' ||  $('#file').val()==''){
+                alert('Failed to save');
+            }
+
+        });
+        
+        $('.btn-primary').click(function(){
+            var id = $(this).closest('tr').attr('id');
+            var table =$(this).closest('table').attr('id');
+            switch(table){
+                case 'courses':
+                window.location.replace('editcourse?id='+id);    
+                break;
+            case 'users':
+                window.location.replace('edituser?id='+id);
+                break;
+            case 'materials':
+                window.location.replace('editmaterial?id='+id);
+                break;
+            case 'categories':
+                window.location.replace('editcategory?id='+id);
+                break;
+            case 'comments':
+                window.location.replace('editcomment?id='+id);
+                break;
+            }
+        
+            
+        });
 
     });
 
 </script>
 
 <div id="view-content">
-
 
 </div>
 <style> 
@@ -140,73 +249,50 @@
     .panel {
         padding: 10px;
         display: none;
+        width: 300px;
+    }
+    .table-hover td,th{
+        text-align: center;
         width: 200px;
+        height:50px;
+    }
+    td{
+        text-align: center; 
     }
 </style>
-
-<table>
+<center>
+<table >
     <tr>
         <td>
             <div ><a href="#" class="flip" id="user">Add User</a></div>
             <div class="panel" id="userp"><?php
-                echo $this->addcategory;
-                ?></div>	
+echo $this->adduser;
+?></div>	
         </td>
-        <td>
+        <td >
             <div ><a href="#" class="flip" id="course">Add Course</a></div>
             <div class="panel"  id="coursep"><?php
-                echo $this->addcategory;
-                ?></div>	
+                echo $this->addcourse;
+?></div>	
         </td>
         <td>
-            <div ><a href="#" class="flip" id="type">Add Type</a></div>
+            <div ><a href="#" class="flip" id="addtype">Add Type</a></div>
             <div class="panel"  id="typep"><?php
-                echo $this->addcategory;
-                ?></div>	
+                echo $this->addtype;
+?></div>	
         </td>
         <td>
             <div ><a href="#" class="flip" id="cat">Add Category</a></div>
             <div class="panel"  id="catp"><?php
                 echo $this->addcategory;
-                ?></div>	
-        </td>
-    </tr>
-    <tr>
- <!--<excuse me>-->
-        <td><br></td><td><br></td><td><br></td><td><br></td> 
-  <!--<excuse me>-->
-    </tr>
-    <tr>
-        <td>
-            <div ><a href="#" class="flip" id="edituser">Edit User</a></div>
-            <div class="panel" id="edituserp"><?php
-                echo $this->addcategory;
-                ?></div>	
-        </td>
-        <td>
-            <div ><a href="#" class="flip" id="editcourse">Edit Course</a></div>
-            <div class="panel"  id="editcoursep"><?php
-                echo $this->addcategory;
-                ?></div>	
-        </td>
-        <td>
-            <div ><a href="#" class="flip" id="edittype">Edit Type</a></div>
-            <div class="panel"  id="edittypep"><?php
-                echo $this->addcategory;
-                ?></div>	
-        </td>
-        <td>
-            <div ><a href="#" class="flip" id="editcat">Edit Category</a></div>
-            <div class="panel"  id="editcatp"><?php
-                echo $this->addcategory;
-                ?></div>	
+?></div>	
         </td>
     </tr>
 </table>
+    
 
-<!--<a href="#"    class="example-defaults" >Add Category</a>-->
 <?php
 echo '<br       /><br       />';
 echo $this->search;
 echo '<br       />';
-?>
+?></center>

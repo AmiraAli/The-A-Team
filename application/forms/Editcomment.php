@@ -1,19 +1,19 @@
 <?php
 
-class Application_Form_EditCategory extends Zend_Form {
+class Application_Form_Editcomment extends Zend_Form
+{
 
     public function init() {
         $this->setMethod("POST");
 
         $this->addElement('hidden', 'process', array(
-            'value' => 'editcategory'
+            'value' => 'editcomment'
         ));
 
-        $this->addElement('text', 'name', array(
+        $this->addElement('text', 'body', array(
             'required' => true,
-            'label' => 'Category',
+            'label' => 'Body',
         ));
-        
         //Add the submit button
         $this->addElement('submit', 'submit', array(
             'ignore' => true,
@@ -21,4 +21,6 @@ class Application_Form_EditCategory extends Zend_Form {
         ));
     }
 
+
 }
+

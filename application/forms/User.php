@@ -4,8 +4,9 @@ class Application_Form_User extends Zend_Form
 {
 
     public function init()
-    {$this->setAttrib("class", "form-inline");
+    {  $this->setAttrib("class", "form-inline");
         $this->setMethod("post");
+        
         $username = new Zend_Form_Element_Text("name");
         $username->setLabel("Username: ");
         $username->setRequired();

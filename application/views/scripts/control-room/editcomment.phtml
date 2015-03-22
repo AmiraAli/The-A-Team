@@ -1,0 +1,30 @@
+<script>
+    $(document).ready(function () {
+        
+        $('#submit').click(function () {
+            if($('#bdoy').val()=='' ){
+                
+            alert("Failed to save");
+        }
+        });
+    });
+</script>
+<style> 
+    
+    .table-hover td,th{
+        text-align: center;
+        width: 200px;
+        height:50px;
+    }
+    td{
+        text-align: center; 
+    }
+</style>
+<br /><br />
+<center>
+<div id="view-content">
+   <?php
+   echo $this->form;
+   ?>
+</div>
+    </center>
