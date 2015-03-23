@@ -8,11 +8,10 @@ class UsersController extends Zend_Controller_Action
     {
         
         
-          $authorization =Zend_Auth::getInstance();
-    if(!$authorization->hasIdentity() && $this->_request->getActionName()!='login'&&$this->_request->getActionName()!='add'&&$this->_request->getActionName()!='listusertype'){
-         $this->redirect("Users/login");
-    
-    }
+          $authorization = Zend_Auth::getInstance();
+        if (!$authorization->hasIdentity() && $this->_request->getActionName() != 'login' && $this->_request->getActionName() != 'add' && $this->_request->getActionName() != 'listusertype') {
+            $this->redirect("Users/login");
+        }
     }
 
     public function indexAction()
@@ -55,12 +54,6 @@ class UsersController extends Zend_Controller_Action
           // To Check the validation of form 
             if($user_form->isValid($this->getRequest()->getParams())){
 
-
-
-   
-
-   
-
                 //get value of mail from post
                 $email = $user_form->getvalue("email");
                 // get value of Password from post
@@ -83,16 +76,20 @@ $email_info=$user_model->getUserByEmail($email);
                         $auth =Zend_Auth::getInstance();
                         $storage = $auth->getStorage();
             //To save the needed data in session            
-$storage->write($authAdapter->getResultRowObject(array('email' , 'id' , 'name','type')));
+  $storage->write($authAdapter->getResultRowObject(array('email' , 'id' , 'name','type','image')));
 
 
 
 // to redirect to the correct page
-  $this->redirect("Users/listuserid");}
+
+  $this->redirect("home/home");}
   else{
       $element = $user_form->getElement("password")->addErrorMessage("you arenot allowed to login");
  
                     $element->markAsError();}
+
+                    $this->redirect("home/home");
+
                 } else {
                     //if password and mail not correct together add this error message  
                     $element = $user_form->getElement("password")->addErrorMessage("wrong mail or password");

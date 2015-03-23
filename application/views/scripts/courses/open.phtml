@@ -192,9 +192,11 @@
                             if ($relatedCourses_ids[$j]["courseid"] != $this->course_id) {
                                 $relatedCourse_model = new Application_Model_Courses();
                                 $relatedCourse_info = $relatedCourse_model->getCourseById($relatedCourses_ids[$j]["courseid"]);
-                                ?>
-                                <center><a  class="list-group-item-info" href="<?php echo $this->baseUrl() ?>/Courses/open/id/<?php echo $relatedCourses_ids[$j]["courseid"]; ?>"><?php echo $relatedCourse_info[0]['title']; ?> </a></center></br>
-                                    <?php
+                                if ($relatedCourse_info[0]['hidden'] == 0) {
+                                    ?>
+                                    <center><a  class="list-group-item-info" href="<?php echo $this->baseUrl() ?>/Courses/open/id/<?php echo $relatedCourses_ids[$j]["courseid"]; ?>"><?php echo $relatedCourse_info[0]['title']; ?> </a></center></br>
+                                        <?php
+                                    }
                                 }
                             }
                         }

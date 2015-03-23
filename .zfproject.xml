@@ -1,4 +1,4 @@
-﻿<?xml version="1.0"?>
+<?xml version="1.0"?>
 <projectProfile type="default" version="1.12.6">
   <projectDirectory>
     <projectProfileFile filesystemName=".zfproject.xml"/>
@@ -72,12 +72,14 @@
           <actionMethod actionName="editcategory"/>
           <actionMethod actionName="editcomment"/>
         </controllerFile>
+        <controllerFile controllerName="Home">
+          <actionMethod actionName="index"/>
+        </controllerFile>
       </controllersDirectory>
       <formsDirectory>
         <formFile formName="Matrial"/>
         <formFile formName="Search"/>
         <formFile formName="AddCategory"/>
-
         <formFile formName="AddUser"/>
         <formFile formName="AddCourse"/>
         <formFile formName="AddType"/>
@@ -87,7 +89,6 @@
         <formFile formName="EditCategory"/>
         <formFile formName="Editcomment"/>
         <formFile formName="Comment"/>
-
       </formsDirectory>
       <layoutsDirectory>
         <layoutScriptsDirectory>
@@ -355,6 +356,9 @@
           </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="ControlRoom">
             <viewScriptFile forActionName="editcomment"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Home">
+            <viewScriptFile forActionName="index"/>
           </viewControllerScriptsDirectory>
         </viewScriptsDirectory>
         <viewHelpersDirectory/>
