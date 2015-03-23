@@ -86,6 +86,9 @@
           <actionMethod actionName="facebookauth"/>
           <actionMethod actionName="facebookcb"/>
         </controllerFile>
+        <controllerFile controllerName="Home">
+          <actionMethod actionName="index"/>
+        </controllerFile>
       </controllersDirectory>
       <formsDirectory>
         <formFile formName="Matrial"/>
@@ -368,6 +371,7 @@
           <viewControllerScriptsDirectory forControllerName="ControlRoom">
             <viewScriptFile forActionName="editcomment"/>
           </viewControllerScriptsDirectory>
+<<<<<<< HEAD
           <viewControllerScriptsDirectory forControllerName="Api">
             <viewScriptFile forActionName="index"/>
           </viewControllerScriptsDirectory>
@@ -392,6 +396,11 @@
           <viewControllerScriptsDirectory forControllerName="Facebook">
             <viewScriptFile forActionName="facebookcb"/>
           </viewControllerScriptsDirectory>
+=======
+          <viewControllerScriptsDirectory forControllerName="Home">
+            <viewScriptFile forActionName="index"/>
+          </viewControllerScriptsDirectory>
+>>>>>>> 636b83ddae52c156a335ce4aeace254500020112
         </viewScriptsDirectory>
         <viewHelpersDirectory/>
         <viewFiltersDirectory enabled="false"/>

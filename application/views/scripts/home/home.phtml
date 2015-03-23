@@ -1,0 +1,100 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script src ="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    </head> 
+    <body>
+        <div class="container">
+            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+
+                <h1 class="page-header title">
+                    The-A-Team
+                </h1>
+            </div>
+            <div class="col-md-3">
+                <div class="panel panel-primary" >
+                    <div class="panel-heading" id="alert">
+                        <h3 class="panel-title">All Categories</h3>
+                    </div>
+                    <div class="panel-body title">
+                        <?php
+                        for ($i = 0; $i < count($this->categories_info); $i++) {
+                            ?>
+
+                            <div class="dropdown">
+                                <button class="btn btn-default dropdown-toggle" type="button" id="alert" data-toggle="dropdown"><?php echo $this->categories_info[$i]['name'] ?>
+                                    <span class="caret"></span></button> </br>
+                                <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="menu1">
+                                    <?php
+                                    $courseCategory_model = new Application_Model_CourseCategory();
+                                    $courses_info = $courseCategory_model->getCourseCategoryByCategoryId($this->categories_info[$i]['id']);
+
+                                    for ($j = 0; $j < count($courses_info); $j++) {
+
+                                        $course_model = new Application_Model_Courses();
+                                        $course_data = $course_model->getCourseById($courses_info[$j]['courseid']);
+                                        if ($course_data[0]['hidden'] == 0) {
+                                            ?>
+
+                                            <li role="presentation"><a role="menuitem" tabindex="-1" href="<?php echo $this->baseUrl() ?>/Courses/open/id/<?php echo $course_data[0]['id']; ?>"><?php echo $course_data[0]['title']; ?></a></li>
+
+                                            <?php
+                                        }
+                                    }
+                                    ?>    
+
+                                </ul>
+                            </div>
+
+                            <?php
+                        }
+                        ?>
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-8">
+
+                <?php
+                for ($i = 0; $i < count($this->categories_limited); $i++) {
+                    ?>
+
+                    <div class="panel panel-primary col-md-5 col-md-offset-1 " >
+                        <div class="panel-heading" id="alert">
+                            <h3 class="panel-title"><?php echo $this->categories_limited[$i]['name']; ?></h3>
+                        </div>
+                        <div class="panel-body title">
+                            <?php
+                            //select 3 courses only in each category
+
+                            $courseCategory_model = new Application_Model_CourseCategory();
+                            $courses_info = $courseCategory_model->getCourseCategoryByCategoryIdLimited($this->categories_limited[$i]['id'], 3);
+                            for ($j = 0; $j < count($courses_info); $j++) {
+
+                                $course_model = new Application_Model_Courses();
+
+                                $course_data = $course_model->getCourseById($courses_info[$j]['courseid']);
+                                if ($course_data[0]['hidden'] == 0) {
+                                    ?>
+                                    <a href="<?php echo $this->baseUrl() ?>/Courses/open/id/<?php echo $courses_info[$j]['courseid']; ?>"><?php echo $course_data[0]['title'] ?></a></br></br>
+                                    <?php
+                                }
+                            }
+                            ?>
+                        </div>
+                    </div>
+
+                    <?php
+                }
+                ?>
+
+            </div>
+        </div>
+    </body>
+</html>
+
+<

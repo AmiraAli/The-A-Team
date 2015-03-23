@@ -32,6 +32,14 @@ class Application_Model_CourseCategory extends Zend_Db_Table_Abstract
         return $this->fetchAll($select)->toArray();
     }
     
+    // get CourseCategory by id of category limited
+    function getCourseCategoryByCategoryIdLimited($id,$count){
+
+       $select=$this->select()->where(" categoryid = ?",$id)->limit($count);
+        return $this->fetchAll($select)->toArray();
+    }
+    
+    
     // delete CourseCategory by id of course 
     function deleteCourseCategoryByCourseId($CourseId){
         return $this->delete("CourseId=$CourseId ");
