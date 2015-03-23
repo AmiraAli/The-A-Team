@@ -97,48 +97,69 @@ class UsersController extends Zend_Controller_Action {
 
 
         // Get object from User form
-        $form = new Application_Form_User();
 
-        if ($this->_request->isPost()) {
-            if ($form->isValid($this->_request->getParams())) {
-                // Get Value from POST
-                $user_info = $form->getValues();
-                // set user type as Student
-                $user_info['type'] = 'Student';
-                // set default account as active
-                $user_info['active'] = '1';
-                // Take object from User model
-                $user_model = new Application_Model_Users();
-                // To not save confirm pasword in the Model Users table
-                unset($user_info['confirmpassword']);
+        $form  = new Application_Form_User();
+        
+        if($this->_request->isPost()){
+           if($form->isValid($this->_request->getParams())){
+               // Get Value from POST
+               $user_info = $form->getValues();
+               // set user type as Student
+               $user_info['type']='Student';
+               // set default account as active
+               $user_info['active']='1';
+               // Take object from User model
+               $user_model = new Application_Model_Users();
+               // To not save confirm pasword in the Model Users table
+               unset($user_info['confirmpassword']);
+               
+               
+  //$originalFilename = pathinfo($form->image->getFileName());
+  
+    //$newFilename = $user_info['email'].  '.' . $originalFilename['extension'];
+   
+    //$form->image->addFilter('Rename', $newFilename);
+ 
 
-
-                //$originalFilename = pathinfo($form->image->getFileName());
-                //$newFilename = $user_info['email'].  '.' . $originalFilename['extension'];
-                //$form->image->addFilter('Rename', $newFilename);
-                // $user_info['image']=$newFilename;
-                //Call addUser function from model
-
-                $user_model->addUser($user_info);
-
-                $smtpoption = array('auth' => 'login',
-                    'username' => 'ATeamgroup2@gmail.com',
-                    'password' => 'coursera',
-                    'ssl' => 'ssl',
-                    'port' => 465
-                );
-                $sendmail = new Zend_Mail_Transport_Smtp("smtp.gmail.com", $smtpoption);
-                $mail = new Zend_Mail();
-                $mail->setBodyText('Thanks for registered ATeam ');
-                $mail->setFrom('ATeamgroup2@gmail.com', 'ATeam');
-                $mail->addTo($user_info['email'], $user_info['name']);
-                $mail->setSubject('confirmation message');
-                $mail->send($sendmail);
-            }
-        }
-        // send this form to view
-        $this->view->form = $form;
+              
+    
+   // $user_info['image']=$newFilename;
+               //Call addUser function from model
+      try{         
+    
+    
+    $smtpoption=array('auth'=>'login',
+            'username'=>'ATeamgroup2@gmail.com',
+            'password'=>'coursera',
+            'ssl' =>'ssl',
+            'port'=>465
+            
+            
+            );
+     $sendmail = new Zend_Mail_Transport_Smtp("smtp.gmail.com",$smtpoption);
+    $mail = new Zend_Mail();
+    $mail->setBodyText('Thanks for registered ATeam ');
+    $mail->setFrom('ATeamgroup2@gmail.com','ATeam');
+    $mail->addTo($user_info['email'],$user_info['name']);
+    $mail->setSubject('confirmation message');
+      $mail->send($sendmail);
+      $user_model->addUser($user_info);
+     
+      }
+      catch(Exception $e){
+          
+         $this->view->error=$e->getMessage();
+          
+      }
+                       
+           }
+       }
+       // send this form to view
+	$this->view->form = $form;
+         
+         
     }
+
 
     public function editAction() {
 
@@ -297,43 +318,56 @@ class UsersController extends Zend_Controller_Action {
             // To Check the validation of form 
             if ($user_form->isValid($this->getRequest()->getParams())) {
                 //get value of mail from post
-                $email = $user_form->getvalue("email");
-                $user_info = new Application_Model_Users();
-                $checkmail = $user_info->getUserByEmail($email);
-                if ($checkmail) {
 
+                $email=$user_form->getvalue("email");
+               $user_info=new Application_Model_Users();
+                $checkmail=$user_info->getUserByEmail($email);
+                if($checkmail){
+               try{
+                
+                $smtpoption=array('auth'=>'login',
+            'username'=>'ATeamgroup2@gmail.com',
+            'password'=>'coursera',
+            'ssl' =>'ssl',
+            'port'=>465
+            
+            
+            );
+     $sendmail = new Zend_Mail_Transport_Smtp("smtp.gmail.com",$smtpoption);
+    $mail = new Zend_Mail();
+    
+    $chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'; 
+    $randomString = ''; 
+    
+    for ($i = 0; $i < 5; $i++) {
+        $randomString .= $chars[rand(0, strlen($chars)-1)]; 
+        
+    }
+    
+   
+    
+    $mail->setBodyHtml('<a href="#">aya</a>');
+    $mail->setBodyText('hello'. $checkmail[0]['name'].'your new password is '.$randomString);
+    $mail->setFrom('ATeamgroup2@gmail.com','ATeam');
+    $mail->addTo($checkmail[0]['email'], $checkmail[0]['name']);
+    $mail->setSubject('Forget Password');
+    $mail->send($sendmail);
+     $user_model=new Application_Model_Users();
+    $data=array('id'=>$checkmail[0]['id'],'password'=>$randomString);
+    $user_model->editUser($data);
+                $this->redirect('Users/login');
+               }
+               catch(Exception $e){
+                    $this->view->error=$e->getMessage();
+                   
+               }
+                }
+                else{
+                  $element= $user_form->getElement("email")->addErrorMessage(" This Email not found");  
+                       
+                    $element->markAsError();  
+                    
 
-                    $smtpoption = array('auth' => 'login',
-                        'username' => 'ATeamgroup2@gmail.com',
-                        'password' => 'coursera',
-                        'ssl' => 'ssl',
-                        'port' => 465
-                    );
-                    $sendmail = new Zend_Mail_Transport_Smtp("smtp.gmail.com", $smtpoption);
-                    $mail = new Zend_Mail();
-
-                    $chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-                    $randomString = '';
-
-                    for ($i = 0; $i < 5; $i++) {
-                        $randomString .= $chars[rand(0, strlen($chars) - 1)];
-                    }
-
-                    $user_model = new Application_Model_Users();
-                    $data = array('id' => $checkmail[0]['id'], 'password' => $randomString);
-                    $user_model->editUser($data);
-
-                    $mail->setBodyHtml('<a href="#">aya</a>');
-                    $mail->setBodyText('hello' . $checkmail[0]['name'] . 'your new password is ' . $randomString);
-                    $mail->setFrom('ATeamgroup2@gmail.com', 'ATeam');
-                    $mail->addTo($checkmail['email'][0], $checkmail[0]['name']);
-                    $mail->setSubject('Forget Password');
-                    $mail->send($sendmail);
-                    $this->redirect('Users/login');
-                } else {
-                    $element = $user_form->getElement("email")->addErrorMessage(" This Email not found");
-
-                    $element->markAsError();
                 }
             }
         }
