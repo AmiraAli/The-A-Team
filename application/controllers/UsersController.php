@@ -8,8 +8,6 @@ class UsersController extends Zend_Controller_Action {
         $authorization = Zend_Auth::getInstance();
         if (!$authorization->hasIdentity() && $this->_request->getActionName() != 'login' && $this->_request->getActionName() != 'add' && $this->_request->getActionName() != 'listusertype') {
             $this->redirect("Users/login");
-        
-
         }
     }
 
@@ -17,54 +15,11 @@ class UsersController extends Zend_Controller_Action {
         
     }
 
-
-//    public function addUserByGoogle() {
-//        if ($this->_request->isPost()) {
-//            if ($form->isValid($this->_request->getParams())) {
-//                // Get Value from POST
-//                $user_info = $form->getValues();
-//                // set user type as Student
-//                $user_info['type'] = 'Student';
-//                // set default account as active
-//                $user_info['active'] = '1';
-//                // Take object from User model
-//                $user_model = new Application_Model_Users();
-//                // To not save confirm pasword in the Model Users table
-//                unset($user_info['confirmpassword']);
-//
-//
-//                //$originalFilename = pathinfo($form->image->getFileName());
-//                //$newFilename = $user_info['email'].  '.' . $originalFilename['extension'];
-//                //$form->image->addFilter('Rename', $newFilename);
-//                // $user_info['image']=$newFilename;
-//                //Call addUser function from model
-//
-//                $user_model->addUser($user_info);
-//
-//                $smtpoption = array('auth' => 'login',
-//                    'username' => 'ATeamgroup2@gmail.com',
-//                    'password' => 'coursera',
-//                    'ssl' => 'ssl',
-//                    'port' => 465
-//                );
-//                $sendmail = new Zend_Mail_Transport_Smtp("smtp.gmail.com", $smtpoption);
-//                $mail = new Zend_Mail();
-//                $mail->setBodyText('Thanks for registered ATeam ');
-//                $mail->setFrom('ATeamgroup2@gmail.com', 'ATeam');
-//                $mail->addTo($user_info['email'], $user_info['name']);
-//                $mail->setSubject('confirmation message');
-//                $mail->send($sendmail);
-//            }
-//        }
-//    }
-
-
     public function logoutAction() {
         $autho = zend_Auth::getInstance();
         $autho->clearIdentity();
         $this->redirect("Users/login");
     }
-
 
     public function loginAction() {
         //Get object from User form 
@@ -106,21 +61,13 @@ class UsersController extends Zend_Controller_Action {
                 $result = $authAdapter->authenticate();
                 // if the mail and password are correct 
                 if ($result->isValid()) {
-
-
-                    $auth = Zend_Auth::getInstance();
-                    $storage = $auth->getStorage();
-                    //To save the needed data in session            
-                    $storage->write($authAdapter->getResultRowObject(array('email', 'id', 'name', 'type','image')));
-
-$user_model=new Application_Model_Users();
-$email_info=$user_model->getUserByEmail($email);
-  if($email_info[0]['active']=="1"){                  
-                        $auth =Zend_Auth::getInstance();
+                    $user_model = new Application_Model_Users();
+                    $email_info = $user_model->getUserByEmail($email);
+                    if ($email_info[0]['active'] == "1") {
+                        $auth = Zend_Auth::getInstance();
                         $storage = $auth->getStorage();
-            //To save the needed data in session            
-  $storage->write($authAdapter->getResultRowObject(array('email' , 'id' , 'name','type','image')));
-
+                        //To save the needed data in session            
+                        $storage->write($authAdapter->getResultRowObject(array('email', 'id', 'name', 'type', 'image')));
 
 
 
@@ -141,59 +88,6 @@ $email_info=$user_model->getUserByEmail($email);
                     $element->markAsError();
                 }
             }
-//            /////////////////////////////////////////////////////////////////// google twitter facebook //////////////////////////////////////////////          
-//            $auth = TBS\Auth::getInstance();
-//            $providers = $auth->getIdentity();
-//
-//            if ($this->_hasParam('provider')) {
-//                $provider = $this->_getParam('provider');
-//                switch ($provider) {
-//                    case "facebook":
-//                        if ($this->_hasParam($paramName)) {
-//                            $adapter = new TBS\Auth\Adapter\Facebook(
-//                                    $this->_getParam('code'));
-//                            $result = $auth->authenticate($adapter);
-//                        }
-//                        if ($this->_hasParam('error')) {
-//                            throw new Zend_Controller_Action_Exception('Facebook login failed, response is: ' .
-//                            $this->_getParam('error'));
-//                        }
-//                        break;
-//                    case "twitter":
-//                        if ($this->_hasParam('oauth_token')) {
-//                            $adapter = new TBS\Auth\Adapter\Twitter($_GET);
-//                            $result = $auth->authenticate($adapter);
-//                        }
-//                        break;
-//                    case "google":
-//
-//                        if ($this->_hasParam('code')) {
-//                            $adapter = new TBS\Auth\Adapter\Google(
-//                                    $this->_getParam('code'));
-//                            $result = $auth->authenticate($adapter);
-//                        }
-//                        if ($this->_hasParam('error')) {
-//                            throw new Zend_Controller_Action_Exception('Google login failed, response is: ' .
-//                            $this->_getParam('error'));
-//                        }
-//                        break;
-//                }
-//                // What to do when invalid
-//                if (isset($result) && !$result->isValid()) {
-//                    $auth->clearIdentity($this->_getParam('provider'));
-//                    throw new Zend_Controller_Action_Exception('Login failed');
-//                } else {
-//                    $this->_redirect('/user/connect');
-//                }
-//            } else { // Normal login page
-//                $this->view->googleAuthUrl = TBS\Auth\Adapter\Google::getAuthorizationUrl();
-//                $this->view->googleAuthUrlOffline = TBS\Auth\Adapter\Google::getAuthorizationUrl(true);
-//                $this->view->facebookAuthUrl = TBS\Auth\Adapter\Facebook::getAuthorizationUrl();
-//                $this->view->twitterAuthUrl = \TBS\Auth\Adapter\Twitter::getAuthorizationUrl();
-//            }
-//
-//
-//            //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////   
         }
         // to send this form to view 
         $this->view->form = $user_form;
@@ -204,11 +98,7 @@ $email_info=$user_model->getUserByEmail($email);
 
         // Get object from User form
 
-        $form = new Application_Form_User();
-
-
-
-     
+        $form  = new Application_Form_User();
         
         if($this->_request->isPost()){
            if($form->isValid($this->_request->getParams())){
@@ -269,8 +159,6 @@ $email_info=$user_model->getUserByEmail($email);
          
          
     }
-
-
 
 
     public function editAction() {
@@ -492,3 +380,4 @@ $email_info=$user_model->getUserByEmail($email);
     }
 
 }
+
