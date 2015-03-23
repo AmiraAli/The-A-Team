@@ -7,7 +7,6 @@ class Application_Form_Search extends Zend_Form
     {
 
         $this->setMethod('post');
-
         $this->addElement('select','search',
         array(
         'label'=> 'Search:',
@@ -18,7 +17,7 @@ class Application_Form_Search extends Zend_Form
             'Categories'  => 'Categories',
             'Materials'=>'Materials',
             'Comments'=>'Comments',
-        ),
+        )
     )
 );
         

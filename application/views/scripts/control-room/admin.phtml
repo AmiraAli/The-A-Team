@@ -273,7 +273,7 @@ if ($type == "Admin") {
         .panel, .flip {
             padding: 5px;
             text-align: center;
-            background-color: #e5eecc;
+/*            background-color: #e5eecc;*/
             border: solid 1px #c3c3c3;
         }
 
@@ -296,25 +296,25 @@ if ($type == "Admin") {
         <table >
             <tr>
                 <td>
-                    <div ><a href="#" class="flip" id="user">Add User</a></div>
+                    <div ><a href="#" class="flip btn btn-primary" id="user">Add User</a></div> 
                     <div class="panel" id="userp"><?php
                         echo $this->adduser;
                         ?></div>	
                 </td>
                 <td >
-                    <div ><a href="#" class="flip" id="course">Add Course</a></div>
+                    <div ><a href="#" class="flip btn btn-primary " id="course">Add Course</a></div>
                     <div class="panel"  id="coursep"><?php
                         echo $this->addcourse;
                         ?></div>	
                 </td>
                 <td>
-                    <div ><a href="#" class="flip" id="addtype">Add Type</a></div>
+                    <div ><a href="#" class="flip btn btn-primary" id="addtype">Add Type</a></div>
                     <div class="panel"  id="typep"><?php
                         echo $this->addtype;
                         ?></div>	
                 </td>
                 <td>
-                    <div ><a href="#" class="flip" id="cat">Add Category</a></div>
+                    <div ><a href="#" class="flip  btn btn-primary" id="cat">Add Category</a></div>
                     <div class="panel"  id="catp"><?php
                         echo $this->addcategory;
                         ?></div>	
