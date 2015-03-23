@@ -6,6 +6,7 @@ class Application_Form_Request extends Zend_Form
     public function init()
     {
        $this->setMethod("post");
+       $this->setAction("http://localhost/The-A-Team/public/Requests/add");
         $request = new Zend_Form_Element_Textarea("desc");
         $request->setLabel("Request: ");
         $request->setRequired();

@@ -77,8 +77,9 @@ class UsersController extends Zend_Controller_Action
                 $result = $authAdapter->authenticate();
                 // if the mail and password are correct 
                 if ($result->isValid()) {
-
-                    
+$user_model=new Application_Model_Users();
+$email_info=$user_model->getUserByEmail($email);
+  if($email_info[0]['active']=="1"){                  
                         $auth =Zend_Auth::getInstance();
                         $storage = $auth->getStorage();
             //To save the needed data in session            
@@ -87,7 +88,11 @@ $storage->write($authAdapter->getResultRowObject(array('email' , 'id' , 'name','
 
 
 // to redirect to the correct page
-                    $this->redirect("Users/listuserid");
+  $this->redirect("Users/listuserid");}
+  else{
+      $element = $user_form->getElement("password")->addErrorMessage("you arenot allowed to login");
+ 
+                    $element->markAsError();}
                 } else {
                     //if password and mail not correct together add this error message  
                     $element = $user_form->getElement("password")->addErrorMessage("wrong mail or password");
@@ -343,10 +348,24 @@ $storage->write($authAdapter->getResultRowObject(array('email' , 'id' , 'name','
             );
      $sendmail = new Zend_Mail_Transport_Smtp("smtp.gmail.com",$smtpoption);
     $mail = new Zend_Mail();
-    $mail->setBodyText('<a href="#">aya</a> ');
+    
+    $chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'; 
+    $randomString = ''; 
+    
+    for ($i = 0; $i < 5; $i++) {
+        $randomString .= $chars[rand(0, strlen($chars)-1)]; 
+        
+    }
+    
+    $user_model=new Application_Model_Users();
+    $data=array('id'=>$checkmail[0]['id'],'password'=>$randomString);
+    $user_model->editUser($data);
+    
+    $mail->setBodyHtml('<a href="#">aya</a>');
+    $mail->setBodyText('hello'. $checkmail[0]['name'].'your new password is '.$randomString);
     $mail->setFrom('ATeamgroup2@gmail.com','ATeam');
-    $mail->addTo('eng.aya_gamal@outlook.com','aya');
-    $mail->setSubject('confirmation message');
+    $mail->addTo($checkmail['email'][0], $checkmail[0]['name']);
+    $mail->setSubject('Forget Password');
     $mail->send($sendmail);
                 $this->redirect('Users/login');
                 }

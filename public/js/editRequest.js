@@ -11,9 +11,9 @@
 
                 //open http request to send the parameters of comment to update
                 var xmlhttp = new XMLHttpRequest();
-                xmlhttp.open("POST", "../../../../public/Comments/edit/", true);
+                xmlhttp.open("POST", "../../../../public/Requests/edit/", true);
                 xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-                xmlhttp.send("id=" + id + "&body=" + body_edit.value +"&materialid=<?php echo $this->materialid; ?>");
+                xmlhttp.send("id=" + id + "&body=" + body_edit.value );
 
                 //on change check even the request send or not
 
@@ -27,35 +27,35 @@
                     console.log(xmlhttp.responseText);
 
                     //append the comment after update
-                    var comment_parent = document.getElementById("comment_" + id);
+                    var request_parent = document.getElementById("Request_" + id);
                     
-                    var comment_after_edit=document.createElement("p");
-                    comment_after_edit.setAttribute("id",id);
-                    comment_after_edit.innerHTML=body_edit.value;
+                    var request_after_edit=document.createElement("p");
+                    request_after_edit.setAttribute("id",id);
+                    request_after_edit.innerHTML=body_edit.value;
                     
                      body_edit.remove();
                     var button_after_edit = document.getElementById("btn_" + id);
                     button_after_edit.remove();
                     
-                    comment_parent.appendChild(comment_after_edit);
+                    request_parent.appendChild(request_after_edit);
                 };
             }
             /**
              * this function to edit the Comment
              * @returns {undefined}
              */
-            function editComment(id) {
+            function editRequest(id) {
 
                 //get the body of the comment and remove it
-                var comment = document.getElementById(id);
-                var comment_body = comment.innerHTML;
-                comment.remove();
+                var Request = document.getElementById(id);
+                var Request_body = Request.innerHTML;
+                Request.remove();
 
                 //create a text field by the body of the comment 
                 var textfield = document.createElement("input");
                 textfield.setAttribute("type", "text");
                 textfield.setAttribute("class","form-control");
-                textfield.setAttribute("value", comment_body);
+                textfield.setAttribute("value", Request_body);
                 textfield.setAttribute("id", "bodyEdit_" + id);
 
                 //create add button to add the comment
@@ -66,10 +66,10 @@
                 button.setAttribute("onclick", "add("+id+")");
 
                 //append the text area to the parent
-                var comment_parent = document.getElementById("comment_" + id);
+                var request_parent = document.getElementById("Request_" + id);
 
-                comment_parent.appendChild(textfield);
-                comment_parent.appendChild(button);
+                request_parent.appendChild(textfield);
+                request_parent.appendChild(button);
 
             }
             
