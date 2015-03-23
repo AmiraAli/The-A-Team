@@ -49,40 +49,25 @@ class RequestsController extends Zend_Controller_Action
 
     public function editAction()
     {  // get Id from URL 
+         echo "aya";
         $id = $this->_request->getParam("id");
+        
         // Get object from form Request
-       $form  = new Application_Form_Request();
-        if($this->_request->isPost()){
-           if($form->isValid($this->_request->getParams())){
+       $request_info=array();
                // Get value from Request POST
-            $request_info = $form->getValues();
+            $body = $this->_request->getParam("desc");
             // to send Id to database
            $request_info['id']=$id;
+            $request_info['desc']=$body;
            // Get object from model Requests
          $request_model=new Application_Model_Requests();
          // Calling edit request function to edit data
           $request_model->editRequest($request_info);
           // redirect to list Request
-                    $this->redirect("Requests/list");
+                   // $this->redirect("Requests/list");
 
 	 
-           }
-        }
-           if(!empty($id)){
-               //Get object from Requests model 
-            $request_model = new Application_Model_Requests();
-            // Select Request By Id
-            $request = $request_model->getRequestById($id);
-            
-            // populate data in the form to edit it 
-            $form->populate($request[0]);
-        } else
-       // redirect to list Requests
-        $this->redirect("Requests/list");
-        // Send this form to view
-       $this->view->form = $form;
-       // Render to add
-      $this->render('add');  
+          
         
     
     }
@@ -127,6 +112,8 @@ class RequestsController extends Zend_Controller_Action
         $this->view->requests =  $allRequest;
         // send id of current user to view
          $this->view->user =  $currentUser;
+         $form=new Application_Form_Request();
+         $this->view->form=$form;
     }
     public function listrequestidAction()
     {
