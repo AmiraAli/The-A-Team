@@ -36,7 +36,7 @@ class Application_Form_User extends Zend_Form
         $confirmpassword->setRequired();
         $confirmpassword->setLabel("ConfirmPassword: ");
         $confirmpassword->addValidator('Identical',false, array('token' => 'password'));
-        $confirmpassword->setAttrib("class", "form-control");  
+        $confirmpassword->setAttrib("class", "form-control title");  
 
         
         $country=new Zend_Form_Element_Select('country');
@@ -47,7 +47,7 @@ class Application_Form_User extends Zend_Form
         $country->addMultiOption("England", "England");
         $country->addMultiOption("Yonan", "Yonan");
         $country->setLabel("country: ");
-        $country->setAttrib("class", "form-control");  
+        $country->setAttrib("class", "form-control title");  
 
         
         $gender=new Zend_Form_Element_Radio("gender");
@@ -55,7 +55,7 @@ class Application_Form_User extends Zend_Form
         $gender->addMultiOption("female", "female");
         $gender->setLabel("Gender: ");
         $gender->setRequired();
-        $gender->setAttrib("class", "form-control");
+        $gender->setAttrib("class", "form-control title");
         
 
         $file= new Zend_Form_Element_File("image");
@@ -65,12 +65,13 @@ class Application_Form_User extends Zend_Form
         $file->setDestination("/var/www/html/The-A-Team/public/images/users/");
         $file->setRequired();
         $file->addValidator('Extension', false, 'jpg,png,gif');
-         
+        $file->setAttrib("class", "title");
 
         
         $submit=new Zend_Form_Element_Submit('submit');
         $submit->setValue("submit");
-        $submit->setAttrib("class", "btn btn-success btn-md col-md-offset-8");
+        $submit->setAttrib("class", "btn btn-primary  btn-md col-md-offset-8");
+        $submit->setAttrib("id", "alert");
         
         $this->addElements(array($username,$email,$password,$confirmpassword,$country,$gender,$file,$submit));
     }

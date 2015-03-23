@@ -16,10 +16,10 @@ class Application_Model_Courses extends Zend_Db_Table_Abstract
         return $row->save();
     }
     
-    // list all courses
+    // list all courses where the courses not hiden
     function listCourses(){
         
-        return $this->fetchAll()->toArray();
+        return $this->fetchAll(array("hidden = ?"=>'0'))->toArray();
     }
     
     // get course by id

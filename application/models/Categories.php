@@ -12,6 +12,11 @@ class Application_Model_Categories extends Zend_Db_Table_Abstract
         return $row->save();
     }
     
+    //list all categories limited 
+    function  listLimitedCategories($count){
+        $select=$this->select()->limit($count);
+        return $this->fetchAll($select)->toArray();
+    }
     // list all Categories
     function listCategories(){
         

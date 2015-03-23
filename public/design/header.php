@@ -31,21 +31,49 @@ $DOCUMENT_ROOT = $_SERVER['DOCUMENT_ROOT'];
 
 
     <nav class="navbar navbar-inverse" id="alert">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>                        
-            </button>
-            <a class="navbar-brand pull-left" >The-A-Team</a>
-        </div>
-        <div class="collapse navbar-collapse" id="myNavbar">
-            <ul class="nav navbar-nav">
-                <li ><a href="<?php echo $this->baseUrl() ?>#" >Home</a></li>
-                <?php
-                $auth = Zend_Auth::getInstance();
+        <div class="container-fluid">
+                <div class="navbar-header"> The-A-Team</div>
+                <div>
+                    <ul class="nav navbar-nav pull-right">
+                    <?php
+                 $auth = Zend_Auth::getInstance();
                 $storage = $auth->getStorage();
                 $sessionRead = $storage->read();
+                    if (!empty($sessionRead)) {
+                    ?>
+                        <li><a href="<?php echo $this->baseUrl() ?>/Users/logout" class="navbar-btn pull-right" > Logout </a></li>
+                        <?php
+                    }else{
+                    ?>
+                        <li><a href="<?php echo $this->baseUrl() ?>/Users/login" class="navbar-btn pull-right"  >Login </a>
+                        <li><a href="<?php echo $this->baseUrl() ?>/Users/add" class="navbar-btn pull-right" >Sin Up </a>
+                <?php
+                    }
+                    if (!empty($sessionRead)) {
+                    ?>
+                    <img src="<?php
+                    if (!empty($sessionRead)) {
+                        $image= $sessionRead->image;
+                        echo "/The-A-Team/public/images/users/" . $image;
+                    } 
+                    ?>" class="pull-right" width="50px" height="50px">
+                    <p class="navbar-text pull-right" style="color:#FFFFFF;"> Welcome 
+                        <?php
+                        if (!empty($sessionRead)) {
+                            $name= $sessionRead->name;
+                            echo " ".$name;
+                        } 
+                    }
+                        ?>
+                         </p>
+                    </ul>
+                </div>
+                
+
+                <ul class="nav navbar-nav">
+                        <li class=""><a  navbar-brand href="<?php echo $this->baseUrl() ?>/home/home" >Home</a></li>
+                <?php
+
                 if (!empty($sessionRead)) {
 
                     $type = $sessionRead->type;
@@ -67,11 +95,10 @@ $DOCUMENT_ROOT = $_SERVER['DOCUMENT_ROOT'];
                         <?php
                     }
                 }
-                if (!empty($sessionRead)) {
+                
                     ?>
-                    <li><a href="<?php echo $this->baseUrl() ?>/Users/logout" class="pull-right"> Logout </a></li>
-                        <?php
-                    }
-                    ?>
+                    
             </ul>
+        </div>
+        </div>
     </nav>
