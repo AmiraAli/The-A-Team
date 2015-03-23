@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0"?>
 <projectProfile type="default" version="1.12.6">
   <projectDirectory>
     <projectProfileFile filesystemName=".zfproject.xml"/>
@@ -371,7 +371,7 @@
           <viewControllerScriptsDirectory forControllerName="ControlRoom">
             <viewScriptFile forActionName="editcomment"/>
           </viewControllerScriptsDirectory>
-<<<<<<< HEAD
+
           <viewControllerScriptsDirectory forControllerName="Api">
             <viewScriptFile forActionName="index"/>
           </viewControllerScriptsDirectory>
@@ -396,11 +396,11 @@
           <viewControllerScriptsDirectory forControllerName="Facebook">
             <viewScriptFile forActionName="facebookcb"/>
           </viewControllerScriptsDirectory>
-=======
+
           <viewControllerScriptsDirectory forControllerName="Home">
             <viewScriptFile forActionName="index"/>
           </viewControllerScriptsDirectory>
->>>>>>> 636b83ddae52c156a335ce4aeace254500020112
+
         </viewScriptsDirectory>
         <viewHelpersDirectory/>
         <viewFiltersDirectory enabled="false"/>

@@ -131,6 +131,9 @@
                 } else {
                     echo "No Comments Yet!!";
                 }
+                $auth = Zend_Auth::getInstance();
+                $storage = $auth->getStorage();
+                $sessionRead = $storage->read();
                 if ($type == "Instructor" || $type == "Student") {
                     ?>
                     <h4 class="title"> leave your comment here </h4>

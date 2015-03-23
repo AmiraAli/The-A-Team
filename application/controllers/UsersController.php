@@ -17,7 +17,7 @@ class UsersController extends Zend_Controller_Action {
         
     }
 
-<<<<<<< HEAD
+
 //    public function addUserByGoogle() {
 //        if ($this->_request->isPost()) {
 //            if ($form->isValid($this->_request->getParams())) {
@@ -58,11 +58,13 @@ class UsersController extends Zend_Controller_Action {
 //        }
 //    }
 
+
     public function logoutAction() {
         $autho = zend_Auth::getInstance();
         $autho->clearIdentity();
         $this->redirect("Users/login");
     }
+
 
     public function loginAction() {
         //Get object from User form 
@@ -88,8 +90,6 @@ class UsersController extends Zend_Controller_Action {
             // To Check the validation of form 
             if ($user_form->isValid($this->getRequest()->getParams())) {
 
-=======
->>>>>>> 636b83ddae52c156a335ce4aeace254500020112
                 //get value of mail from post
                 $email = $user_form->getvalue("email");
                 // get value of Password from post
@@ -106,13 +106,13 @@ class UsersController extends Zend_Controller_Action {
                 $result = $authAdapter->authenticate();
                 // if the mail and password are correct 
                 if ($result->isValid()) {
-<<<<<<< HEAD
+
 
                     $auth = Zend_Auth::getInstance();
                     $storage = $auth->getStorage();
                     //To save the needed data in session            
                     $storage->write($authAdapter->getResultRowObject(array('email', 'id', 'name', 'type','image')));
-=======
+
 $user_model=new Application_Model_Users();
 $email_info=$user_model->getUserByEmail($email);
   if($email_info[0]['active']=="1"){                  
@@ -120,20 +120,20 @@ $email_info=$user_model->getUserByEmail($email);
                         $storage = $auth->getStorage();
             //To save the needed data in session            
   $storage->write($authAdapter->getResultRowObject(array('email' , 'id' , 'name','type','image')));
->>>>>>> 636b83ddae52c156a335ce4aeace254500020112
+
 
 
 
 // to redirect to the correct page
 
-  $this->redirect("home/home");}
-  else{
-      $element = $user_form->getElement("password")->addErrorMessage("you arenot allowed to login");
- 
-                    $element->markAsError();}
+                        $this->redirect("home/home");
+                    } else {
+                        $element = $user_form->getElement("password")->addErrorMessage("you arenot allowed to login");
 
-                    $this->redirect("home/home");
-
+                        $element->markAsError();
+                    }
+//
+//                    $this->redirect("home/home");
                 } else {
                     //if password and mail not correct together add this error message  
                     $element = $user_form->getElement("password")->addErrorMessage("wrong mail or password");
@@ -203,10 +203,12 @@ $email_info=$user_model->getUserByEmail($email);
 
 
         // Get object from User form
-<<<<<<< HEAD
+
         $form = new Application_Form_User();
-=======
-        $form  = new Application_Form_User();
+
+
+
+     
         
         if($this->_request->isPost()){
            if($form->isValid($this->_request->getParams())){
@@ -267,48 +269,9 @@ $email_info=$user_model->getUserByEmail($email);
          
          
     }
->>>>>>> 636b83ddae52c156a335ce4aeace254500020112
-
-        if ($this->_request->isPost()) {
-            if ($form->isValid($this->_request->getParams())) {
-                // Get Value from POST
-                $user_info = $form->getValues();
-                // set user type as Student
-                $user_info['type'] = 'Student';
-                // set default account as active
-                $user_info['active'] = '1';
-                // Take object from User model
-                $user_model = new Application_Model_Users();
-                // To not save confirm pasword in the Model Users table
-                unset($user_info['confirmpassword']);
 
 
-                //$originalFilename = pathinfo($form->image->getFileName());
-                //$newFilename = $user_info['email'].  '.' . $originalFilename['extension'];
-                //$form->image->addFilter('Rename', $newFilename);
-                // $user_info['image']=$newFilename;
-                //Call addUser function from model
 
-                $user_model->addUser($user_info);
-
-                $smtpoption = array('auth' => 'login',
-                    'username' => 'ATeamgroup2@gmail.com',
-                    'password' => 'coursera',
-                    'ssl' => 'ssl',
-                    'port' => 465
-                );
-                $sendmail = new Zend_Mail_Transport_Smtp("smtp.gmail.com", $smtpoption);
-                $mail = new Zend_Mail();
-                $mail->setBodyText('Thanks for registered ATeam ');
-                $mail->setFrom('ATeamgroup2@gmail.com', 'ATeam');
-                $mail->addTo($user_info['email'], $user_info['name']);
-                $mail->setSubject('confirmation message');
-                $mail->send($sendmail);
-            }
-        }
-        // send this form to view
-        $this->view->form = $form;
-    }
 
     public function editAction() {
 
@@ -467,32 +430,7 @@ $email_info=$user_model->getUserByEmail($email);
             // To Check the validation of form 
             if ($user_form->isValid($this->getRequest()->getParams())) {
                 //get value of mail from post
-<<<<<<< HEAD
-                $email = $user_form->getvalue("email");
-                $user_info = new Application_Model_Users();
-                $checkmail = $user_info->getUserByEmail($email);
-                if ($checkmail) {
 
-
-                    $smtpoption = array('auth' => 'login',
-                        'username' => 'ATeamgroup2@gmail.com',
-                        'password' => 'coursera',
-                        'ssl' => 'ssl',
-                        'port' => 465
-                    );
-                    $sendmail = new Zend_Mail_Transport_Smtp("smtp.gmail.com", $smtpoption);
-                    $mail = new Zend_Mail();
-                    $mail->setBodyText('<a href="#">aya</a> ');
-                    $mail->setFrom('ATeamgroup2@gmail.com', 'ATeam');
-                    $mail->addTo('eng.aya_gamal@outlook.com', 'aya');
-                    $mail->setSubject('confirmation message');
-                    $mail->send($sendmail);
-                    $this->redirect('Users/login');
-                } else {
-                    $element = $user_form->getElement("email")->addErrorMessage(" This Email not found");
-
-                    $element->markAsError();
-=======
                 $email=$user_form->getvalue("email");
                $user_info=new Application_Model_Users();
                 $checkmail=$user_info->getUserByEmail($email);
@@ -541,7 +479,7 @@ $email_info=$user_model->getUserByEmail($email);
                        
                     $element->markAsError();  
                     
->>>>>>> 636b83ddae52c156a335ce4aeace254500020112
+
                 }
             }
         }
