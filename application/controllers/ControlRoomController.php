@@ -1,76 +1,90 @@
 <?php
 
-class ControlRoomController extends Zend_Controller_Action {
+class ControlRoomController extends Zend_Controller_Action
+{
 
-    public function init() {
+    public function init()
+    {
         $authorization = Zend_Auth::getInstance();
         if (!$authorization->hasIdentity() && $this->_request->getActionName() != 'login') {
             $this->redirect("Users/login");
         }
+        
 //        $contextSwitch=$this->_helper->getHelper('contextSwitch');
 //        $contextSwitch->addActionContext('admin','json')
 //                                ->initContext();
-        include_once 'uploadimg.php';
+//        include_once 'uploadimg.php';
     }
 
-    public function indexAction() {
+    public function indexAction()
+    {
         // action body
     }
 
-    public function listUsers() {
+    public function listUsers()
+    {
         $users = new Application_Model_Users();
         $_myusers = $users->listUsers();
         return $_myusers;
     }
 
-    public function listCourses() {
+    public function listCourses()
+    {
         $Courses = new Application_Model_Courses();
         $_myCourses = $Courses->listCourses();
         return $_myCourses;
     }
 
-    public function listCategory() {
+    public function listCategory()
+    {
         $Category = new Application_Model_Categories();
         $_myCategory = $Category->listCategories();
         return $_myCategory;
     }
 
-    public function listMaterials() {
+    public function listMaterials()
+    {
         $Materials = new Application_Model_Materials();
         $_Materials = $Materials->selectAllMatreials();
         return $_Materials;
     }
 
-    public function listCourseComments() {
+    public function listCourseComments()
+    {
         $Comments = new Application_Model_Comments();
         $_Comments = $Comments->listComments();
         return $_Comments;
     }
 
-    public function listMaterialsTypes($where) {
+    public function listMaterialsTypes($where)
+    {
         $LMT = new Application_Model_Types();
         $_LMT = $LMT->selectTypeById($where);
         return $_LMT;
     }
 
-    public function getMeTypeName($where) {
+    public function getMeTypeName($where)
+    {
         $type = $this->listMaterialsTypes($where);
         return $type[0]['name'];
     }
 
-    public function getMeCourseName($where) {
+    public function getMeCourseName($where)
+    {
         $name = new Application_Model_Courses();
         $_name = $name->getCourseById($where);
         return $_name[0]['title'];
     }
 
-    public function getMeUserName($where) {
+    public function getMeUserName($where)
+    {
         $uname = new Application_Model_Users();
         $_uname = $uname->getUserById($where);
         return $_uname[0]['name'];
     }
 
-    public function adminAction() {
+    public function adminAction()
+    {
 
         $request = $this->getRequest();
         $search = new Application_Form_Search();
@@ -416,23 +430,8 @@ break;
         }
     }
 
-//    public function editcourseAction() {
-//        if (isset($_GET)) {
-////            echo $_GET['id'];
-//            $_course = new Application_Model_Courses();
-//            $course = $_course->getCourseById($_GET['id']);
-//            $mydate = explode(" ", $course[0]['startdate']);
-//            $mydate = explode("-", $mydate[0]);
-//            $list = array('decoration' => '<center><table  id="course" class="xyz" >'
-//                . '<tr><td><label>Title:</label></td><td><input type="text"  name="title "id="title" value="' . $course[0]['title'] . '" required></td></tr>'
-//                . '<tr><td><label>Description:</label></td><td><textarea  id="desc" name="desc"   required> ' . $course[0]['desc'] . '</textarea></td></tr>'
-//                . '<tr><td><label>Start Date:</label></td><td><input type="date" id="date" name ="date" value="' . $mydate[0] . '-' . $mydate[1] . '-' . $mydate[2] . '" required></td></tr>'
-//                . '<tr><td><label>Duration:</label></td><td><input type="text"  id="duration" name="duration" value="' . $course[0]['duration'] . '" required></td></tr>'
-//                . '<tr><td><input type="submit" id=submit name="submit"></td></tr></table></center>');
-//            echo $list['decoration'];
-//        }
-//    }
-    public function editcourseAction() {
+    public function editcourseAction()
+    {
         if (isset($_GET)) {
             $form = new Application_Form_EditCourse();
             $_course = new Application_Model_Courses();
@@ -467,7 +466,8 @@ break;
         }
     }
 
-    public function edituserAction() {
+    public function edituserAction()
+    {
         if (isset($_GET)) {
 
             $form = new Application_Form_EditUser();
@@ -498,25 +498,13 @@ break;
         }
     }
 
-    public function editmaterialAction() {
+    public function editmaterialAction()
+    {
         // action body
     }
 
-//    public function editcategoryAction() {
-//        if (isset($_GET)) {
-////            echo $_GET['id'];
-//            $_category = new Application_Model_Categories();
-//            $category = $_category->getCategoryById($_GET['id']);
-//
-//            $list = array('decoration' => '<center><table  id="category" class="xyz" >'
-//                . '<tr><td><label>Category:</label></td><td><input type="text"  name="name "id="name" value="' . $category[0]['name'] . '" required></td></tr>'
-//                . '<tr><td><input type="submit" id=submit name="submit"></td></tr></table></center>');
-//            echo $list['decoration'];
-//
-////            echo $mydate[0].'/'.$mydate[1].'/'.$mydate[2];
-//        }
-//    }
-    public function editcategoryAction() {
+    public function editcategoryAction()
+    {
         if (isset($_GET)) {
             $form = new Application_Form_EditCategory();
             $_category = new Application_Model_Categories();
@@ -542,19 +530,8 @@ break;
         }
     }
 
-//    public function editcommentAction() {
-//        if (isset($_GET)) {
-////            echo $_GET['id'];
-//            $_comment = new Application_Model_Comments();
-//            $comment = $_comment->getCommentById($_GET['id']);
-//
-//            $list = array('decoration' => '<center><table  id="comments" class="xyz" >'
-//                . '<tr><td><label>Body:</label></td><td><input type="text"  name="comment "id="comment" value="' . $comment[0]['body'] . '" required></td></tr>'
-//                . '<tr><td><input type="submit" id=submit name="submit"></td></tr></table></center>');
-//            echo $list['decoration'];
-//        }
-//    }
-    public function editcommentAction() {
+    public function editcommentAction()
+    {
         if (isset($_GET)) {
             $form = new Application_Form_Editcomment();
             $_comment = new Application_Model_Comments();
@@ -578,4 +555,12 @@ break;
         }
     }
 
+    public function xxxxAction()
+    {
+        // action body
+    }
+
+
 }
+
+

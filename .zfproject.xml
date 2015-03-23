@@ -1,4 +1,4 @@
-﻿<?xml version="1.0"?>
+<?xml version="1.0"?>
 <projectProfile type="default" version="1.12.6">
   <projectDirectory>
     <projectProfileFile filesystemName=".zfproject.xml"/>
@@ -71,13 +71,26 @@
           <actionMethod actionName="editmaterial"/>
           <actionMethod actionName="editcategory"/>
           <actionMethod actionName="editcomment"/>
+          <actionMethod actionName="xxxx"/>
+        </controllerFile>
+        <controllerFile controllerName="Api">
+          <actionMethod actionName="index"/>
+        </controllerFile>
+        <controllerFile controllerName="Plugins">
+          <actionMethod actionName="index"/>
+          <actionMethod actionName="twitter"/>
+          <actionMethod actionName="facebook"/>
+        </controllerFile>
+        <controllerFile controllerName="Facebook">
+          <actionMethod actionName="index"/>
+          <actionMethod actionName="facebookauth"/>
+          <actionMethod actionName="facebookcb"/>
         </controllerFile>
       </controllersDirectory>
       <formsDirectory>
         <formFile formName="Matrial"/>
         <formFile formName="Search"/>
         <formFile formName="AddCategory"/>
-
         <formFile formName="AddUser"/>
         <formFile formName="AddCourse"/>
         <formFile formName="AddType"/>
@@ -87,7 +100,6 @@
         <formFile formName="EditCategory"/>
         <formFile formName="Editcomment"/>
         <formFile formName="Comment"/>
-
       </formsDirectory>
       <layoutsDirectory>
         <layoutScriptsDirectory>
@@ -355,6 +367,30 @@
           </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="ControlRoom">
             <viewScriptFile forActionName="editcomment"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Api">
+            <viewScriptFile forActionName="index"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="ControlRoom">
+            <viewScriptFile forActionName="xxxx"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Plugins">
+            <viewScriptFile forActionName="index"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Plugins">
+            <viewScriptFile forActionName="twitter"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Plugins">
+            <viewScriptFile forActionName="facebook"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Facebook">
+            <viewScriptFile forActionName="index"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Facebook">
+            <viewScriptFile forActionName="facebookauth"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Facebook">
+            <viewScriptFile forActionName="facebookcb"/>
           </viewControllerScriptsDirectory>
         </viewScriptsDirectory>
         <viewHelpersDirectory/>
