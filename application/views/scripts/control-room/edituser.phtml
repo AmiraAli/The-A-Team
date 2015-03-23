@@ -1,3 +1,4 @@
+
 <?php
 $auth = Zend_Auth::getInstance();
 $storage = $auth->getStorage();
@@ -9,9 +10,7 @@ if ($type == "Admin") {
     <script>
         $(document).ready(function () {
             $('#edituser').click(function () {
-                alert('here');
-                window.location.replace('http://localhost/The-A-Team/public/control-room/admin');
-            });
+                window.location.replace('admin');             
 
         });
     </script>
@@ -34,3 +33,4 @@ if ($type == "Admin") {
     <?php
 }
 ?>
+>>>>>>> 56092869ff72cd82e4bd78000bdc124ebc86ecbc

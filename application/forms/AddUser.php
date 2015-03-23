@@ -47,11 +47,8 @@ class Application_Form_AddUser extends Zend_Form {
         
         $country=new Zend_Form_Element_Select('country');
         $country->setRequired();
-        $country->addMultiOption("egypt", "egypt");
-        $country->addMultiOption("America", "America");
-        $country->addMultiOption("Dubai", "Dubai");
-        $country->addMultiOption("England", "England");
-        $country->addMultiOption("Greece", "Greece");
+                $country->addMultiOptions(Zend_Locale::getTranslationList('Territory','en_US','2'),Zend_Locale::getTranslationList('Territory','en_US','2'));
+
         $country->setLabel("country: ");
         $country->setAttrib("class", "form-control");  
         

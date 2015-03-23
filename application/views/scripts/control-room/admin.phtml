@@ -51,11 +51,6 @@ if ($type == "Admin") {
 
     ///////////////////////////////////////Slide Down///////////////////////////////////////
 
-
-
-
-
-
     // delete
             $('.btn-danger').click(function () {
                 var xid = $(this).closest('tr').attr('id');
@@ -76,68 +71,79 @@ if ($type == "Admin") {
                 });
                 window.location.replace('admin');
             });
-            $('.myhide').click(function () {
 
-                var id = $(this).closest('tr').attr('id');
-                var table = $(this).closest('table').attr('id');
-                $.ajax({
-                    url: "http://localhost/The-A-Team/public/control-room/admin",
-                    type: "POST",
-                    dataType: 'json',
-                    data: {
-                        id: id,
-                        process: 'hide',
-                        table: table,
-                        //status:status,
-                    },
-                    success: function (data) {
+            
+        
+        
+        // hide
+        $('.btn-success').click(function () {
+            
+        $(this).text($(this).text() == 'Hide' ? 'Publish' : 'Hide');   //change status
 
-                    }
-                });
-                window.location.replace('admin');
+            var id = $(this).closest('tr').attr('id');
+            var table = $(this).closest('table').attr('id');
+            $.ajax({
+                url: "http://localhost/The-A-Team/public/control-room/admin",
+                type: "POST",
+                dataType: 'json',
+                data: {
+                    id: id,
+                    process: 'hide',
+                    table: table,
+                    //status:status,
+                },
+                success: function (data) {
+    
+                     }
             });
-            $('.btn-info').click(function () {
+//            window.location.replace('admin'); 
+        });
+        $('.btn-info').click(function () {
+            
+            $(this).text($(this).text() == 'Activate' ? 'Ban' : 'Activate');   //change status
+            
+            var id = $(this).closest('tr').attr('id');
+            var status = $('.active').html();
+            status = 1 - status;
+            $.ajax({
+                url: "http://localhost/The-A-Team/public/control-room/admin",
+                type: "POST",
+                dataType: 'json',
+                data: {
+                    id: id,
+                    process: 'ban',
+                    status: status,
+                },
+                success: function (data) {
+                   
+                }
 
-    //            $(this).text($(this).text() == 'active' ? 'Soon' : 'Available');   //change status
-
-                var id = $(this).closest('tr').attr('id');
-                var status = $('.active').html();
-                status = 1 - status;
-                $.ajax({
-                    url: "http://localhost/The-A-Team/public/control-room/admin",
-                    type: "POST",
-                    dataType: 'json',
-                    data: {
-                        id: id,
-                        process: 'ban',
-                        status: status,
-                    },
-                    success: function (data) {
-
-                    }
-
-                });
-    //            window.location.replace('admin'); 
             });
-            $('.mylock').click(function () {
+//            window.location.replace('admin'); 
+        });
+        // lock
+        $('.btn-warning').click(function () {
 
-                var id = $(this).closest('tr').attr('id');
-                var table = $(this).closest('table').attr('id');
-                $.ajax({
-                    url: "http://localhost/The-A-Team/public/control-room/admin",
-                    type: "POST",
-                    dataType: 'json',
-                    data: {
-                        id: id,
-                        process: 'lock',
-                        table: table,
-                    },
-                    success: function (data) {
-                    }
+        $(this).text($(this).text() == 'Lock' ? 'Download' : 'Lock');   //change status
 
-                });
-                window.location.replace('admin');
+            var id = $(this).closest('tr').attr('id');
+            var table = $(this).closest('table').attr('id');
+            $.ajax({
+                url: "http://localhost/The-A-Team/public/control-room/admin",
+                type: "POST",
+                dataType: 'json',
+                data: {
+                    id: id,
+                    process: 'lock',
+                    table: table,
+                },
+                success: function (data) {
+                }
+
             });
+//                        window.location.replace('admin');
+        });
+
 
     //        
             $('#addcourse').click(function () {
@@ -211,6 +217,7 @@ if ($type == "Admin") {
                     success: function (data) {
                     }
 
+
                 });
                 if ($('#myt').val() == '') {
                     alert('Failed to save');
@@ -253,7 +260,11 @@ if ($type == "Admin") {
 
         });
 
+
+    
+
     </script>
+
 
     <div id="view-content">
 
@@ -269,7 +280,7 @@ if ($type == "Admin") {
         .panel {
             padding: 10px;
             display: none;
-            width: 300px;
+            width: 330px;
         }
         .table-hover td,th{
             text-align: center;
