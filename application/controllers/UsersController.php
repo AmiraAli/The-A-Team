@@ -133,8 +133,8 @@ $email_info=$user_model->getUserByEmail($email);
     
    // $user_info['image']=$newFilename;
                //Call addUser function from model
-               
-    $user_model->addUser($user_info);
+      try{         
+    
     
     $smtpoption=array('auth'=>'login',
             'username'=>'ATeamgroup2@gmail.com',
@@ -150,7 +150,15 @@ $email_info=$user_model->getUserByEmail($email);
     $mail->setFrom('ATeamgroup2@gmail.com','ATeam');
     $mail->addTo($user_info['email'],$user_info['name']);
     $mail->setSubject('confirmation message');
-    $mail->send($sendmail);
+      $mail->send($sendmail);
+      $user_model->addUser($user_info);
+     
+      }
+      catch(Exception $e){
+          
+         $this->view->error=$e->getMessage();
+          
+      }
                        
            }
        }
@@ -333,7 +341,7 @@ $email_info=$user_model->getUserByEmail($email);
                $user_info=new Application_Model_Users();
                 $checkmail=$user_info->getUserByEmail($email);
                 if($checkmail){
-               
+               try{
                 
                 $smtpoption=array('auth'=>'login',
             'username'=>'ATeamgroup2@gmail.com',
@@ -354,17 +362,23 @@ $email_info=$user_model->getUserByEmail($email);
         
     }
     
-    $user_model=new Application_Model_Users();
-    $data=array('id'=>$checkmail[0]['id'],'password'=>$randomString);
-    $user_model->editUser($data);
+   
     
     $mail->setBodyHtml('<a href="#">aya</a>');
     $mail->setBodyText('hello'. $checkmail[0]['name'].'your new password is '.$randomString);
     $mail->setFrom('ATeamgroup2@gmail.com','ATeam');
-    $mail->addTo($checkmail['email'][0], $checkmail[0]['name']);
+    $mail->addTo($checkmail[0]['email'], $checkmail[0]['name']);
     $mail->setSubject('Forget Password');
     $mail->send($sendmail);
+     $user_model=new Application_Model_Users();
+    $data=array('id'=>$checkmail[0]['id'],'password'=>$randomString);
+    $user_model->editUser($data);
                 $this->redirect('Users/login');
+               }
+               catch(Exception $e){
+                    $this->view->error=$e->getMessage();
+                   
+               }
                 }
                 else{
                   $element= $user_form->getElement("email")->addErrorMessage(" This Email not found");  
