@@ -36,7 +36,7 @@ $DOCUMENT_ROOT = $_SERVER['DOCUMENT_ROOT'];
                 <div>
                     <ul class="nav navbar-nav pull-right">
                     <?php
-                 $auth = Zend_Auth::getInstance();
+                $auth = Zend_Auth::getInstance();
                 $storage = $auth->getStorage();
                 $sessionRead = $storage->read();
                     if (!empty($sessionRead)) {
