@@ -24,8 +24,11 @@ class UsersController extends Zend_Controller_Action {
     public function loginAction() {
         //Get object from User form 
         $user_form = new Application_Form_User();
+        
+        
 
         $user_form->getElement("password")->setDescription('<a href="listusertype">Forgot password?</a>');
+        
         $user_form->getElement("password")->getDecorator('Description')->setOption('escape', false);
         // remove this following Element from User form Sign Up
         $user_form->removeElement("name");
@@ -89,8 +92,12 @@ class UsersController extends Zend_Controller_Action {
                 }
             }
         }
+        
+       
         // to send this form to view 
+        
         $this->view->form = $user_form;
+       
     }
 
     public function addAction() {

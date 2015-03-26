@@ -1,0 +1,11 @@
+ $delcomment = new Application_Model_Comments();
+                    $_delcomment = $delcomment->deleteCommentByUserId($_POST['id']);
+
+                    $delreq = new Application_Model_Requests();
+                    $_delreq = $delreq->deleteRequestByUser($_POST['id']);
+                    
+                    $deluc = new Application_Model_UserCourse();
+                    $_deluc = $deluc->deleteUserCourseByCourseId($_POST['id']);
+
+                    $delu = new Application_Model_Users();
+                    $_delu = $delu->deleteUser($_POST['id']);

@@ -380,6 +380,24 @@ break;
 
                             $course = new Application_Model_Courses();
                             $result = $course->addCourse($newcourse);
+                            
+                            $courseid=$course->getCourseByTitle($newcourse['title']);
+                            $courseid=$courseid[0]['id'];
+//                            var_dump($courseid);
+                            
+                            
+                            $category=new Application_Model_Categories();
+                            $_category=$category->getCategoryByName($_POST['categories']);
+                            $categoryid=$_category[0]['id'];
+//                            var_dump($categoryid);
+
+                            $data=array(
+                                'courseid'=>$courseid,
+                                'categoryid'=>$categoryid,
+                            );
+                            
+                            $courseCategory= new Application_Model_CourseCategory();
+                            $result=$courseCategory->addCourseCategory($data);
                         }
                     }
                     break;
