@@ -66,9 +66,14 @@
                     $flage = 0;
                     for ($i = 0; $i < count($all_courses); $i++) {
                         if ($all_courses[$i]['Course_Id'] == $this->course_id) {
-                            $flage = 1;
+                            $flage = 1;?>
+               
+<a href="<?php echo $this->baseUrl() ?>/Questions/listquestionbycourse/id/<?php echo $this->course_id ?>" class="btn btn-primary pull-right" id="alert">View Discussion</a>
+                
+                   <?php     }
+                        
                         }
-                    }
+                        
                     if ($flage == 0) {
                         ?>
                         <button type="button" class="btn btn-primary pull-right" id="join" 
@@ -110,6 +115,7 @@
                 for ($i = 0; $i < count($all_courses); $i++) {
                     if ($all_courses[$i]['Course_Id'] == $this->course_id) {
                         $flage_instructor = 1;
+                        
                     }
                 }
 
@@ -206,5 +212,15 @@
 
         </div> 
 
+        
+        
+        
+        
+  
+                              
+        
+        
+        
+        
     </body>
 </html>

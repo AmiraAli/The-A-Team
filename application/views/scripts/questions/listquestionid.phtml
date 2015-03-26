@@ -1,0 +1,296 @@
+<?php if($this->questions){ for($i=0; $i<count($this->questions);$i++){ ?>
+
+<div class="container">
+        <div class="panel panel-primary">
+            <div class="panel-body" id="Question_<?php echo $this->questions[$i]['id']?>">
+ <img src="../../public/images/users/<?php echo $this->questions[$i]['image']; ?>" class="img-circle" height="30px" width="30px">
+
+    <?php echo $this->questions[$i]['username']?><br>
+    
+   <p id="title_<?php echo $this->questions[$i]['id']; ?>"> <?php echo $this->questions[$i]['title'];?></p>
+<br>
+<p id="body_<?php echo $this->questions[$i]['id']; ?>"> <?php echo $this->questions[$i]['body'];?></p>
+<?php
+                    $auth = Zend_Auth::getInstance();
+                    $storage = $auth->getStorage();
+                    $sessionRead = $storage->read();
+                    $type = $sessionRead->type;
+                    if ($type == "Instructor" || $type == "Student") {
+
+                        if ($this->user== $this->questions[$i]['UserId']) {
+                            ?>
+                            <a   class="btn btn-info btn-xs pull-right"onclick="editQuestion(<?php echo $this->questions[$i]['id']; ?>)"> Edit </a>
+                            <a href="<?php echo $this->baseUrl() ?>/Questions/delete/id/<?php echo $this->questions[$i]['id']; ?>" class="btn btn-info btn-xs pull-right"> Delete </a>
+                            <br />
+                            <?php
+                        }
+                    } else {
+                        ?>
+                        <a href="<?php echo $this->baseUrl() ?>/Questions/delete/id/<?php echo $this->questions[$i]['id']; ?>" class="btn btn-info btn-xs pull-right"> Delete </a>
+                        <?php
+                    }
+                    ?>
+
+
+            </div>
+        </div>
+    </div>
+   
+
+
+<?php }
+
+
+}?>
+<!--////////////////////////////////////////////////////////////////////////////////-->
+<div class="container">
+   <?php $auth = Zend_Auth::getInstance();
+                    $storage = $auth->getStorage();
+                    $sessionRead = $storage->read();
+                    $type = $sessionRead->type;
+                    if ($type == "Instructor" || $type == "Student") {?>
+<h3>Answer</h3>
+                    <?php }?>
+<?php if($this->answer){ for($i=0; $i<count($this->answer);$i++){?>
+ 
+  <div class="container">
+        <div class="panel panel-primary">
+            <div class="panel-body" id="Answer_<?php echo $this->answer[$i]['id']?>">
+<img src="../../public/images/users/<?php echo $this->answer[$i]['image']; ?>" class="img-circle" height="30px" width="30px">
+
+<?php echo $this->answer[$i]['username'];?><br>
+
+<p id="<?php echo $this->answer[$i]['id']; ?>"><?php echo $this->answer[$i]['body'];?>
+   </p>
+    
+
+
+<?php
+                    $auth = Zend_Auth::getInstance();
+                    $storage = $auth->getStorage();
+                    $sessionRead = $storage->read();
+                    $type = $sessionRead->type;
+                    if ($type == "Instructor" || $type == "Student") {
+
+                        if ($this->user== $this->answer[$i]['UserId']) {
+                            ?>
+                            <a   class="btn btn-info btn-xs pull-right"onclick="editAnswer(<?php echo $this->answer[$i]['id']; ?>)"> Edit </a>
+                            <a href="<?php echo $this->baseUrl() ?>/Answers/delete/id/<?php echo $this->answer[$i]['id']; ?>" class="btn btn-info btn-xs pull-right"> Delete </a>
+                            <br />
+                            <?php
+                        }
+                    } else {
+                        ?>
+                        <a href="<?php echo $this->baseUrl() ?>/Answers/delete/id/<?php echo $this->answer[$i]['id']; ?>" class="btn btn-info btn-xs pull-right"> Delete </a>
+                        <?php
+                    }
+                    ?>
+
+
+            </div>
+        </div>
+    </div>
+   
+
+ <?php
+   }}
+        $auth = Zend_Auth::getInstance();
+        $storage = $auth->getStorage();
+        $sessionRead = $storage->read();
+        $type = $sessionRead->type;
+    if ($type == "Instructor" || $type == "Student") {
+        ?>
+        
+            
+            <?php
+echo $this->addanswer;
+?>
+    <?php }?>
+     </div>
+
+
+<!-------------------------------------------------------------------------------->
+<script>
+        
+       
+            /**
+             * this function to submit the text of comment after edit it
+             * @returns {undefined}
+             */
+
+            function add(id) {
+                //get the body of the comment after edit it
+                var body_edit = document.getElementById("bodyEdit_" + id);
+                console.log(body_edit.value);
+
+                //open http request to send the parameters of comment to update
+                var xmlhttp = new XMLHttpRequest();
+                xmlhttp.open("POST", "http://localhost/The-A-Team/public/Answers/edit", true);
+                xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                xmlhttp.send("id=" + id + "&body=" + body_edit.value );
+
+                //on change check even the request send or not
+
+
+                xmlhttp.onreadystatechange = function () {
+
+                    // alert(xmlhttp.readyState);
+                    // alert(xmlhttp.status);
+                    if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
+                    }
+                    console.log(xmlhttp.responseText);
+
+                    //append the comment after update
+                    var answer_parent = document.getElementById("Answer_" + id);
+                    
+                    var answer_after_edit=document.createElement("p");
+                    answer_after_edit.setAttribute("id",id);
+                    answer_after_edit.innerHTML=body_edit.value;
+                    
+                     body_edit.remove();
+                    var button_after_edit = document.getElementById("btn_" + id);
+                    button_after_edit.remove();
+                    
+                    answer_parent.appendChild(answer_after_edit);
+                };
+            }
+            /**
+             * this function to edit the Comment
+             * @returns {undefined}
+             */
+            function editAnswer(id) {
+
+                //get the body of the comment and remove it
+                var Answer = document.getElementById(id);
+                var Answer_body = Answer.innerHTML;
+                Answer.remove();
+
+                //create a text field by the body of the comment 
+                var textfield = document.createElement("input");
+                textfield.setAttribute("type", "text");
+                textfield.setAttribute("class","form-control");
+                textfield.setAttribute("value", Answer_body);
+                textfield.setAttribute("id", "bodyEdit_" + id);
+
+                //create add button to add the comment
+                var button = document.createElement("button");
+                button.setAttribute("class", "btn btn-primary");
+                button.setAttribute("id", "btn_"+ id);
+                button.innerHTML="Add";
+                button.setAttribute("onclick", "add("+id+")");
+
+                //append the text area to the parent
+                var answer_parent = document.getElementById("Answer_" + id);
+
+                answer_parent.appendChild(textfield);
+                answer_parent.appendChild(button);
+
+            }
+   //////////////////////////////////////////////////////////////////
+   /**
+             * this function to submit the text of comment after edit it
+             * @returns {undefined}
+             */
+
+            function addquestion(id) {
+                //get the body of the comment after edit it
+                var titlebody_edit = document.getElementById("titlebodyEdit_" + id);
+                console.log(titlebody_edit.value);
+                
+                var body_edit = document.getElementById("bodyEdit_" + id);
+                console.log(body_edit.value);
+
+                //open http request to send the parameters of comment to update
+                var xmlhttp = new XMLHttpRequest();
+                xmlhttp.open("POST", "http://localhost/The-A-Team/public/Questions/edit", true);
+                xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                xmlhttp.send("id=" + id + "&title=" + titlebody_edit.value+"&body=" + body_edit.value );
+
+                //on change check even the request send or not
+
+
+                xmlhttp.onreadystatechange = function () {
+
+                    // alert(xmlhttp.readyState);
+                    // alert(xmlhttp.status);
+                    if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
+                    }
+                    console.log(xmlhttp.responseText);
+
+                    //append the comment after update
+                    var question_parent = document.getElementById("Question_" + id);
+                    
+                    var titlequestion_after_edit=document.createElement("p");
+                    titlequestion_after_edit.setAttribute("id","title_"+id);
+                    titlequestion_after_edit.innerHTML=titlebody_edit.value;
+                    
+                    
+                    var bodyquestion_after_edit=document.createElement("p");
+                    bodyquestion_after_edit.setAttribute("id","body_"+id);
+                    bodyquestion_after_edit.innerHTML=body_edit.value;
+                    
+                     titlebody_edit.remove();
+                     body_edit.remove();
+                    var button_after_edit = document.getElementById("btn_" + id);
+                    button_after_edit.remove();
+                    
+                    question_parent.appendChild(titlequestion_after_edit);
+                    question_parent.appendChild(bodyquestion_after_edit);
+                };
+            }
+            /**
+             * this function to edit the Comment
+             * @returns {undefined}
+             */
+            function editQuestion(id) {
+
+                //get the title of the question and remove it
+                var Question_title = document.getElementById("title_"+id);
+                var Question_body_title = Question_title.innerHTML;
+                Question_title.remove();
+                // to get body of question and remove it
+                var  Question_body= document.getElementById("body_"+id);
+                var Question_body_body = Question_body.innerHTML;
+                Question_body.remove();
+
+                //create a text field by the title of question 
+                var textfield = document.createElement("input");
+                textfield.setAttribute("type", "text");
+                textfield.setAttribute("class","form-control");
+                textfield.setAttribute("value", Question_body_title);
+                textfield.setAttribute("id", "titlebodyEdit_" + id);
+                
+                
+                //create a textarea field by the body of question 
+                var textarea = document.createElement("textarea");
+                textarea.setAttribute("col", "50");
+                textarea.setAttribute("rows", "4");
+                textarea.setAttribute("class","form-control");
+                //textarea.setAttribute("value", Question_body_body);
+                textarea.setAttribute("id", "bodyEdit_" + id);
+                var text=document.createTextNode(Question_body_body);
+              textarea.appendChild(text);
+                //create add button to add the comment
+                var button = document.createElement("button");
+                button.setAttribute("class", "btn btn-primary");
+                button.setAttribute("id", "btn_"+ id);
+                button.innerHTML="Add";
+                button.setAttribute("onclick", "addquestion("+id+")");
+
+                //append the text area to the parent
+                var question_parent = document.getElementById("Question_" + id);
+
+                question_parent.appendChild(textfield);
+                question_parent.appendChild(textarea);
+                question_parent.appendChild(button);
+
+            }
+            
+            
+
+ 
+        
+        
+        
+        </script>
+ 

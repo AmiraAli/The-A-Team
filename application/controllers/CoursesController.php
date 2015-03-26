@@ -135,6 +135,8 @@ class CoursesController extends Zend_Controller_Action {
                 //insert in the database
                 $material_model = new Application_Model_Materials();
                 $material_model->insertMaterial($matrial_info);
+                
+                
             }
         }
     }

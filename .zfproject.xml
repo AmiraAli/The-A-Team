@@ -1,4 +1,4 @@
-﻿<?xml version="1.0"?>
+<?xml version="1.0"?>
 <projectProfile type="default" version="1.12.6">
   <projectDirectory>
     <projectProfileFile filesystemName=".zfproject.xml"/>
@@ -89,6 +89,22 @@
         <controllerFile controllerName="Home">
           <actionMethod actionName="index"/>
         </controllerFile>
+        <controllerFile controllerName="Questions">
+          <actionMethod actionName="index"/>
+          <actionMethod actionName="add"/>
+          <actionMethod actionName="edit"/>
+          <actionMethod actionName="delete"/>
+          <actionMethod actionName="list"/>
+          <actionMethod actionName="listquestionid"/>
+          <actionMethod actionName="listquestionbycourse"/>
+        </controllerFile>
+        <controllerFile controllerName="Answers">
+          <actionMethod actionName="index"/>
+          <actionMethod actionName="add"/>
+          <actionMethod actionName="edit"/>
+          <actionMethod actionName="delete"/>
+          <actionMethod actionName="list"/>
+        </controllerFile>
       </controllersDirectory>
       <formsDirectory>
         <formFile formName="Matrial"/>
@@ -103,6 +119,8 @@
         <formFile formName="EditCategory"/>
         <formFile formName="Editcomment"/>
         <formFile formName="Comment"/>
+        <formFile formName="Question"/>
+        <formFile formName="Answer"/>
       </formsDirectory>
       <layoutsDirectory>
         <layoutScriptsDirectory>
@@ -147,6 +165,8 @@
         <modelFile modelName="CourseCategory"/>
         <modelFile modelName="CourseTag"/>
         <modelFile modelName="Xxx"/>
+        <modelFile modelName="Questions"/>
+        <modelFile modelName="Answers"/>
       </modelsDirectory>
       <formsDirectory enabled="false"/>
       <layoutsDirectory enabled="false"/>
@@ -371,7 +391,6 @@
           <viewControllerScriptsDirectory forControllerName="ControlRoom">
             <viewScriptFile forActionName="editcomment"/>
           </viewControllerScriptsDirectory>
-
           <viewControllerScriptsDirectory forControllerName="Api">
             <viewScriptFile forActionName="index"/>
           </viewControllerScriptsDirectory>
@@ -396,11 +415,45 @@
           <viewControllerScriptsDirectory forControllerName="Facebook">
             <viewScriptFile forActionName="facebookcb"/>
           </viewControllerScriptsDirectory>
-
           <viewControllerScriptsDirectory forControllerName="Home">
             <viewScriptFile forActionName="index"/>
           </viewControllerScriptsDirectory>
-
+          <viewControllerScriptsDirectory forControllerName="Questions">
+            <viewScriptFile forActionName="index"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Answers">
+            <viewScriptFile forActionName="index"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Questions">
+            <viewScriptFile forActionName="add"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Questions">
+            <viewScriptFile forActionName="edit"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Questions">
+            <viewScriptFile forActionName="delete"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Questions">
+            <viewScriptFile forActionName="list"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Questions">
+            <viewScriptFile forActionName="listquestionid"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Answers">
+            <viewScriptFile forActionName="add"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Answers">
+            <viewScriptFile forActionName="edit"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Answers">
+            <viewScriptFile forActionName="delete"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Answers">
+            <viewScriptFile forActionName="list"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Questions">
+            <viewScriptFile forActionName="listquestionbycourse"/>
+          </viewControllerScriptsDirectory>
         </viewScriptsDirectory>
         <viewHelpersDirectory/>
         <viewFiltersDirectory enabled="false"/>

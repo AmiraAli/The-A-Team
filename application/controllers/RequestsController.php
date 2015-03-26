@@ -49,7 +49,7 @@ class RequestsController extends Zend_Controller_Action
 
     public function editAction()
     {  // get Id from URL 
-         echo "aya";
+         
         $id = $this->_request->getParam("id");
         
         // Get object from form Request
