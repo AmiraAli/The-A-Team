@@ -81,6 +81,7 @@ class QuestionsController extends Zend_Controller_Action
              $questions[$i]['image']= $user_record[0]['image']; 
        }
        $this->view->questions=$questions;
+       $this->view->courseid=$questions[0]['CourseId'];
        
        $answer_info=new Application_Model_Answers();
         $question_answer=$answer_info->getAnswerByQuestion($QuestionId);
@@ -141,6 +142,7 @@ class QuestionsController extends Zend_Controller_Action
        $this->view->questions=$course_questions;
        $form=new Application_Form_Question();
        $this->view->form=$form;
+       $this->view->courseid=$CourseId;
        
        
        

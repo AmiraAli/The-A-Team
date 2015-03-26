@@ -14,14 +14,17 @@ if ($type == "Admin") {
 
         });
     </script>
+    <div class="container">
+          <a href="<?php echo $this->baseUrl() ?>/control-room/admin " id="alert" class="btn">Back To Settings</a>
+
     <center>
         <div id="view-content">
-            <p>View script for controller <b>ControlRoom</b> and script/action name <b>edituser</b></p>
             <?php
             echo $this->myform;
             ?>
         </div>
     </center>
+    </div>
     <?php
 } else {
     ?>

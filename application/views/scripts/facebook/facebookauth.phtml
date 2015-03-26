@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
     <head>
-        
+
         <meta charset="UTF-8">
     </head>
     <body>
-        
+
         <script>
             // This is called with the results from from FB.getLoginStatus().
             function statusChangeCallback(response) {
@@ -18,7 +18,7 @@
                 if (response.status === 'connected') {
                     // Logged into your app and Facebook.
                     testAPI();
-                    
+
 //                    window.location.replace('../home/home');
 
                 } else if (response.status === 'not_authorized') {
@@ -72,7 +72,7 @@
                 });
 
             };
-            
+
             // Load the SDK asynchronously
             (function (d, s, id) {
                 var js, fjs = d.getElementsByTagName(s)[0];
@@ -101,7 +101,7 @@
                             response.gender;
                     document.getElementById('country').value =
                             response.locale;
-                   
+
 
                 });
 
@@ -113,17 +113,19 @@
           the JavaScript SDK to present a graphical Login button that triggers
           the FB.login() function when clicked.
         -->
-
-    <fb:login-button scope="first_name,gender,id,email,country" onlogin="checkLoginState();">
-    </fb:login-button>
-    <div id="status">
-        <?php
-        echo $this->log;
-        ?>
-    </div>
-    <div id='1status'></div>
-    <div id="facebooky"  hidden>
-        <div  class="fb-login-button" data-max-rows="1" data-size="medium" data-show-faces="false" data-auto-logout-link="false"  ></div>
-    </div>
-</body>
+        <div class="container">
+            <img src="../../../../The-A-Team/public/images/uploads/facebook.jpg"  class=" col-lg-offset-3 img-rounded" width="500px" height="300px">
+            <fb:login-button scope="first_name,gender,id,email,country" onlogin="checkLoginState();">
+            </fb:login-button>
+            <div id="status" class="col-lg-offset-5 title">
+                <?php
+                echo $this->log;
+                ?>
+            </div>
+            <div id='1status' col-lg-offset-3></div>
+            <div id="facebooky"  hidden>
+                <div  class="fb-login-button col-lg-offset-3" data-max-rows="1" data-size="medium" data-show-faces="false" data-auto-logout-link="false"  ></div>
+            </div>
+        </div>
+    </body>
 </html>

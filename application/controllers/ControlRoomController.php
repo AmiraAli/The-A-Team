@@ -1,90 +1,77 @@
 <?php
 
-class ControlRoomController extends Zend_Controller_Action
-{
+class ControlRoomController extends Zend_Controller_Action {
 
-    public function init()
-    {
+    public function init() {
         $authorization = Zend_Auth::getInstance();
         if (!$authorization->hasIdentity() && $this->_request->getActionName() != 'login') {
             $this->redirect("Users/login");
         }
-        
+
 //        $contextSwitch=$this->_helper->getHelper('contextSwitch');
 //        $contextSwitch->addActionContext('admin','json')
 //                                ->initContext();
 //        include_once 'uploadimg.php';
     }
 
-    public function indexAction()
-    {
+    public function indexAction() {
         // action body
     }
 
-    public function listUsers()
-    {
+    public function listUsers() {
         $users = new Application_Model_Users();
         $_myusers = $users->listUsers();
         return $_myusers;
     }
 
-    public function listCourses()
-    {
+    public function listCourses() {
         $Courses = new Application_Model_Courses();
         $_myCourses = $Courses->listAllCourses();
         return $_myCourses;
     }
 
-    public function listCategory()
-    {
+    public function listCategory() {
         $Category = new Application_Model_Categories();
         $_myCategory = $Category->listCategories();
         return $_myCategory;
     }
 
-    public function listMaterials()
-    {
+    public function listMaterials() {
         $Materials = new Application_Model_Materials();
         $_Materials = $Materials->selectAllMatreials();
         return $_Materials;
     }
 
-    public function listCourseComments()
-    {
+    public function listCourseComments() {
         $Comments = new Application_Model_Comments();
         $_Comments = $Comments->listComments();
         return $_Comments;
     }
 
-    public function listMaterialsTypes($where)
-    {
+    public function listMaterialsTypes($where) {
         $LMT = new Application_Model_Types();
         $_LMT = $LMT->selectTypeById($where);
         return $_LMT;
     }
 
-    public function getMeTypeName($where)
-    {
+    public function getMeTypeName($where) {
         $type = $this->listMaterialsTypes($where);
         return $type[0]['name'];
     }
 
-    public function getMeCourseName($where)
-    {
+    public function getMeCourseName($where) {
         $name = new Application_Model_Courses();
         $_name = $name->getCourseById($where);
         return $_name[0]['title'];
     }
 
-    public function getMeUserName($where)
-    {
+    public function getMeUserName($where) {
         $uname = new Application_Model_Users();
         $_uname = $uname->getUserById($where);
         return $_uname[0]['name'];
     }
 
-    public function adminAction()
-    {
+    public function adminAction() {
 
         $request = $this->getRequest();
         $search = new Application_Form_Search();
@@ -109,17 +96,17 @@ class ControlRoomController extends Zend_Controller_Action
                         . '<th>Start Date</th><th>Duration</th><th width="400px">Admin</th></tr>');
 
                     for ($i = 0; $i < count($data); $i++) {
-                        
-                        if($data[$i]['hidden']=='1'){
-                            $hide[$i]='Publish';
-                        }else{
-                            $hide[$i]='Hide';
+
+                        if ($data[$i]['hidden'] == '1') {
+                            $hide[$i] = 'Publish';
+                        } else {
+                            $hide[$i] = 'Hide';
                         }
 
                         $list['decoration'] = $list['decoration'] . '<tr id=' . $data[$i]['id'] . '><td>' . $data[$i]['title'] . '</td><td>' . $data[$i]['desc'] . '</td>'
                                 . '<td>' . $data[$i]['startdate'] . '</td><td>' . $data[$i]['duration'] . ' weeks </td>'
                                 . '<td><button class="btn-danger">Delete</button>&nbsp;<button class="btn-primary">Edit</button>'
-                                . '&nbsp;<button class="btn-success">'.$hide[$i].'</button></td></tr>';
+                                . '&nbsp;<button class="btn-success">' . $hide[$i] . '</button></td></tr>';
                     }
 
                     $list['decoration'] = $list['decoration'] . '</table>';
@@ -133,17 +120,17 @@ class ControlRoomController extends Zend_Controller_Action
                         . '<th>Admin</th></tr>');
 
                     for ($i = 0; $i < count($data); $i++) {
-                        
-                        if($data[$i]['active']=='1'){
-                            $active[$i]='Ban';
-                        }else{
-                            $active[$i]='Activate';
+
+                        if ($data[$i]['active'] == '1') {
+                            $active[$i] = 'Ban';
+                        } else {
+                            $active[$i] = 'Activate';
                         }
 
                         $list['decoration'] = $list['decoration'] . '<tr id=' . $data[$i]['id'] . '><td>' . $data[$i]['name'] . '</td><td >' . $data[$i]['email'] . '</td>'
                                 . '<td><img width="100 px" height="100px"src="../../public/images/users/' . $data[$i]['image'] . '"><td>' . $data[$i]['type'] . '</td>' . '<td>' . $data[$i]['gender'] . '</td>'
                                 . '<td>' . $data[$i]['country'] . '</td>' . '<td>' . $data[$i]['facebookid'] . '</td>' . '<td><button class="btn-danger">Delete</button>&nbsp;&nbsp;<button class="btn-primary">Edit</button>'
-                                . '&nbsp;&nbsp;<button class="btn-info">'.$active[$i].'</button></td></tr>';
+                                . '&nbsp;&nbsp;<button class="btn-info">' . $active[$i] . '</button></td></tr>';
                     }
                     $list['decoration'] = $list['decoration'] . '</table>';
                     echo $list['decoration'];
@@ -152,31 +139,31 @@ class ControlRoomController extends Zend_Controller_Action
                     break;
                 case 'Materials' :
                     $data = $this->listMaterials();
-                    
-                    
+
+
                     $list = array('decoration' => '<center><table  class="table-hover"  border="1" id="materials"><tr><th>Name</th>'
                         . '<th>Path</th><th>Number of Downloads</th><th>Type</th><th>Course Name</th>'
                         . '<th width ="250px">Admin</th></tr>');
 
                     for ($i = 0; $i < count($data); $i++) {
-                        
-                        if($data[$i]['hidden']=='1'){
-                            $hide[$i]='Publish';
-                        }else{
-                            $hide[$i]='Hide';
+
+                        if ($data[$i]['hidden'] == '1') {
+                            $hide[$i] = 'Publish';
+                        } else {
+                            $hide[$i] = 'Hide';
                         }
-                        
-                         if($data[$i]['downloadable']=='1'){
-                            $down[$i]='Lock';
-                        }else{
-                            $down[$i]='Download';
+
+                        if ($data[$i]['downloadable'] == '1') {
+                            $down[$i] = 'Lock';
+                        } else {
+                            $down[$i] = 'Download';
                         }
 
 
                         $list['decoration'] = $list['decoration'] . '<tr id=' . $data[$i]['id'] . '><td>' . $data[$i]['name'] . '</td>'
                                 . '<td>' . $data[$i]['path'] . '</td><td>' . $data[$i]['no_downloads'] . '</td><td>' . $this->getMeTypeName($data[$i]['Type_Id']) . '</td><td>' . $this->getMeCourseName($data[$i]['Course_Id']) . '</td>'
                                 . '<td><button class="btn-danger">Delete</button>'
-                                . '<button class="btn-success">'. $hide[$i].'</button><button class="btn-warning">'.$down[$i].'</button></td></tr>';
+                                . '<button class="btn-success">' . $hide[$i] . '</button><button class="btn-warning">' . $down[$i] . '</button></td></tr>';
                     }
 
                     $list['decoration'] = $list['decoration'] . '</table>';
@@ -281,25 +268,25 @@ class ControlRoomController extends Zend_Controller_Action
                             $delcourse = new Application_Model_Courses();
                             $_delcourse = $delcourse->deleteCourse($_POST['id']);
 
-$this->redirect('admin');
+                            $this->redirect('admin');
                             break;
 
                         case 'materials' :
-                             $delcomment = new Application_Model_Comments();
+                            $delcomment = new Application_Model_Comments();
                             $_delcomment = $delcomment->deleteCommentByMaterialId($_POST['id']);
 
                             $delmat = new Application_Model_Materials();
                             $_delmat = $delmat->deleteMaterialById($_POST['id']);
-                            
-                            
-$this->redirect('admin');
+
+
+                            $this->redirect('admin');
                             break;
 
                         case 'comments':
 
                             $delcomment = new Application_Model_Comments();
                             $_delcomment = $delcomment->deleteComment($_POST['id']);
-$this->redirect('admin');
+                            $this->redirect('admin');
                             break;
 
                         case 'categories' :
@@ -308,9 +295,9 @@ $this->redirect('admin');
 
                             $delcategory = new Application_Model_Categories();
                             $_delcategory = $delcategory->deleteCategory($_POST['id']);
-       
 
-break;
+
+                            break;
                     } // end switch del
                     break;
 
@@ -373,46 +360,45 @@ break;
 
                             $newcourse = $addcourse->getValues();
                             $newcourse['startdate'] = $newcourse['day'] . '/' . $newcourse['month'] . '/' . $newcourse['year'];
-                            $newcourse['hidden'] = '1';
+                            $newcourse['hidden'] = '0';
                             unset($newcourse['year']);
                             unset($newcourse['day']);
                             unset($newcourse['month']);
 
                             $course = new Application_Model_Courses();
                             $result = $course->addCourse($newcourse);
-                            
-                            $courseid=$course->getCourseByTitle($newcourse['title']);
-                            $courseid=$courseid[0]['id'];
+
+                            $courseid = $course->getCourseByTitle($newcourse['title']);
+                            $courseid = $courseid[0]['id'];
 //                            var_dump($courseid);
-                            
-                            
-                            $category=new Application_Model_Categories();
-                            $_category=$category->getCategoryByName($_POST['categories']);
-                            $categoryid=$_category[0]['id'];
+
+
+                            $category = new Application_Model_Categories();
+                            $_category = $category->getCategoryByName($_POST['categories']);
+                            $categoryid = $_category[0]['id'];
 //                            var_dump($categoryid);
 
-                            $data=array(
-                                'courseid'=>$courseid,
-                                'categoryid'=>$categoryid,
+                            $data = array(
+                                'courseid' => $courseid,
+                                'categoryid' => $categoryid,
                             );
-                            
-                            $courseCategory= new Application_Model_CourseCategory();
-                            $result=$courseCategory->addCourseCategory($data);
-                            
-                            $user=new Application_Model_Users();
-                            $instructorname=$user->getUserByname($_POST['instructor']);
-                            $userid=$instructorname[0]['id'];
-                            
+
+                            $courseCategory = new Application_Model_CourseCategory();
+                            $result = $courseCategory->addCourseCategory($data);
+
+                            $user = new Application_Model_Users();
+                            $instructorname = $user->getUserByname($_POST['instructor']);
+                            $userid = $instructorname[0]['id'];
+
 //                            
-                            $courseuser=new Application_Model_UserCourse();
-                            $newdata=array(
-                                'Course_Id'=>$courseid,
-                                'User_Id'=>$userid,
+                            $courseuser = new Application_Model_UserCourse();
+                            $newdata = array(
+                                'Course_Id' => $courseid,
+                                'User_Id' => $userid,
                             );
-                            $newcourseuser=$courseuser->InsertUserCourse($newdata);
-                            
+                            $newcourseuser = $courseuser->InsertUserCourse($newdata);
                         }
-                        $this->redirect('control-room/admin');
+//                        $this->redirect('control-room/admin');
                     }
                     break;
 
@@ -438,7 +424,7 @@ break;
                             $result = $type->insertType($newtype);
                         }
                     }
-                        $this->redirect('control-room/admin');
+//                        $this->redirect('control-room/admin');
 
                     break;
 
@@ -457,15 +443,14 @@ break;
                         $error = 'Fill Empty Fields';
                     }
 
-                        $this->redirect('control-room/admin');
+//                        $this->redirect('control-room/admin');
 
                     break;
             }//////////////////////////////////////////////////////// **END OF PROCESS**//////////////////////////////////////////
         }
     }
 
-    public function editcourseAction()
-    {
+    public function editcourseAction() {
         if (isset($_GET)) {
             $form = new Application_Form_EditCourse();
             $_course = new Application_Model_Courses();
@@ -495,15 +480,12 @@ break;
 
 
             $this->view->form = $form;
-                                    $this->redirect('control-room/admin');
-
-
+//                                    $this->redirect('control-room/admin');
 //            $this->_helper->viewRenderer('control-room/admin', null, true);
         }
     }
 
-    public function edituserAction()
-    {
+    public function edituserAction() {
         if (isset($_GET)) {
 
             $form = new Application_Form_EditUser();
@@ -531,18 +513,15 @@ break;
 
 
             $this->view->myform = $form;
-                                    $this->redirect('control-room/admin');
-
+//                                    $this->redirect('control-room/admin');
         }
     }
 
-    public function editmaterialAction()
-    {
+    public function editmaterialAction() {
         // action body
     }
 
-    public function editcategoryAction()
-    {
+    public function editcategoryAction() {
         if (isset($_GET)) {
             $form = new Application_Form_EditCategory();
             $_category = new Application_Model_Categories();
@@ -566,12 +545,10 @@ break;
 
             $this->view->form = $form;
         }
-                                $this->redirect('control-room/admin');
-
+//                                $this->redirect('control-room/admin');
     }
 
-    public function editcommentAction()
-    {
+    public function editcommentAction() {
         if (isset($_GET)) {
             $form = new Application_Form_Editcomment();
             $_comment = new Application_Model_Comments();
@@ -592,17 +569,12 @@ break;
             }
 
             $this->view->form = $form;
+//            $this->redirect('control-room/admin');
         }
-                                $this->redirect('control-room/admin');
-
     }
 
-    public function xxxxAction()
-    {
+    public function xxxxAction() {
         // action body
     }
 
-
 }
-
-

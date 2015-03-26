@@ -12,7 +12,7 @@ class Application_Form_Facebook extends Zend_Form
             'required' => true,
            
         ));
-        $this->addElement('text', 'facebookid', array(
+        $this->addElement('hidden', 'facebookid', array(
             'required' => true,
             
         ));
@@ -30,6 +30,7 @@ class Application_Form_Facebook extends Zend_Form
         
         $this->addElement('submit','Facebook',array(
             'ignore'=>true,
+            
         ));
     }
 

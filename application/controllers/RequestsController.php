@@ -42,7 +42,8 @@ class RequestsController extends Zend_Controller_Action
            }
        }
        // To send form to view
-	$this->view->form = $form;
+//	$this->view->form = $form;
+       $this->redirect("Requests/list");
 
    
     }

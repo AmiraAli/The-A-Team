@@ -19,7 +19,7 @@ $DOCUMENT_ROOT = $_SERVER['DOCUMENT_ROOT'];
                 color: #FFFFFF;
                 background: #b92c28;
             }
-            #alert,#join{
+            #alert,#join,#facebook{
                 background-color:#123456; 
                 color: #FFFFFF;
             }
