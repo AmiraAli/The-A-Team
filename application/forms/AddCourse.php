@@ -35,8 +35,20 @@ class Application_Form_AddCourse extends Zend_Form {
             'rows' => '12',
             'filter' => 'StringTrim',
         ));
-
-
+        
+       
+        
+        $categories = new Zend_Form_Element_Select("categories");
+        $categories->setLabel("Category");
+        $_categories = new Application_Model_Categories();
+        $types_array = $_categories->listCategories();
+        for ($i = 0; $i < count($types_array); $i++) {
+            $categories->addMultiOption($types_array[$i]['name'], $types_array[$i]['name']);
+        }
+        $this->addElement($categories);
+        
+        
+        
         $this->addElement('select', 'duration', array(
             'label' => 'Duration(week/s):',
             'multiOptions' => array(

@@ -19,7 +19,7 @@ class Application_Model_Courses extends Zend_Db_Table_Abstract
     // list all courses where the courses not hiden
     function listCourses(){
         
-        return $this->fetchAll(array("hidden = ?"=>'0'))->toArray();
+        return $this->fetchAll(array("hidden = ?"=>'1'))->toArray();
     }
     
     // get course by id
@@ -31,6 +31,11 @@ class Application_Model_Courses extends Zend_Db_Table_Abstract
     function getCourseByHiddenOption($hidden){
 
         $select=$this->select()->where(" hidden = ?",$hidden);
+        return $this->fetchAll($select)->toArray();
+    }
+    function getCourseByTitle($Title){
+        
+       $select=$this->select()->where(" title = ?",$Title);
         return $this->fetchAll($select)->toArray();
     }
     

@@ -15,6 +15,8 @@ class Application_Model_Users extends Zend_Db_Table_Abstract {
         $row->gender = $data['gender'];
         $row->country = $data['country'];
         $row->facebookid =NULL;
+        $row->googleid =NULL;
+        $row->twitterid =NULL;
         
         
         
@@ -31,7 +33,8 @@ class Application_Model_Users extends Zend_Db_Table_Abstract {
         $row->gender = $data['gender'];
         $row->country = $data['country'];
         $row->facebookid =$data['facebookid'];
-        
+        $row->googleid =NULL;
+        $row->twitterid =NULL;
         
         
         return $row->save();
@@ -47,7 +50,8 @@ class Application_Model_Users extends Zend_Db_Table_Abstract {
         $row->gender = $data['gender'];
         $row->country = $data['country'];
         $row->googleid =$data['googleid'];
-        
+        $row->facebookid =NULL;
+        $row->twitterid =NULL;
         
         
         return $row->save();
@@ -63,7 +67,8 @@ class Application_Model_Users extends Zend_Db_Table_Abstract {
         $row->gender = $data['gender'];
         $row->country = $data['country'];
         $row->twitterid =$data['twitterid'];
-        
+        $row->googleid =NULL;
+        $row->facebookid =NULL;
         
         
         return $row->save();
