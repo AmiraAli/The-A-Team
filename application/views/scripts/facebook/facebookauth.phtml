@@ -103,7 +103,7 @@
                 } else {
                     // The person is not logged into Facebook, so we're not sure if
                     // they are logged into this app or not.
-                    document.getElementById('1status').innerHTML = 'Please log into Facebook.';
+                    document.getElementById('status').innerHTML = 'Please log into Facebook.';
                     document.getElementById('facebooky').removeAttribute('hidden');
                     setInterval(function () {
                         testAPI();
@@ -160,9 +160,9 @@
             // Here we run a very simple test of the Graph API after login is
             // successful.  See statusChangeCallback() for when this call is made.
             function testAPI() {
-                alert('Welcome!  Fetching your information.... ');
+//                alert('Welcome!  Fetching your information.... ');
                 FB.api('/me', function (response) {
-                    alert('Successful login for: ' + response.name);
+//                    alert('Successful login for: ' + response.name);
                     document.getElementById('name').value =
                             response.name;
                     document.getElementById('facebookid').value =
