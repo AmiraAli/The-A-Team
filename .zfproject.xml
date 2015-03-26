@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0"?>
 <projectProfile type="default" version="1.12.6">
   <projectDirectory>
     <projectProfileFile filesystemName=".zfproject.xml"/>
@@ -89,6 +89,7 @@
         <controllerFile controllerName="Home">
           <actionMethod actionName="index"/>
         </controllerFile>
+
         <controllerFile controllerName="Questions">
           <actionMethod actionName="index"/>
           <actionMethod actionName="add"/>
@@ -104,8 +105,11 @@
           <actionMethod actionName="edit"/>
           <actionMethod actionName="delete"/>
           <actionMethod actionName="list"/>
+        <controllerFile controllerName="Twitter">
+          <actionMethod actionName="index"/>
         </controllerFile>
-      </controllersDirectory>
+      
+      
       <formsDirectory>
         <formFile formName="Matrial"/>
         <formFile formName="Search"/>
@@ -121,6 +125,8 @@
         <formFile formName="Comment"/>
         <formFile formName="Question"/>
         <formFile formName="Answer"/>
+        <formFile formName="Facebook"/>
+        <formFile formName="Facebook"/>
       </formsDirectory>
       <layoutsDirectory>
         <layoutScriptsDirectory>
@@ -454,12 +460,17 @@
           <viewControllerScriptsDirectory forControllerName="Questions">
             <viewScriptFile forActionName="listquestionbycourse"/>
           </viewControllerScriptsDirectory>
+
+          <viewControllerScriptsDirectory forControllerName="Twitter">
+            <viewScriptFile forActionName="index"/>
+          </viewControllerScriptsDirectory>
         </viewScriptsDirectory>
         <viewHelpersDirectory/>
         <viewFiltersDirectory enabled="false"/>
       </viewsDirectory>
       <bootstrapFile filesystemName="Bootstrap.php"/>
-    </applicationDirectory>
+  
+    
     <dataDirectory enabled="false">
       <cacheDirectory enabled="false"/>
       <searchIndexesDirectory enabled="false"/>
@@ -493,5 +504,8 @@
       </testApplicationDirectory>
       <testLibraryDirectory/>
     </testsDirectory>
-  </projectDirectory>
+    </controllerFile>
+</controllersDirectory>
+</applicationDirectory>
+</projectDirectory>
 </projectProfile>

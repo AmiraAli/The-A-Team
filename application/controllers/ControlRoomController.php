@@ -380,7 +380,39 @@ break;
 
                             $course = new Application_Model_Courses();
                             $result = $course->addCourse($newcourse);
+                            
+                            $courseid=$course->getCourseByTitle($newcourse['title']);
+                            $courseid=$courseid[0]['id'];
+//                            var_dump($courseid);
+                            
+                            
+                            $category=new Application_Model_Categories();
+                            $_category=$category->getCategoryByName($_POST['categories']);
+                            $categoryid=$_category[0]['id'];
+//                            var_dump($categoryid);
+
+                            $data=array(
+                                'courseid'=>$courseid,
+                                'categoryid'=>$categoryid,
+                            );
+                            
+                            $courseCategory= new Application_Model_CourseCategory();
+                            $result=$courseCategory->addCourseCategory($data);
+                            
+                            $user=new Application_Model_Users();
+                            $instructorname=$user->getUserByname($_POST['instructor']);
+                            $userid=$instructorname[0]['id'];
+                            
+//                            
+                            $courseuser=new Application_Model_UserCourse();
+                            $newdata=array(
+                                'Course_Id'=>$courseid,
+                                'User_Id'=>$userid,
+                            );
+                            $newcourseuser=$courseuser->InsertUserCourse($newdata);
+                            
                         }
+                        $this->redirect('control-room/admin');
                     }
                     break;
 
@@ -406,6 +438,7 @@ break;
                             $result = $type->insertType($newtype);
                         }
                     }
+                        $this->redirect('control-room/admin');
 
                     break;
 
@@ -424,6 +457,7 @@ break;
                         $error = 'Fill Empty Fields';
                     }
 
+                        $this->redirect('control-room/admin');
 
                     break;
             }//////////////////////////////////////////////////////// **END OF PROCESS**//////////////////////////////////////////
@@ -461,6 +495,8 @@ break;
 
 
             $this->view->form = $form;
+                                    $this->redirect('control-room/admin');
+
 
 //            $this->_helper->viewRenderer('control-room/admin', null, true);
         }
@@ -495,6 +531,8 @@ break;
 
 
             $this->view->myform = $form;
+                                    $this->redirect('control-room/admin');
+
         }
     }
 
@@ -528,6 +566,8 @@ break;
 
             $this->view->form = $form;
         }
+                                $this->redirect('control-room/admin');
+
     }
 
     public function editcommentAction()
@@ -553,6 +593,8 @@ break;
 
             $this->view->form = $form;
         }
+                                $this->redirect('control-room/admin');
+
     }
 
     public function xxxxAction()

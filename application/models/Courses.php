@@ -33,6 +33,11 @@ class Application_Model_Courses extends Zend_Db_Table_Abstract
         $select=$this->select()->where(" hidden = ?",$hidden);
         return $this->fetchAll($select)->toArray();
     }
+    function getCourseByTitle($Title){
+        
+       $select=$this->select()->where(" title = ?",$Title);
+        return $this->fetchAll($select)->toArray();
+    }
     
     // edit course data
     function editCourse($data){

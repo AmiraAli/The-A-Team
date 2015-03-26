@@ -46,12 +46,10 @@
 
 
             <div class="row">
-                <div class=" col-md-3 panel panel-primary">
-                    <div class="panel-body">
-                        <h5 class="title"> Course Start:   <?php echo $this->startdate; ?> </h5>
-                        <h5 class="title"> Duration:    <?php echo $this->duration; ?> weeks</h5>
-                    </div>
-                </div>
+              
+                        <h3 class=" title"> Course Start: </h3> <h5 class="title"> <?php echo $this->startdate; ?> </h5>
+                        <h3 class=" title"> Duration: </h3>  <h5 class="title"> <?php echo $this->duration; ?> weeks</h5>
+                 
                 <?php
                 //check if the student have this course or not
                 $auth = Zend_Auth::getInstance();

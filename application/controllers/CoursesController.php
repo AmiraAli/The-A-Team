@@ -86,6 +86,7 @@ class CoursesController extends Zend_Controller_Action {
                 $this->view->user_name = $user_info[0]['name'];
                 $this->view->user_image = $user_info[0]['image'];
             }
+            
         }
 
 
