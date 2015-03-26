@@ -45,7 +45,16 @@ class Application_Form_AddCourse extends Zend_Form {
         for ($i = 0; $i < count($types_array); $i++) {
             $categories->addMultiOption($types_array[$i]['name'], $types_array[$i]['name']);
         }
-        $this->addElement($categories);
+        
+        $instructor = new Zend_Form_Element_Select("instructor");
+        $instructor->setLabel("Instructor");
+        $ins=new Application_Model_Users();
+        $myinstructors=$ins->getUserByType('Instructor');
+        for ($i = 0; $i < count($myinstructors); $i++) {
+            $instructor->addMultiOption($myinstructors[$i]['name'], $myinstructors[$i]['name']);
+        }
+        
+        $this->addElements(array($categories,$instructor));
         
         
         

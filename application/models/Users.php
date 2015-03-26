@@ -98,7 +98,10 @@ class Application_Model_Users extends Zend_Db_Table_Abstract {
         $select =$this->select()->where('facebookid = ?', $fbid);
         return $this->fetchAll($select)->toArray();
     }
-    
+    function getUserByname($name){
+        $select =$this->select()->where('name = ?', $name);
+        return $this->fetchAll($select)->toArray();
+    }
    
     
 

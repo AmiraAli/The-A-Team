@@ -6,36 +6,50 @@
         <script src ="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
         <script src="../../../../public/js/openMaterial.js"></script>
         <script src="../../../../public/js/showMaterial.js"></script>
-    </head> 
-    <body>
-        <div class="container">
-            <div class="row">
-                <a href="<?php echo $this->baseUrl() ?>/Courses/open/id/<?php echo $this->courseid; ?> " id="alert" class="btn">Back To Course</a>
-                <div class=" col-md-10 col-md-offset-1 panel panel-primary" >
-                    <div class="panel-heading" id="alert">
-                        <h1> <center>
-                                <?php echo $this->name; ?>
-                        </h1></center>
-                    </div>
-                    <div class="panel-body">
-                        <center>
+        <script>
+
+            
+                    (function (d, s, id) {
+                        var js, fjs = d.getElementsByTagName(s)[0];
+                        if (d.getElementById(id))
+                            return;
+                        js = d.createElement(s);
+                        js.id = id;
+                        js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=832576520158814&version=v2.3";
+                        fjs.parentNode.insertBefore(js, fjs);
+                    }(document, 'script', 'facebook-jssdk'));
+        </script>
+  
+</head> 
+<body>
+    <div class="container">
+        <div class="row">
+            <a href="<?php echo $this->baseUrl() ?>/Courses/open/id/<?php echo $this->courseid; ?> " id="alert" class="btn">Back To Course</a>
+            <div class=" col-md-10 col-md-offset-1 panel panel-primary" >
+                <div class="panel-heading" id="alert">
+                    <h1> <center>
+                            <?php echo $this->name; ?>
+                    </h1></center>
+                </div>
+                <div class="panel-body">
+                    <center>
+                        <?php
+                        if ($this->type == "vidio") {
+                            ?>
+                            <video <?php
+                            if ($this->downloadable) {
+                                echo "controls";
+                            }
+                            ?>   preload="auto" loop width="500" height="300">
+
+                                <source src="../../../../public/materials/<?php echo $this->path; ?>" type="audio/mpeg"  />
+                                <source src="../../../../public/materials/<?php echo $this->path; ?>" type="video/mp4"  />
+                                <p>Video is not supported</p>
+                            </video>
+                       
+
                             <?php
-                            if ($this->type == "vidio") {
-                                ?>
-                                <video <?php
-                                if ($this->downloadable) {
-                                    echo "controls";
-                                }
-                                ?>   preload="auto" loop width="500" height="300">
-
-                                    <source src="../../../../public/materials/<?php echo $this->path; ?>" type="audio/mpeg"  />
-                                    <source src="../../../../public/materials/<?php echo $this->path; ?>" type="video/mp4"  />
-                                    <p>Video is not supported</p>
-                                </video>
-
-
-                                <?php
-                            } else {
+                        } else {
 //                $file = "../../../../public/materials/$this->path";
 //
 //                if (!file_exists($file))
@@ -55,96 +69,110 @@
 //                set_time_limit(0);
 //                readfile($file);
 
-                                if ($this->downloadable) {
-                                    ?> 
-                                    <a href="../../../../public/materials/<?php echo $this->path; ?>">Show</a>
-                                    <?php
-                                } else {
-                                    echo "Not Allowed!!";
-                                }
+                            if ($this->downloadable) {
+                                ?> 
+                                <a href="../../../../public/materials/<?php echo $this->path; ?>">Show</a>
+                                <?php
+                            } else {
+                                echo "Not Allowed!!";
                             }
-                            ?>
-                        </center>
-                    </div>
+                        }
+                        ?>
+                    </center>
                 </div>
             </div>
-            <div class="row" >
-                <h2 class="title" > Comments</h2><hr class="title">
+           
+
+        </div>
+        <div id="fb-root" class="pull-right">
+                            <div class="fb-share-button"  data-layout="button"
+                                 data-href="http://127.0.0.1/The-A-Team/public/materials/<?php echo $this->path; ?>"></div>
+                                 
             </div>
-            <div class="row">
+        <!-- Place this tag in your head or just before your close body tag. -->
+<script src="https://apis.google.com/js/platform.js" async defer></script>
 
-                <?php
-                if ($this->comments) {
-                    for ($i = 0; $i < count($this->comments); $i++) {
+<!-- Place this tag where you want the share button to render. -->
+&nbsp;&nbsp;&nbsp;
+<div class="pull-right">
+<div class="g-plus" data-action="share" data-annotation="none"></div></div>
+        <div class="row" >
+            <h2 class="title" > Comments</h2><hr class="title">
+        </div>
+        <div class="row">
+
+            <?php
+            if ($this->comments) {
+                for ($i = 0; $i < count($this->comments); $i++) {
+                    ?>
+                    <div class=" row panel panel-primary" id="comment_<?php echo $this->comments[$i]['id']; ?>"> 
+                        <?php
+                        //check if this is the user of that comment or not
+                        $userid = $this->comments[$i]['User_Id'];
+
+                        $user_model = new Application_Model_Users();
+                        $user_info = $user_model->getUserById($userid);
                         ?>
-                        <div class=" row panel panel-primary" id="comment_<?php echo $this->comments[$i]['id']; ?>"> 
-                            <?php
-                            //check if this is the user of that comment or not
-                            $userid = $this->comments[$i]['User_Id'];
+                        <img src="../../../../public/images/users/<?php echo $user_info[0]['image']; ?>"
 
-                            $user_model = new Application_Model_Users();
-                            $user_info = $user_model->getUserById($userid);
-                            ?>
-                            <img src="../../../../public/images/users/<?php echo $user_info[0]['image']; ?>"
+                             class="img-responsive img-rounded" style=" float: left;" width="50px" height="50px">
+                        <h4 class="title" > <?php echo $user_info[0]['name'] ?></h4>
 
-                                 class="img-responsive img-rounded" style=" float: left;" width="50px" height="50px">
-                            <h4 class="title" > <?php echo $user_info[0]['name'] ?></h4>
+                        <!-- check from session that this user can edit or delete his comment only -->
 
-                            <!-- check from session that this user can edit or delete his comment only -->
-
-                            <?php
-                            $auth = Zend_Auth::getInstance();
-                            $storage = $auth->getStorage();
-                            $sessionRead = $storage->read();
-                            $type = $sessionRead->type;
-                            if ($type == "Instructor" || $type == "Student") {
-                                $currentUser_id = $sessionRead->id;
+                        <?php
+                        $auth = Zend_Auth::getInstance();
+                        $storage = $auth->getStorage();
+                        $sessionRead = $storage->read();
+                        $type = $sessionRead->type;
+                        if ($type == "Instructor" || $type == "Student") {
+                            $currentUser_id = $sessionRead->id;
 
 
-                                if ($currentUser_id == $userid) {
-                                    ?>
-                                    <a class="btn    pull-right" id="alert" href="<?php echo $this->baseUrl() ?>/Comments/delete/id/ <?php echo $this->comments[$i]['id']; ?>/materialid/<?php echo $this->materialid; ?>">Delete</a>
-                                    <?php
-                                }
-                            } else {
+                            if ($currentUser_id == $userid) {
                                 ?>
                                 <a class="btn    pull-right" id="alert" href="<?php echo $this->baseUrl() ?>/Comments/delete/id/ <?php echo $this->comments[$i]['id']; ?>/materialid/<?php echo $this->materialid; ?>">Delete</a>
                                 <?php
                             }
-                            if ($type == "Instructor" || $type == "Student") {
-                                $currentUser_id = $sessionRead->id;
-
-
-                                if ($currentUser_id == $userid) {
-                                    ?>
-                                    <a class="btn   pull-right" id="alert"  onclick="editComment(<?php echo $this->comments[$i]['id']; ?>)">Edit</a>
-                                    <?php
-                                }
-                            }
+                        } else {
                             ?>
-                            <p id="<?php echo $this->comments[$i]['id']; ?>"> <?php echo $this->comments[$i]['body']; ?></p>
+                            <a class="btn    pull-right" id="alert" href="<?php echo $this->baseUrl() ?>/Comments/delete/id/ <?php echo $this->comments[$i]['id']; ?>/materialid/<?php echo $this->materialid; ?>">Delete</a>
+                            <?php
+                        }
+                        if ($type == "Instructor" || $type == "Student") {
+                            $currentUser_id = $sessionRead->id;
 
-                        </div>
 
-                        <?php
-                    }
-                } else {
-                    echo "No Comments Yet!!";
-                }
-                $auth = Zend_Auth::getInstance();
-                $storage = $auth->getStorage();
-                $sessionRead = $storage->read();
-                if ($type == "Instructor" || $type == "Student") {
-                    ?>
-                    <h4 class="title"> leave your comment here </h4>
+                            if ($currentUser_id == $userid) {
+                                ?>
+                                <a class="btn   pull-right" id="alert"  onclick="editComment(<?php echo $this->comments[$i]['id']; ?>)">Edit</a>
+                                <?php
+                            }
+                        }
+                        ?>
+                        <p id="<?php echo $this->comments[$i]['id']; ?>"> <?php echo $this->comments[$i]['body']; ?></p>
+
+                    </div>
+
                     <?php
-                    echo $this->comment_form;
                 }
+            } else {
+                echo "No Comments Yet!!";
+            }
+            $auth = Zend_Auth::getInstance();
+            $storage = $auth->getStorage();
+            $sessionRead = $storage->read();
+            if ($type == "Instructor" || $type == "Student") {
                 ?>
-
-            </div>
+                <h4 class="title"> leave your comment here </h4>
+                <?php
+                echo $this->comment_form;
+            }
+            ?>
 
         </div>
 
-    </body>
+    </div>
+
+</body>
 </html>
