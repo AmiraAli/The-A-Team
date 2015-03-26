@@ -487,7 +487,7 @@ break;
                     unset($course_info['process']);
                     $Course_model = new Application_Model_Courses();
 
-                    $Course_model->editCourse($course_info);
+//                    $Course_model->editCourse($course_info);
                 }
             }
 
@@ -495,7 +495,7 @@ break;
 
 
             $this->view->form = $form;
-                                    $this->redirect('control-room/admin');
+//                                    $this->redirect('control-room/admin');
 
 
 //            $this->_helper->viewRenderer('control-room/admin', null, true);
@@ -531,7 +531,7 @@ break;
 
 
             $this->view->myform = $form;
-                                    $this->redirect('control-room/admin');
+//                                    $this->redirect('control-room/admin');
 
         }
     }
@@ -566,7 +566,7 @@ break;
 
             $this->view->form = $form;
         }
-                                $this->redirect('control-room/admin');
+//                                $this->redirect('control-room/admin');
 
     }
 
@@ -592,8 +592,9 @@ break;
             }
 
             $this->view->form = $form;
+            $this->redirect('control-room/admin');
         }
-                                $this->redirect('control-room/admin');
+                                
 
     }
 
