@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0"?>
 <projectProfile type="default" version="1.12.6">
   <projectDirectory>
     <projectProfileFile filesystemName=".zfproject.xml"/>
@@ -87,6 +87,9 @@
           <actionMethod actionName="facebookcb"/>
         </controllerFile>
         <controllerFile controllerName="Home">
+          <actionMethod actionName="index"/>
+        </controllerFile>
+        <controllerFile controllerName="Twitter">
           <actionMethod actionName="index"/>
         </controllerFile>
       </controllersDirectory>
@@ -400,6 +403,11 @@
           <viewControllerScriptsDirectory forControllerName="Home">
             <viewScriptFile forActionName="index"/>
           </viewControllerScriptsDirectory>
+
+          <viewControllerScriptsDirectory forControllerName="Twitter">
+            <viewScriptFile forActionName="index"/>
+          </viewControllerScriptsDirectory>
+
         </viewScriptsDirectory>
         <viewHelpersDirectory/>
         <viewFiltersDirectory enabled="false"/>

@@ -6,6 +6,7 @@
         <script src ="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
         <script src="../../../../public/js/openMaterial.js"></script>
         <script src="../../../../public/js/showMaterial.js"></script>
+<<<<<<< HEAD
         <script>
 
             
@@ -80,15 +81,24 @@
                         ?>
                     </center>
                 </div>
+                
             </div>
+
            
 
         </div>
         <div id="fb-root" class="pull-right">
                             <div class="fb-share-button"  data-layout="button"
                                  data-href="http://127.0.0.1/The-A-Team/public/materials/<?php echo $this->path; ?>"></div>
-                                 
-            </div>
+                 
+            <div class="row pull-right"> 
+                    <a class="twitter-share-button" 
+                       href="https://twitter.com/share"
+                        data-url="<a href='http://127.0.0.1/The-A-Team/public/materials/<?php echo $this->path; ?>'></a>"
+                       >
+                        Tweet
+                    </a>
+                </div>
         <!-- Place this tag in your head or just before your close body tag. -->
 <script src="https://apis.google.com/js/platform.js" async defer></script>
 
@@ -154,15 +164,19 @@
 
                     </div>
 
-                    <?php
+
+                        <?php
+                    }
+                } else {
+                    echo "No Comments Yet!!";
                 }
-            } else {
-                echo "No Comments Yet!!";
-            }
-            $auth = Zend_Auth::getInstance();
-            $storage = $auth->getStorage();
-            $sessionRead = $storage->read();
-            if ($type == "Instructor" || $type == "Student") {
+                $auth = Zend_Auth::getInstance();
+                $storage = $auth->getStorage();
+                $sessionRead = $storage->read();
+                $type = $sessionRead->type;
+                if ($type == "Instructor" || $type == "Student") {
+                    ?>
+                    <h4 class="title"> leave your comment here </h4>
                 ?>
                 <h4 class="title"> leave your comment here </h4>
                 <?php
@@ -171,6 +185,25 @@
             ?>
 
         </div>
+        <script>
+            window.twttr = (function (d, s, id) {
+                var js;
+                fjs = d.getElementsByTagName(s)[0];
+                t = window.twttr || {};
+                if (d.getElementById(id))
+                    return;
+                js = d.createElement(s);
+                js.id = id;
+                js.src = "https://platform.twitter.com/widgets.js";
+                fjs.parentNode.insertBefore(js, fjs);
+                t._e = [];
+                t.ready = function (f) {
+                    t._e.push(f);
+                };
+                return t;
+            }
+            (document, "script", "twitter-wjs"));
+        </script>
 
     </div>
 

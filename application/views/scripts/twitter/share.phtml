@@ -1,0 +1,44 @@
+<html>
+    <head>
+<!--        <meta name="generator" content="Social Likes: http://sapegin.github.com/social-likes/">
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../../../../public/css/social-likes_classic.css">
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+        <script src ="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+        <script src="../../../../public/js/sociallikes.min.js"></script>-->
+    </head>
+
+    <body>
+        <!--  <input type="button" id="btn_tw" value="Share on Twitter" /> -->
+        <a class="twitter-share-button"
+           href="https://twitter.com/share" >
+            Tweet
+        </a>
+        <script>
+//            document.getElementById('btn_tw').addEventListener('click', function () {
+//                window.open('http://twitter.com/share?url=' + "http://ateam.com" + '&text=' + "this my new website", 'sharer', 'toolbar=0,status=0,width=626,height=436');
+//            });
+//
+            window.twttr = (function (d, s, id) {
+                var js;
+                fjs = d.getElementsByTagName(s)[0];
+                t = window.twttr || {};
+                if (d.getElementById(id))
+                    return;
+                js = d.createElement(s);
+                js.id = id;
+                js.src = "https://platform.twitter.com/widgets.js";
+                fjs.parentNode.insertBefore(js, fjs);
+                t._e = [];
+                t.ready = function (f) {
+                    t._e.push(f);
+                };
+                return t;
+            }
+            (document, "script", "twitter-wjs"));
+        </script>
+    </body>
+</html>
+<?php
+//echo $this->twitter_timeline;
+?>

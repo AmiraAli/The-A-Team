@@ -12,42 +12,46 @@
 
                 <h1 class="page-header title">
                     The-A-Team
+                    <small class="title">E-learning</small>
                 </h1>
+
             </div>
+
             <div class="col-md-3">
                 <div class="panel panel-primary" >
                     <div class="panel-heading" id="alert">
                         <h3 class="panel-title">All Categories</h3>
                     </div>
                     <div class="panel-body title">
+
                         <?php
                         for ($i = 0; $i < count($this->categories_info); $i++) {
                             ?>
 
-                            <div class="dropdown">
-                                <button class="btn btn-default dropdown-toggle" type="button" id="alert" data-toggle="dropdown"><?php echo $this->categories_info[$i]['name'] ?>
-                                    <span class="caret"></span></button> </br>
-                                <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="menu1">
-                                    <?php
-                                    $courseCategory_model = new Application_Model_CourseCategory();
-                                    $courses_info = $courseCategory_model->getCourseCategoryByCategoryId($this->categories_info[$i]['id']);
+                                <div class="dropdown">
+                                    <a class=" list-group-item-heading dropdown-toggle" type="button"  data-toggle="dropdown"><?php echo $this->categories_info[$i]['name'] ?>
+                                        <span class="caret"></span></a> </br>
+                                    <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="menu1">
+                                        <?php
+                                        $courseCategory_model = new Application_Model_CourseCategory();
+                                        $courses_info = $courseCategory_model->getCourseCategoryByCategoryId($this->categories_info[$i]['id']);
 
-                                    for ($j = 0; $j < count($courses_info); $j++) {
+                                        for ($j = 0; $j < count($courses_info); $j++) {
 
-                                        $course_model = new Application_Model_Courses();
-                                        $course_data = $course_model->getCourseById($courses_info[$j]['courseid']);
-                                        if ($course_data[0]['hidden'] == 0) {
-                                            ?>
+                                            $course_model = new Application_Model_Courses();
+                                            $course_data = $course_model->getCourseById($courses_info[$j]['courseid']);
+                                            if ($course_data[0]['hidden'] == 0) {
+                                                ?>
 
-                                            <li role="presentation"><a role="menuitem" tabindex="-1" href="<?php echo $this->baseUrl() ?>/Courses/open/id/<?php echo $course_data[0]['id']; ?>"><?php echo $course_data[0]['title']; ?></a></li>
+                                                <li role="presentation"><a role="menuitem" tabindex="-1" href="<?php echo $this->baseUrl() ?>/Courses/open/id/<?php echo $course_data[0]['id']; ?>"><?php echo $course_data[0]['title']; ?></a></li>
 
-                                            <?php
+                                                <?php
+                                            }
                                         }
-                                    }
-                                    ?>    
+                                        ?>    
 
-                                </ul>
-                            </div>
+                                    </ul>
+                                </div>
 
                             <?php
                         }

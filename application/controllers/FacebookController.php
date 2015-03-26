@@ -54,8 +54,8 @@ class FacebookController extends Zend_Controller_Action {
                         'country' => $_POST['country'],
                         'active' => '1',
                         'facebookid' => $_POST['facebookid'],
-                        'googleid' => NULL,
-                        'twitterid' => NULL,
+//                        'googleid' => NULL,
+//                        'twitterid' => NULL,
                     );
                     $newuser = $user->addUserByFacebook($data);
                     $email = $_POST['name'] . '@ateam.com';

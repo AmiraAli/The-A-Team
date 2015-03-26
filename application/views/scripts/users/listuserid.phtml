@@ -40,37 +40,39 @@ if ($type != "Admin") {
             //if($key=='image' || $key=='type' || $key=='id')continue;
             ?>
             <div class="container">
-                <img src="../../public/images/users/<?php echo $this->user[$i]['image']; ?>" class="img-circle" height="200px" width="200px">
+                <div class="row">
+                    <p><h1 class="title"> My Profile </h1></p><hr>
+                    <img src="../../public/images/users/<?php echo $this->user[$i]['image']; ?>" class="img-circle" height="200px" width="200px">
 
-                <div class="edit"><a href="<?php echo $this->baseUrl() ?>/Users/edit/id/<?php echo $this->user[$i]['id']; ?>"class="btn btn-info btn-lg">Edit</a>
+                    <div class="edit"><a href="<?php echo $this->baseUrl() ?>/Users/edit/id/<?php echo $this->user[$i]['id']; ?>"class="btn btn-info btn-lg" id="alert">Edit</a>
+                    </div>
+                    <div class="name"><h1><?php echo $this->user[$i]['name']; ?></h1></div>
                 </div>
-                <div class="name"><h1><?php echo $this->user[$i]['name']; ?></h1></div>
+                <div class="row">
+                    <div class="panel panel-primary  col-md-5 col-md-offset-3">
+                        <div class="panel-heading" id="alert">
+                            <h3 class="panel-title">About</h3>
+                        </div>
 
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">About</h3>
-                    </div>
-                    <div class="panel-body">
-                        <?php
-                        echo "email" . ":" . $this->user[$i]['email'];
-                        echo "<br>";
-                        echo "gender" . ":" . $this->user[$i]['gender'];
-                        echo "<br>";
-                        echo "country" . ":" . $this->user[$i]['country'];
-                        echo "<br>";
-                        echo "type" . ":" . $this->user[$i]['type'];
-                        //echo $key." ".$value ."<br />";
-//endforeach;
-                        ?>
-                    </div>
-                </div></div>
+                        <div class="panel-body">
 
-        <!--<img src="../../public/images/users/<?php echo $this->user[$i]['image']; ?>">-->
+                            <p><h3 class="title"> Email: </h3> <?php echo $this->user[$i]['email']; ?> </p>
+                            <p><h3 class="title"> Gender: </h3> <?php echo $this->user[$i]['gender']; ?> </p>
+                            <p><h3 class="title"> Country: </h3> <?php echo $this->user[$i]['country']; ?> </p>
+                            <p><h3 class="title"> Type: </h3> <?php echo $this->user[$i]['type']; ?> </p>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+                <!--<img src="../../public/images/users/<?php echo $this->user[$i]['image']; ?>">-->
         <?php } ?>
         <div class="container">
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Courses</h3>
+            <div class="panel panel-primary col-md-3 pull-right" >
+                <div class="panel-heading" id="alert">
+                    <h3 class="panel-title ">Courses</h3>
                 </div>
                 <div class="panel-body">
                     <?php if ($this->usercourse) { ?>
@@ -90,11 +92,13 @@ if ($type != "Admin") {
 
 
 
-                            <?php }
+                            <?php
+                            }
                         }
                     } else {
                         echo "no courses yet";
-                    } ?>
+                    }
+                    ?>
 
 
                 </div>

@@ -1,80 +1,81 @@
 <html>
     <head>
-    
-        
-        
-        
-        
-        
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script src ="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+        <script src="../../../../public/js/openMaterial.js"></script>
+        <script src="../../../../public/js/showMaterial.js"></script>
     </head>
     <body>
 
 
 
-<div class="container">
-    <h3> Requests </h3>
-</div>
-<?php
-for ($i = 0; $i < count($this->requests); $i++) {
-    ?>
-    <div class="container">
-        <div class="panel panel-primary">
-            <div class="panel-body" id="Request_<?php echo $this->requests[$i]['id']?>">
-                <img src="../../public/images/users/<?php echo $this->requests[$i]['image']; ?>" class="img-circle" height="30px" width="30px">
-                <bt>
-                    <?php echo $this->requests[$i]['username']; ?>
-                    <br>
-<p id="<?php echo $this->requests[$i]['id']; ?>"> <?php  echo $this->requests[$i]['desc']; ?></p>
-                   
-
-
-                    <br>
-                    <?php
-                    $auth = Zend_Auth::getInstance();
-                    $storage = $auth->getStorage();
-                    $sessionRead = $storage->read();
-                    $type = $sessionRead->type;
-                    if ($type == "Instructor" || $type == "Student") {
-
-                        if ($this->user == $this->requests[$i]['User_Id']) {
-                            ?>
-                            <a   class="btn btn-info btn-xs pull-right"onclick="editRequest(<?php echo $this->requests[$i]['id']; ?>)"> Edit </a>
-                            <a href="<?php echo $this->baseUrl() ?>/Requests/delete/id/<?php echo $this->requests[$i]['id']; ?>" class="btn btn-info btn-xs pull-right"> Delete </a>
-                            <br />
-                            <?php
-                        }
-                    } else {
-                        ?>
-                        <a href="<?php echo $this->baseUrl() ?>/Requests/delete/id/<?php echo $this->requests[$i]['id']; ?>" class="btn btn-info btn-xs pull-right"> Delete </a>
-                        <?php
-                    }
-                    ?>
-
-            </div>
+        <div class="container">
+            <h1 class="title"> Requests </h1>
+            <hr>
         </div>
-    </div>
-    <?php
-    }
+        <?php
+        for ($i = 0; $i < count($this->requests); $i++) {
+            ?>
+            <div class="container">
+                <div class="panel panel-primary">
+                    <div class="panel-body" id="Request_<?php echo $this->requests[$i]['id'] ?>">
+                        <img src="../../public/images/users/<?php echo $this->requests[$i]['image']; ?>" class="img-circle" height="30px" width="30px">
+                        <bt>
+                            <?php echo $this->requests[$i]['username']; ?>
+                            <br>
+                            <p id="<?php echo $this->requests[$i]['id']; ?>"> <?php echo $this->requests[$i]['desc']; ?></p>
+
+
+
+                            <br>
+                            <?php
+                            $auth = Zend_Auth::getInstance();
+                            $storage = $auth->getStorage();
+                            $sessionRead = $storage->read();
+                            $type = $sessionRead->type;
+                            if ($type == "Instructor" || $type == "Student") {
+
+                                if ($this->user == $this->requests[$i]['User_Id']) {
+                                    ?>
+                                    <a   class="btn   btn-xs pull-right" id="alert" onclick="editRequest(<?php echo $this->requests[$i]['id']; ?>)"> Edit </a>
+                                    <a href="<?php echo $this->baseUrl() ?>/Requests/delete/id/<?php echo $this->requests[$i]['id']; ?>" class="btn  btn-xs pull-right" id="alert"> Delete </a>
+                                    <br />
+                                    <?php
+                                }
+                            } else {
+                                ?>
+                                <a href="<?php echo $this->baseUrl() ?>/Requests/delete/id/<?php echo $this->requests[$i]['id']; ?>" class="btn btn-xs pull-right" id="alert"> Delete </a>
+                                <?php
+                            }
+                            ?>
+
+                    </div>
+                </div>
+            </div>
+            <?php
+        }
         $auth = Zend_Auth::getInstance();
         $storage = $auth->getStorage();
         $sessionRead = $storage->read();
         $type = $sessionRead->type;
-    if ($type == "Instructor" || $type == "Student") {
-        ?>
-        <div class="container">
-            <!--<a href="<?php echo $this->baseUrl() ?>/Requests/add" class="btn btn-info">addRequest </a>-->
-            
+        if ($type == "Instructor" || $type == "Student") {
+            ?>
+            <div class="container">
+                
+                <!--<a href="<?php echo $this->baseUrl() ?>/Requests/add" class="btn btn-info">addRequest </a>-->
+                <p> <h3 class="title"> Leave your request here!</h3></p>
+                <?php
+                echo $this->form;
+                ?>
+            </div>
             <?php
-echo $this->form;
-?>
-        </div>
-        <?php
-}
-?>
-        
+        }
+        ?>
+
         <script>
-        
-       
+
+
             /**
              * this function to submit the text of comment after edit it
              * @returns {undefined}
@@ -89,7 +90,7 @@ echo $this->form;
                 var xmlhttp = new XMLHttpRequest();
                 xmlhttp.open("POST", "http://localhost/The-A-Team/public/Requests/edit/", true);
                 xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-                xmlhttp.send("id=" + id + "&desc=" + body_edit.value );
+                xmlhttp.send("id=" + id + "&desc=" + body_edit.value);
 
                 //on change check even the request send or not
 
@@ -104,15 +105,15 @@ echo $this->form;
 
                     //append the comment after update
                     var request_parent = document.getElementById("Request_" + id);
-                    
-                    var request_after_edit=document.createElement("p");
-                    request_after_edit.setAttribute("id",id);
-                    request_after_edit.innerHTML=body_edit.value;
-                    
-                     body_edit.remove();
+
+                    var request_after_edit = document.createElement("p");
+                    request_after_edit.setAttribute("id", id);
+                    request_after_edit.innerHTML = body_edit.value;
+
+                    body_edit.remove();
                     var button_after_edit = document.getElementById("btn_" + id);
                     button_after_edit.remove();
-                    
+
                     request_parent.appendChild(request_after_edit);
                 };
             }
@@ -130,16 +131,16 @@ echo $this->form;
                 //create a text field by the body of the comment 
                 var textfield = document.createElement("input");
                 textfield.setAttribute("type", "text");
-                textfield.setAttribute("class","form-control");
+                textfield.setAttribute("class", "form-control");
                 textfield.setAttribute("value", Request_body);
                 textfield.setAttribute("id", "bodyEdit_" + id);
 
                 //create add button to add the comment
                 var button = document.createElement("button");
                 button.setAttribute("class", "btn btn-primary");
-                button.setAttribute("id", "btn_"+ id);
-                button.innerHTML="Add";
-                button.setAttribute("onclick", "add("+id+")");
+                button.setAttribute("id", "btn_" + id);
+                button.innerHTML = "Add";
+                button.setAttribute("onclick", "add(" + id + ")");
 
                 //append the text area to the parent
                 var request_parent = document.getElementById("Request_" + id);
@@ -148,12 +149,12 @@ echo $this->form;
                 request_parent.appendChild(button);
 
             }
-            
-            
 
- 
-        
-        
-        
+
+
+
+
+
+
         </script>
     </body></html>
