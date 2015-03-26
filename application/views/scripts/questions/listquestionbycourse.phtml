@@ -1,0 +1,38 @@
+<html>
+    <head>
+        
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script src ="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+             
+        
+        
+    </head>
+<body>
+
+<h3><div class="container">Questions</div></h3>
+
+<div class="container">
+<?php if ($this->questions){for($i=0;$i<count($this->questions);$i++){?>
+
+
+<a href="<?php echo $this->baseUrl() ?>/Questions/listquestionid/id/<?php echo $this->questions[$i]['id'];?>"><?php echo $this->questions[$i]['title'] ?></a>
+<br>
+
+
+<?php } }?>
+</div>
+<div class="container">
+<!--<a href="<?php echo $this->baseUrl() ?>/Questions/add">AddQuestion</a>-->
+      <?php $auth = Zend_Auth::getInstance();
+                    $storage = $auth->getStorage();
+                    $sessionRead = $storage->read();
+                    $type = $sessionRead->type;
+                    if ($type == "Instructor" || $type == "Student") {?>
+<?php
+echo $this->form;
+?>
+                    <?php } ?>
+</div>
+</body>    
+    </html>

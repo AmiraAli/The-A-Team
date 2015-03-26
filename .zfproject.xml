@@ -89,10 +89,27 @@
         <controllerFile controllerName="Home">
           <actionMethod actionName="index"/>
         </controllerFile>
+
+        <controllerFile controllerName="Questions">
+          <actionMethod actionName="index"/>
+          <actionMethod actionName="add"/>
+          <actionMethod actionName="edit"/>
+          <actionMethod actionName="delete"/>
+          <actionMethod actionName="list"/>
+          <actionMethod actionName="listquestionid"/>
+          <actionMethod actionName="listquestionbycourse"/>
+        </controllerFile>
+        <controllerFile controllerName="Answers">
+          <actionMethod actionName="index"/>
+          <actionMethod actionName="add"/>
+          <actionMethod actionName="edit"/>
+          <actionMethod actionName="delete"/>
+          <actionMethod actionName="list"/>
         <controllerFile controllerName="Twitter">
           <actionMethod actionName="index"/>
         </controllerFile>
-      </controllersDirectory>
+      
+      
       <formsDirectory>
         <formFile formName="Matrial"/>
         <formFile formName="Search"/>
@@ -106,6 +123,8 @@
         <formFile formName="EditCategory"/>
         <formFile formName="Editcomment"/>
         <formFile formName="Comment"/>
+        <formFile formName="Question"/>
+        <formFile formName="Answer"/>
         <formFile formName="Facebook"/>
         <formFile formName="Facebook"/>
       </formsDirectory>
@@ -152,6 +171,8 @@
         <modelFile modelName="CourseCategory"/>
         <modelFile modelName="CourseTag"/>
         <modelFile modelName="Xxx"/>
+        <modelFile modelName="Questions"/>
+        <modelFile modelName="Answers"/>
       </modelsDirectory>
       <formsDirectory enabled="false"/>
       <layoutsDirectory enabled="false"/>
@@ -403,17 +424,53 @@
           <viewControllerScriptsDirectory forControllerName="Home">
             <viewScriptFile forActionName="index"/>
           </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Questions">
+            <viewScriptFile forActionName="index"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Answers">
+            <viewScriptFile forActionName="index"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Questions">
+            <viewScriptFile forActionName="add"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Questions">
+            <viewScriptFile forActionName="edit"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Questions">
+            <viewScriptFile forActionName="delete"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Questions">
+            <viewScriptFile forActionName="list"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Questions">
+            <viewScriptFile forActionName="listquestionid"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Answers">
+            <viewScriptFile forActionName="add"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Answers">
+            <viewScriptFile forActionName="edit"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Answers">
+            <viewScriptFile forActionName="delete"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Answers">
+            <viewScriptFile forActionName="list"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Questions">
+            <viewScriptFile forActionName="listquestionbycourse"/>
+          </viewControllerScriptsDirectory>
 
           <viewControllerScriptsDirectory forControllerName="Twitter">
             <viewScriptFile forActionName="index"/>
           </viewControllerScriptsDirectory>
-
         </viewScriptsDirectory>
         <viewHelpersDirectory/>
         <viewFiltersDirectory enabled="false"/>
       </viewsDirectory>
       <bootstrapFile filesystemName="Bootstrap.php"/>
-    </applicationDirectory>
+  
+    
     <dataDirectory enabled="false">
       <cacheDirectory enabled="false"/>
       <searchIndexesDirectory enabled="false"/>
@@ -447,5 +504,8 @@
       </testApplicationDirectory>
       <testLibraryDirectory/>
     </testsDirectory>
-  </projectDirectory>
+    </controllerFile>
+</controllersDirectory>
+</applicationDirectory>
+</projectDirectory>
 </projectProfile>

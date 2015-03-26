@@ -46,10 +46,10 @@
 
 
             <div class="row">
-              
-                        <h3 class=" title"> Course Start: </h3> <h5 class="title"> <?php echo $this->startdate; ?> </h5>
-                        <h3 class=" title"> Duration: </h3>  <h5 class="title"> <?php echo $this->duration; ?> weeks</h5>
-                 
+
+                <h3 class=" title"> Course Start: </h3> <h5 class="title"> <?php echo $this->startdate; ?> </h5>
+                <h3 class=" title"> Duration: </h3>  <h5 class="title"> <?php echo $this->duration; ?> weeks</h5>
+
                 <?php
                 //check if the student have this course or not
                 $auth = Zend_Auth::getInstance();
@@ -67,6 +67,7 @@
                             $flage = 1;
                         }
                     }
+
                     if ($flage == 0) {
                         ?>
                         <button type="button" class="btn btn-primary pull-right" id="join" 
@@ -81,8 +82,10 @@
                         }
                         ?>
             </div>
+            <div class="row">
+<a href="<?php echo $this->baseUrl() ?>/Questions/listquestionbycourse/id/<?php echo $this->course_id ?>" class="btn btn-primary pull-right" id="alert">View Discussion</a>
 
-
+            </div>
 
             <div class="row">
                 <div class=" panel panel-primary">
@@ -203,6 +206,16 @@
             </div>
 
         </div> 
+
+
+
+
+
+
+
+
+
+
 
     </body>
 </html>

@@ -2,7 +2,7 @@
 $auth = Zend_Auth::getInstance();
 $storage = $auth->getStorage();
 $sessionRead = $storage->read();
-if (empty($sessionRead)) {
+if (empty($sessionRead) || $this->exits) {
     ?>
 
 <?php if($this->error){ echo $this->error;}?>

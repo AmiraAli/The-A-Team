@@ -6,13 +6,47 @@ class UsersController extends Zend_Controller_Action {
 
 
         $authorization = Zend_Auth::getInstance();
-        if (!$authorization->hasIdentity() && $this->_request->getActionName() != 'login' && $this->_request->getActionName() != 'add' && $this->_request->getActionName() != 'listusertype') {
+        if (!$authorization->hasIdentity() && $this->_request->getActionName() != 'login' && $this->_request->getActionName() != 'add' && $this->_request->getActionName() != 'listusertype'&& $this->_request->getActionName() != 'index') {
             $this->redirect("Users/login");
         }
     }
 
     public function indexAction() {
+        $user_form = new Application_Form_User();
+
+//        $user_form->getElement("password")->setDescription('<a href="listusertype">Forgot password?</a>');
+//        $user_form->getElement("password")->getDecorator('Description')->setOption('escape', false);
+        // remove this following Element from User form Sign Up
         
+        $user_form->removeElement("name");
+        
+        $user_form->removeElement("country");
+        $user_form->removeElement("gender");
+        $user_form->removeElement("image");
+        // TO adjust style of form 
+        $user_form->removeAttrib("class");
+        // to adjust Style of submit button
+        $user_form->getElement("submit")->setAttrib("class", "btn btn-success btn-md col-md-offset-10");
+        if ($this->_request->isPost()) {
+                        @$user_form->getElement("email")->removeValidator(Zend_Validate_Db_NoRecordExists);
+
+            // To Check the validation of form 
+            if ($user_form->isValid($this->getRequest()->getParams())) {
+
+                //get value of mail from post
+                $email = $user_form->getvalue("email");
+                $passwd = $user_form->getvalue("password");
+                $user_model=new Application_Model_Users();
+                $id=$user_model->getUserByEmail($email);
+               
+    $data=array('id'=>$id[0]['id'],'password'=>$passwd);
+   $user_inf=new Application_Model_Users();
+    $user_inf->editUser($data);
+                $this->redirect('Users/login');
+        }
+        
+            }
+        $this->view->form=$user_form;
     }
 
     public function logoutAction() {
@@ -240,7 +274,7 @@ class UsersController extends Zend_Controller_Action {
         //  $this->redirect("user/list");
 
 
-
+$this->view->exits = 1;
         $this->view->form = $form;
         $this->render('add');
     }
@@ -343,26 +377,26 @@ class UsersController extends Zend_Controller_Action {
      $sendmail = new Zend_Mail_Transport_Smtp("smtp.gmail.com",$smtpoption);
     $mail = new Zend_Mail();
     
-    $chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'; 
-    $randomString = ''; 
-    
-    for ($i = 0; $i < 5; $i++) {
-        $randomString .= $chars[rand(0, strlen($chars)-1)]; 
-        
-    }
+//    $chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'; 
+//    $randomString = ''; 
+//    
+//    for ($i = 0; $i < 5; $i++) {
+//        $randomString .= $chars[rand(0, strlen($chars)-1)]; 
+//        
+//    }
     
    
     
-    $mail->setBodyHtml('<a href="#">aya</a>');
-    $mail->setBodyText('hello'. $checkmail[0]['name'].'your new password is '.$randomString);
+    $mail->setBodyHtml('<a href="http://localhost/The-A-Team/public/Users/index">change your password</a>');
+    //$mail->setBodyText('hello'. $checkmail[0]['name'].'your new password is '.$randomString);
     $mail->setFrom('ATeamgroup2@gmail.com','ATeam');
     $mail->addTo($checkmail[0]['email'], $checkmail[0]['name']);
     $mail->setSubject('Forget Password');
     $mail->send($sendmail);
-     $user_model=new Application_Model_Users();
-    $data=array('id'=>$checkmail[0]['id'],'password'=>$randomString);
-    $user_model->editUser($data);
-                $this->redirect('Users/login');
+//     $user_model=new Application_Model_Users();
+//    $data=array('id'=>$checkmail[0]['id'],'password'=>$randomString);
+//    $user_model->editUser($data);
+//                $this->redirect('Users/login');
                }
                catch(Exception $e){
                     $this->view->error=$e->getMessage();
