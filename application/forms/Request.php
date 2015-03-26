@@ -10,14 +10,14 @@ class Application_Form_Request extends Zend_Form
         $request = new Zend_Form_Element_Textarea("desc");
         $request->setAttrib("cols", "50");
         $request->setAttrib("rows", "4");
-        $request->setLabel("Request: ");
+        $request->setAttrib("id","title");
         $request->setRequired();
         $request->addFilter(new Zend_Filter_StripTags);
         
         $submit=new Zend_Form_Element_Submit('submit');
         $submit->setAttrib("class", "btn btn-info");
         $submit->setValue("submit");
-//        $submit->setAttrib();
+        $submit->setAttrib("id","alert");
         
         
         $this->addElements(array($request,$submit));

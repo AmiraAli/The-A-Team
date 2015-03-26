@@ -7,6 +7,7 @@
         <script src="../../../../public/js/openMaterial.js"></script>
         <script src="../../../../public/js/showMaterial.js"></script>
     </head> 
+    
     <body>
         <div class="container">
             <div class="row">
@@ -67,7 +68,16 @@
                         </center>
                     </div>
                 </div>
+                
             </div>
+            <div class="row pull-right"> 
+                    <a class="twitter-share-button" 
+                       href="https://twitter.com/share"
+                        data-url="<a href='http://127.0.0.1/The-A-Team/public/materials/<?php echo $this->path; ?>'></a>"
+                       >
+                        Tweet
+                    </a>
+                </div>
             <div class="row" >
                 <h2 class="title" > Comments</h2><hr class="title">
             </div>
@@ -134,6 +144,7 @@
                 $auth = Zend_Auth::getInstance();
                 $storage = $auth->getStorage();
                 $sessionRead = $storage->read();
+                $type = $sessionRead->type;
                 if ($type == "Instructor" || $type == "Student") {
                     ?>
                     <h4 class="title"> leave your comment here </h4>
@@ -145,6 +156,25 @@
             </div>
 
         </div>
+        <script>
+            window.twttr = (function (d, s, id) {
+                var js;
+                fjs = d.getElementsByTagName(s)[0];
+                t = window.twttr || {};
+                if (d.getElementById(id))
+                    return;
+                js = d.createElement(s);
+                js.id = id;
+                js.src = "https://platform.twitter.com/widgets.js";
+                fjs.parentNode.insertBefore(js, fjs);
+                t._e = [];
+                t.ready = function (f) {
+                    t._e.push(f);
+                };
+                return t;
+            }
+            (document, "script", "twitter-wjs"));
+        </script>
 
     </body>
 </html>
