@@ -31,7 +31,7 @@ class ControlRoomController extends Zend_Controller_Action
     public function listCourses()
     {
         $Courses = new Application_Model_Courses();
-        $_myCourses = $Courses->listCourses();
+        $_myCourses = $Courses->listAllCourses();
         return $_myCourses;
     }
 

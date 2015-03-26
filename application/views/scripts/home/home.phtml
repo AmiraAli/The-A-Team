@@ -77,11 +77,13 @@
 
                             $courseCategory_model = new Application_Model_CourseCategory();
                             $courses_info = $courseCategory_model->getCourseCategoryByCategoryIdLimited($this->categories_limited[$i]['id'], 3);
+//                           var_dump($courses_info );
                             for ($j = 0; $j < count($courses_info); $j++) {
 
                                 $course_model = new Application_Model_Courses();
 
                                 $course_data = $course_model->getCourseById($courses_info[$j]['courseid']);
+                                var_dump($course_data);
                                 if ($course_data[0]['hidden'] == 0) {
                                     ?>
                                     <a href="<?php echo $this->baseUrl() ?>/Courses/open/id/<?php echo $courses_info[$j]['courseid']; ?>"><?php echo $course_data[0]['title'] ?></a></br></br>
@@ -101,4 +103,3 @@
     </body>
 </html>
 
-<
